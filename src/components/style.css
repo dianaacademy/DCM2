@@ -1,0 +1,9 @@
+.e-grid .e-gridheader {
+    border:2px solid green
+
+}
+.e-grid .e-headercell {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-size: 700;
+ }
