@@ -39,6 +39,15 @@ export const gridOrderStatus = (props) => (
     {props.Status}
   </button>
 );
+export const gridOrderStatusBro = (props) => (
+  <button
+    type="button"
+    style={{ background: props.StatusBgBro }}
+    className="text-white py-1 px-2 capitalize rounded-2xl text-md"
+  >
+    {props.StatusBro}
+  </button>
+);
 
 
 export const gridOrderStatus2 = () => (
@@ -685,14 +694,9 @@ export const links = [
         route: 'Tutor',
       },
       {
-        name: 'LMS Integration',
+        name: 'Login to LMS',
         icon: <IoMdContacts />,
-        route: 'LMS-Integration',
-      },
-      {
-        name: 'Analytics & Reporting',
-        icon: <RiContactsLine />,
-        route: 'Analytics',
+        route: 'lms',
       },
     ],
   },
@@ -1199,12 +1203,93 @@ export const regGrid = [
     textAlign: 'Center',
   },
   {
+    field: 'TrainingID',
+    headerText: 'Enrollment ID',
+    width: '120',
+    textAlign: 'Center',
+  },
+  {
+    field: 'PassWord',
+    headerText: 'Password',
+    width: '120',
+    textAlign: 'Center',
+  },
+  {
     headerText: 'Resources',
     template: gridOrderStatus2,
     field: 'OrderItems',
     textAlign: 'Center',
     width: '130',
   },
+  
+
+  
+];
+export const regGrid2 = [
+  {
+    headerText: 'Icon',
+    template: gridOrderImage,
+    textAlign: 'Center',
+    width: '120',
+  },
+  {
+    field: 'OrderItems',
+    headerText: 'Course Name',
+    width: '130',
+    editType: 'dropdownedit',
+    textAlign: 'Center',
+  },
+
+  {
+    field: 'DOR',
+    headerText: 'Date of Registration',
+    width: '130',
+    editType: 'dropdownedit',
+    textAlign: 'Center',
+  },
+
+
+  { field: 'CustomerName',
+    headerText: 'Customer Name',
+    width: '130',
+    textAlign: 'Center',
+  },
+  {
+    field: 'TotalAmount',
+    headerText: 'Total Amount',
+    format: 'C2',
+    textAlign: 'Center',
+    editType: 'numericedit',
+    width: '130',
+  },
+  {
+    headerText: 'Status',
+    template: gridOrderStatus,
+    field: 'OrderItems',
+    textAlign: 'Center',
+    width: '100',
+  },
+  {
+    field: 'OrderID',
+    headerText: 'Order ID',
+    width: '120',
+    textAlign: 'Center',
+  },
+
+  {
+    field: 'Location',
+    headerText: 'Location',
+    width: '120',
+    textAlign: 'Center',
+  },
+  {
+    headerText: 'Resources',
+    template: gridOrderStatus2,
+    field: 'OrderItems',
+    textAlign: 'Center',
+    width: '130',
+  },
+  
 
   
 ];
@@ -1284,9 +1369,24 @@ export const CoursesGrid = [
     width: '150',
     textAlign: 'Center',
   },
+  { field: 'TrainingID',
+    headerText: 'Training ID',
+    width: '150',
+    textAlign: 'Center',
+  },
+  { field: 'StartDate',
+    headerText: 'Starting Date',
+    width: '150',
+    textAlign: 'Center',
+  },
+  { field: 'EndDate',
+    headerText: 'End Date',
+    width: '150',
+    textAlign: 'Center',
+  },
   {
     headerText: 'Status',
-    template: gridOrderStatus,
+    template: gridOrderStatusBro,
     field: 'OrderItems',
     textAlign: 'Center',
     width: '120',

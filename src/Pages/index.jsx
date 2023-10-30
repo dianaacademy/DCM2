@@ -1,4 +1,5 @@
 export { default as Leadgenerate } from './Leadgenerate';
+export { default as Lmsdcm } from './Lmsdcm';
 export { default as Campains } from './Campains';
 export { default as Backup2x } from './Backup2x';
 export { default as Tabtune } from './Tabtune';

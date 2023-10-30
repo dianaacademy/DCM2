@@ -8,19 +8,22 @@ import "../components/style.css";
 
 
 const Mangement = () => {
+  let gridcomp;
+    const toolbar = ['ExcelExport', 'Search'];
+    const toolbarClick = (args) => {
+        if (gridcomp && args.item.id === 'gridcomp_excelexport') {
+            gridcomp.excelExport();
+        }
+    };
   return (
     <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
       <Header category= "Page" title="Document Management" />
 
-      <GridComponent
-      
-      id ="gridcomp"
-      dataSource={ordersData}
+      <GridComponent id='gridcomp' dataSource={ordersData}  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
       allowPaging
       allowSorting
       allowReordering={true} allowDrop={true}
       allowResizing
-      toolbar={['Search']}
       >
         <ColumnsDirective >
         {manageGrid.map((item,index) => (<ColumnDirective key= {index}  {...item}/>

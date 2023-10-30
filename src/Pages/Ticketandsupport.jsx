@@ -1,5 +1,5 @@
 import React  ,{ useState } from 'react';
-import {GridComponent,ColumnsDirective,ColumnDirective, Page, Selection,Reorder, Inject, Edit, Toolbar, Sort, Filter,} from '@syncfusion/ej2-react-grids';
+import {GridComponent,ColumnsDirective,ColumnDirective, Page, Selection,Reorder, Inject, Edit, Toolbar, Sort, Filter,ExcelExport} from '@syncfusion/ej2-react-grids';
 import {customersData, supportGrid , } from '../data/dummy';
 import { Header } from '../components';
 import { showGrandTotals } from '@syncfusion/ej2/pivotview';
@@ -8,6 +8,13 @@ import "../components/style.css";
 
 
 const Ticketandsupport = () => {
+  let gridcomp;
+    const toolbar = ['ExcelExport', 'Search', 'Delete'];
+    const toolbarClick = (args) => {
+        if (gridcomp && args.item.id === 'gridcomp_excelexport') {
+            gridcomp.excelExport();
+        }
+    };
   const [showModal, setShowModal] = React.useState(false);
   return (
     <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
@@ -35,9 +42,8 @@ const Ticketandsupport = () => {
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
-                  >
+                  > 
                     <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      ×
                     </span>
                   </button>
                 </div>
@@ -54,9 +60,12 @@ const Ticketandsupport = () => {
                   </span>
                 </div>
                 <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
-                   <input type="text" placeholder="Status" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white  rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
-                   <span class="z-10 h-full leading-snug font-normal  text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
-                  </span>
+                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
+               <select id="Priority" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option selected>Pending</option>
+              <option value="US">Completed</option>
+              <option value="CA">To Do </option>
+              </select>
                 </div>
                 <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
                    <input type="text" placeholder="Assignee" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative  bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
@@ -73,7 +82,7 @@ const Ticketandsupport = () => {
                <select id="Priority" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               <option selected>High</option>
               <option value="US">Medium</option>
-              <option value="CA">Low</option>
+              <option value="CA">Low </option>
               </select>
               </div>
               <button
@@ -100,20 +109,19 @@ const Ticketandsupport = () => {
         </>
       ) : null}
 
-      <GridComponent
+<GridComponent id='gridcomp' toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
       dataSource={customersData}
       allowPaging
       allowSorting
       allowReordering={true} allowDrop={true}
       allowResizing
-      toolbar={['Delete']}
       editSettings={{allowDeleting:true, allowEditing:true}}
       width="auto">
         <ColumnsDirective>
         {supportGrid.map((item,index) => (<ColumnDirective key= {index}  {...item}/>
         ))}
         </ColumnsDirective>
-        <Inject services = {[ Page, Toolbar,Reorder,Selection,Edit,Sort,Filter]}/>
+        <Inject services = {[ Page, Toolbar,Reorder,Selection,Edit,Sort,Filter,ExcelExport]}/>
       </GridComponent>
     </div>
   )

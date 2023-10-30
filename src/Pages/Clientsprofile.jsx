@@ -7,12 +7,19 @@ import "../components/style.css";
 
 const Clientsprofile = () => {
   const [showModal, setShowModal] = React.useState(false);
+  let gridcomp;
+    const toolbar = ['ExcelExport', 'Search'];
+    const toolbarClick = (args) => {
+        if (gridcomp && args.item.id === 'gridcomp_excelexport') {
+            gridcomp.excelExport();
+        }
+    };
   return (
     <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
       <Header category= "Page" title="Clients-profile" />
 
       <button
-        className="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1  mb-5 ease-linear transition-all duration-150"
+        className="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1   mb-5 ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >
@@ -56,7 +63,7 @@ const Clientsprofile = () => {
                 </div>
                 <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
                    <input type="text" placeholder="Company Name" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
-                   <span class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
+                   <span class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300  bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
                   </span>
                 </div>     
               <div>
@@ -93,13 +100,12 @@ const Clientsprofile = () => {
         </>
       ) : null}
 
-      <GridComponent 
+<GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
       dataSource={employeesData}
       allowPaging
       allowSorting
       allowReordering={true} allowDrop={true}
       allowResizing
-      toolbar={['Search']}
       width="auto">
         <ColumnsDirective>
         {clientGrid.map((item,index) => (<ColumnDirective key= {index}  {...item}  />

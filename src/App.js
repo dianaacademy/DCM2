@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import{Navbar, Footer, Sidebar, ThemeSettings, GrapesMain} from './components';
-import { Leadgenerate ,Clientsprofile,Registration,CoursesProgrm ,Mangement,Ecommerce, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Line, Kanban, Area,Campains, Security,Bar, Pie, Financial, ColorPicker, ColorMapping, Editor,Tutor,Ticketandsupport,Tabtune} from './Pages';
+import { Leadgenerate ,Clientsprofile,Registration,CoursesProgrm ,Mangement,Ecommerce, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Line, Kanban, Area,Campains, Security,Bar, Pie, Financial, ColorPicker, ColorMapping, Editor,Tutor,Ticketandsupport,Tabtune,Lmsdcm} from './Pages';
 import { useStateContext } from './contexts/ContextProvider';
 import './App.css'
 
@@ -71,6 +71,7 @@ return (
                     <Route path= "/Leadgenerate" element = {<Leadgenerate/>} />
                     <Route path= "/Tutor" element = {<Tutor/>} />
                     <Route path= "/GrapesMain" element = {<GrapesMain/>} />
+                    <Route path= "/lms" element = {<Lmsdcm/>} />
 
                      {/* Apps */}
                      <Route path= "/Kanban" element = {<Kanban/>} />
