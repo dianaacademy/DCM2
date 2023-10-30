@@ -1214,13 +1214,6 @@ export const regGrid = [
     width: '120',
     textAlign: 'Center',
   },
-  {
-    headerText: 'Resources',
-    template: gridOrderStatus2,
-    field: 'OrderItems',
-    textAlign: 'Center',
-    width: '130',
-  },
   
 
   
