@@ -5,14 +5,44 @@ import { Header } from '../components';
 import Backup2x from './Backup2x.jsx';
 import { Html } from '../components';
 import "../components/style.css";
+import { GrapesMain } from "../components";
 
 export default function Modal() {
     const pageOptions = {
         pageSize: 8,
     };
   const [showModal, setShowModal] = React.useState(false);
-  const [activeTab, setActiveTab] = useState('tycon');
+  const [activeTab, setActiveTab] = useState('EmailEdit');
   const [selectedImage, setSelectedImage] = useState(null);
+
+
+  let gridcomp;
+  const toolbar = [
+    {
+      text: 'Export CSV',
+      tooltipText: 'Export to Excel',
+      prefixIcon: 'e-btn-icon e-excelexport e-icons e-icon-left',
+      id: 'gridcomp_excelexport',
+    },
+    'Search', 'Delete'
+  ];
+  const getCurrentDateTime = () => {
+    const now = new Date();
+    const formattedDate = now.toISOString().slice(0, 19).replace(/:/g, '-');
+    return formattedDate;
+  };
+
+  const toolbarClick = (args) => {
+    if (gridcomp && args.item.id === 'gridcomp_excelexport') {
+      const currentDateTime = getCurrentDateTime();
+      const fileName = `Campaign_${currentDateTime}.xlsx`;
+      const excelExportProperties = {
+      fileName: fileName,
+      };
+
+      gridcomp.excelExport(excelExportProperties);
+    }
+  };
   const handleTabClick = (tabName) => {
   setActiveTab(tabName);
   };
@@ -117,11 +147,31 @@ export default function Modal() {
       <img className="rounded-md"
         src="https://ik.imagekit.io/kkb/px-conversions%20(28)/weeee?updatedAt=1697019040527"
         alt="Data Privacy"
-      />
+      />     
       <p className="text-center pt-5  pb-5">Whatsapp Group Joining Link</p>
     </div>
   </div>
+  
+  <div className="w-1/3 p-5">
+    <div
+      className="bg-indigo-500 text-white font-bold uppercase text-sm  shadow hover:shadow-lg cursor-pointer rounded-md      "
+
+    >
+      <img className="rounded-md"
+        src="https://ik.imagekit.io/kkb/Email.webp?updatedAt=1698764270931"
+        alt="Data Privacy"
+        onClick={() => handleTabClick('EmailEdit')}
+      />
+      <p className="text-center pt-5  pb-5">Email Editor</p>
+    </div>
+  </div>
+  
 </div>
+
+
+{activeTab === 'EmailEdit' && (
+          <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
+            <GrapesMain />; </div> )}
 
 
 {/* modal setting */}
@@ -145,7 +195,7 @@ export default function Modal() {
                     </span>
                   </button>
                 </div>
-                {/*body*/}
+
              <div className="bg-gray-100  flex flex-col pl-10 pt-10">
              <div className="flex">
                 <button
@@ -215,17 +265,17 @@ export default function Modal() {
       <div className="text-center text-3xl pt-10 pb-10 font-bold">
         <h1> Campaign insights </h1>
       </div>
+
+
       
 
-<GridComponent
+<GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
       dataSource={customersData}
       allowPaging
       allowSorting
       pageSettings={pageOptions}
       allowReordering={true} allowDrop={true}
       allowResizing
-      
-      toolbar={['Delete']}
       editSettings={{allowDeleting:true, allowEditing:true, pageSizes: true}}
       width="auto"
       >
@@ -235,11 +285,12 @@ export default function Modal() {
         ))}
         </ColumnsDirective>
         
-        <Inject services = {[ Page, Toolbar,Reorder,Selection,Edit,Sort,Filter]}/>
+        <Inject services = {[ Page, Toolbar,Reorder,Selection,Edit,Sort,Filter , ExcelExport]}/>
         
       </GridComponent>
  
     </>
+   
 
     
   );

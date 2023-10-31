@@ -8,6 +8,33 @@ import "../components/style.css";
 
 const CoursesProgrm = () => {
   const [showModal, setShowModal] = React.useState(false);
+  let gridcomp;
+  const toolbar = [
+    {
+      text: 'Export CSV',
+      tooltipText: 'Export to Excel',
+      prefixIcon: 'e-btn-icon e-excelexport e-icons e-icon-left',
+      id: 'gridcomp_excelexport',
+    },
+    'Search'
+  ];
+  const getCurrentDateTime = () => {
+    const now = new Date();
+    const formattedDate = now.toISOString().slice(0, 19).replace(/:/g, '-');
+    return formattedDate;
+  };
+
+  const toolbarClick = (args) => {
+    if (gridcomp && args.item.id === 'gridcomp_excelexport') {
+      const currentDateTime = getCurrentDateTime();
+      const fileName = `Course&Program_${currentDateTime}.xlsx`;
+      const excelExportProperties = {
+        fileName: fileName,
+      };
+
+      gridcomp.excelExport(excelExportProperties);
+    }
+  };
   return (
     <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
       <Header category= "Page" title="Course and Program" />
@@ -85,7 +112,7 @@ const CoursesProgrm = () => {
 
       <GridComponent
       
-      id ="gridcomp"
+      id ="gridcomp" toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
       dataSource={ordersData}
       allowPaging
       allowSorting

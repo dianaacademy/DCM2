@@ -728,11 +728,11 @@ export const links = [
         icon: <AiOutlineBarChart />,
         route: 'campaign',
       },
-      {
-        name: 'Email Editor',
-        icon: <FiPieChart />,
-        route: 'GrapesMain',
-      },
+      // {
+      //   name: 'Email Editor',
+      //   icon: <FiPieChart />,
+      //   route: 'GrapesMain',
+      // },
     ],
   },
   // {
@@ -1604,7 +1604,6 @@ export const customersData = [
   },
   {
     CustomerID: 1010,
-
     CustomerName: 'Michael',
     CustomerEmail: 'michael@gmail.com',
     CustomerPhone :888888889,

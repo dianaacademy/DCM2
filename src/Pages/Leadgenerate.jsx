@@ -6,6 +6,33 @@ import "../components/style.css";
 
 function Leadgenerate() {
   const [activeTab, setActiveTab] = useState('tycon');
+  let gridcomp;
+  const toolbar = [
+    {
+      text: 'Export CSV',
+      tooltipText: 'Export to Excel',
+      prefixIcon: 'e-btn-icon e-excelexport e-icons e-icon-left',
+      id: 'gridcomp_excelexport',
+    },
+    'Search'
+  ];
+  const getCurrentDateTime = () => {
+    const now = new Date();
+    const formattedDate = now.toISOString().slice(0, 19).replace(/:/g, '-');
+    return formattedDate;
+  };
+
+  const toolbarClick = (args) => {
+    if (gridcomp && args.item.id === 'gridcomp_excelexport') {
+      const currentDateTime = getCurrentDateTime();
+      const fileName = `Leads-List_${currentDateTime}.xlsx`;
+      const excelExportProperties = {
+        fileName: fileName,
+      };
+
+      gridcomp.excelExport(excelExportProperties);
+    }
+  };
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
   };
@@ -19,7 +46,7 @@ function Leadgenerate() {
           }`}
           onClick={() => handleTabClick('tycon')}
         >
-          <div className="flex flex-col  text-left"> {/* Add a flex container */}
+          <div className="flex flex-col  text-left"> 
             <span>Fresh leads</span>
            <span className={`mt-2 px-2 py-1 rounded-lg items-center text-left${
             activeTab === 'tycom' ? 'bg-white p-2' : ''
@@ -76,11 +103,10 @@ function Leadgenerate() {
             {/* Insert your content for the Tycon tab here */}
             <Header category="Page" title="lead management" />
 
-            <GridComponent
+            <GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
               dataSource={employeesData}
               allowPaging
               allowSorting
-              toolbar={['Search']}
               width="auto"
             >
               <ColumnsDirective>
@@ -106,12 +132,11 @@ function Leadgenerate() {
             {/* Insert your content for the Tycon tab here */}
             <Header category="Page" title="lead management" />
 
-            <GridComponent
+            <GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
               dataSource={employeesData}
 
               allowPaging
               allowSorting
-              toolbar={['Search']}
               width="auto"
             >
               <ColumnsDirective>
@@ -138,12 +163,13 @@ function Leadgenerate() {
             <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
             {/* Insert your content for the Tycon tab here */}
             <Header category="Page" title="lead management" />
+  
 
             <GridComponent
+            id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
               dataSource={employeesData}
               allowPaging
               allowSorting
-              toolbar={['Search']}
               width="auto"
             >
               <ColumnsDirective>
@@ -169,11 +195,10 @@ function Leadgenerate() {
           <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
           <Header category= "Page" title="lead management" />
     
-          <GridComponent
+          <GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
           dataSource={customersData}
           allowPaging
           allowSorting
-          toolbar={['Delete', ]}
           editSettings={{allowDeleting:true, allowEditing:true}}
           width="auto">
             <ColumnsDirective>

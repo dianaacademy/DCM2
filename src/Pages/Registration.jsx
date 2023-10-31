@@ -8,12 +8,32 @@ import "../components/style.css";
 
 const Registration = () => {
   let gridcomp;
-    const toolbar = ['ExcelExport', 'Search'];
-    const toolbarClick = (args) => {
-        if (gridcomp && args.item.id === 'gridcomp_excelexport') {
-            gridcomp.excelExport();
-        }
-    };
+  const toolbar = [
+    {
+      text: 'Export CSV',
+      tooltipText: 'Export to Excel',
+      prefixIcon: 'e-btn-icon e-excelexport e-icons e-icon-left',
+      id: 'gridcomp_excelexport',
+    },
+    'Search', 'Delete'
+  ];
+  const getCurrentDateTime = () => {
+    const now = new Date();
+    const formattedDate = now.toISOString().slice(0, 19).replace(/:/g, '-');
+    return formattedDate;
+  };
+
+  const toolbarClick = (args) => {
+    if (gridcomp && args.item.id === 'gridcomp_excelexport') {
+      const currentDateTime = getCurrentDateTime();
+      const fileName = `Registration_${currentDateTime}.xlsx`;
+      const excelExportProperties = {
+        fileName: fileName,
+      };
+
+      gridcomp.excelExport(excelExportProperties);
+    }
+  };
   return (
     <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
       <Header category= "Page" title="RegistraTion" />

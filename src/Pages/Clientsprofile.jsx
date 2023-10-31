@@ -8,12 +8,32 @@ import "../components/style.css";
 const Clientsprofile = () => {
   const [showModal, setShowModal] = React.useState(false);
   let gridcomp;
-    const toolbar = ['ExcelExport', 'Search'];
-    const toolbarClick = (args) => {
-        if (gridcomp && args.item.id === 'gridcomp_excelexport') {
-            gridcomp.excelExport();
-        }
-    };
+  const toolbar = [
+    {
+      text: 'Export CSV',
+      tooltipText: 'Export to Excel',
+      prefixIcon: 'e-btn-icon e-excelexport e-icons e-icon-left',
+      id: 'gridcomp_excelexport',
+    },
+    'Search',
+  ];
+  const getCurrentDateTime = () => {
+    const now = new Date();
+    const formattedDate = now.toISOString().slice(0, 19).replace(/:/g, '-');
+    return formattedDate;
+  };
+
+  const toolbarClick = (args) => {
+    if (gridcomp && args.item.id === 'gridcomp_excelexport') {
+      const currentDateTime = getCurrentDateTime();
+      const fileName = `ClientList_${currentDateTime}.xlsx`;
+      const excelExportProperties = {
+        fileName: fileName,
+      };
+
+      gridcomp.excelExport(excelExportProperties);
+    }
+  };
   return (
     <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
       <Header category= "Page" title="Clients-profile" />
@@ -47,22 +67,22 @@ const Clientsprofile = () => {
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
                 <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
-                   <input type="text" placeholder="Client Name" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
-                   <span class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
+                   <input type="text" placeholder="Client Name" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white  rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
+                   <span class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300  bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
                   </span>
                 </div>
                 <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
-                   <input type="text" placeholder="Designation" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
-                   <span class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
+                   <input type="text" placeholder="Designation" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white  rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
+                   <span class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300  bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
                   </span>
                 </div>
                 <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
-                   <input type="text" placeholder="Country" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
-                   <span class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
+                   <input type="text" placeholder="Country" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
+                   <span class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300  bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
                   </span>
                 </div>
                 <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
-                   <input type="text" placeholder="Company Name" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
+                   <input type="text" placeholder="Company Name" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
                    <span class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300  bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
                   </span>
                 </div>     
@@ -106,6 +126,7 @@ const Clientsprofile = () => {
       allowSorting
       allowReordering={true} allowDrop={true}
       allowResizing
+      editSettings={{ allowEditing:true}}
       width="auto">
         <ColumnsDirective>
         {clientGrid.map((item,index) => (<ColumnDirective key= {index}  {...item}  />

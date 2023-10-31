@@ -53,6 +53,7 @@ export default function Modal() {
         alt="Data Privacy"
       />
       <p className="text-center pt-5  pb-5">Welcome Bonus</p>
+      
     </div>
   </div>
 
@@ -65,7 +66,7 @@ export default function Modal() {
     }}
     >
       <img className="rounded-md"
-        src="https://ik.imagekit.io/kkb/px-conversions%20(28)/1.webp?updatedAt=1697018954407"
+       src="https://ik.imagekit.io/kkb/px-conversions%20(28)/1.webp?updatedAt=1697018954407"
         alt="Data Privacy"
       />
       <p className="text-center pt-5  pb-5">Zoom Link</p>
@@ -76,7 +77,7 @@ export default function Modal() {
 
   <div className="w-1/3 p-5">
     <div
-      className="bg-indigo-500 text-white font-bold uppercase text-sm  shadow hover:shadow-lg cursor-pointer rounded-md      "
+      className="bg-indigo-500 text-white font-bold uppercase text-sm  shadow hover:shadow-lg cursor-pointer rounded-md"
       onClick={() => {setShowModal(true);
         handleImageClick('https://ik.imagekit.io/kkb/px-conversions%20(28)/4.webp?updatedAt=1697018965526');
     }}
@@ -92,7 +93,7 @@ export default function Modal() {
 
   <div className="w-1/3 p-5">
     <div
-      className="bg-indigo-500 text-white font-bold uppercase text-sm  shadow hover:shadow-lg cursor-pointer rounded-md      "
+      className="bg-indigo-500 text-white font-bold uppercase text-sm  shadow hover:shadow-lg cursor-pointer rounded-md"
       onClick={() => {setShowModal(true);
         handleImageClick('https://ik.imagekit.io/kkb/px-conversions%20(28)/3.webp?updatedAt=1697018965529');
     }}
@@ -101,7 +102,7 @@ export default function Modal() {
         src="https://ik.imagekit.io/kkb/px-conversions%20(28)/3.webp?updatedAt=1697018965529"
         alt="Data Privacy"
       />
-      <p className="text-center pt-5  pb-5">Actovation Link</p>
+      <p className="text-center pt-5  pb-5">Activation Link</p>
     </div>
   </div>
 
@@ -122,8 +123,6 @@ export default function Modal() {
     </div>
   </div>
 </div>
-
-
 {/* modal setting */}
 
       {showModal ? (
@@ -141,35 +140,34 @@ export default function Modal() {
                     onClick={() => setShowModal(false)}
                   >
                     <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      ×
                     </span>
                   </button>
                 </div>
                 {/*body*/}
-             <div className="bg-gray-100  flex flex-col pl-10 pt-10">
-             <div className="flex">
+          <div className="bg-gray-100  flex flex-col pl-10 pt-10">
+            <div className="flex">
                 <button
                      className={`w-300 text-center  font-serif font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal relative ml-7 mr-20 mb-10 ${
                        activeTab === 'preview' ? 'bg-indigo-600 text-white' : 'bg-gray-300 text-gray-700'
-                        }`}
-                        onClick={() => handleTabClick('preview')}
-                          >
+                      }`}
+                      onClick={() => handleTabClick('preview')}
+                      >
                      <div className="flex flex-col  text-left"> {/* Add a flex container */}
                   <span>Preview</span>
                 </div>
             </button>
-            <button
+          <button
                      className={`w-300 text-left  font-serif font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal  relative ml-20 mr-7 mb-10 ${
                        activeTab === 'html' ? 'bg-indigo-600 text-white' : 'bg-gray-300 text-gray-700'
                         }`}
                         onClick={() => handleTabClick('html')}
-                          >
+                        >
                      <div className="flex flex-col  text-left"> {/* Add a flex container */}
                   <span>Edit </span>
                 </div>
-            </button>
-           </div>
-        </div>
+       </button>
+      </div>
+    </div>
 
      {/* Previw and Html template */}
 
@@ -186,13 +184,11 @@ export default function Modal() {
               </div>
             </div>
           </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-        </>
+        <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+      </>
 
         
       ) : null}
-
-
       <div className="text-center text-3xl pt-10 pb-10 font-bold">
         <h1> Campain insights </h1>
       </div>

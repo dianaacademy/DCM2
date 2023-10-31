@@ -9,12 +9,33 @@ import "../components/style.css";
 
 const Ticketandsupport = () => {
   let gridcomp;
-    const toolbar = ['ExcelExport', 'Search', 'Delete'];
-    const toolbarClick = (args) => {
-        if (gridcomp && args.item.id === 'gridcomp_excelexport') {
-            gridcomp.excelExport();
-        }
-    };
+  const toolbar = [
+    {
+      text: 'Export CSV',
+      tooltipText: 'Export to Excel',
+      prefixIcon: 'e-btn-icon e-excelexport e-icons e-icon-left',
+      id: 'gridcomp_excelexport',
+    },
+    'Search', 'Delete'
+  ];
+  const getCurrentDateTime = () => {
+    const now = new Date();
+    const formattedDate = now.toISOString().slice(0, 19).replace(/:/g, '-');
+    return formattedDate;
+  };
+
+  const toolbarClick = (args) => {
+    if (gridcomp && args.item.id === 'gridcomp_excelexport') {
+      const currentDateTime = getCurrentDateTime();
+      const fileName = `Support&Ticketing_${currentDateTime}.xlsx`;
+
+      const excelExportProperties = {
+        fileName: fileName,
+      };
+
+      gridcomp.excelExport(excelExportProperties);
+    }
+  };
   const [showModal, setShowModal] = React.useState(false);
   return (
     <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
@@ -108,7 +129,7 @@ const Ticketandsupport = () => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
-
+      
 <GridComponent id='gridcomp' toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
       dataSource={customersData}
       allowPaging
