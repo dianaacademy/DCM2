@@ -22,7 +22,7 @@ export default function Modal() {
     setActiveTab('preview');
     setShowModal(true);
   };
-  
+
   return (
     <> 
    <div className="flex flex-wrap justify-center">
@@ -190,7 +190,7 @@ export default function Modal() {
         
       ) : null}
       <div className="text-center text-3xl pt-10 pb-10 font-bold">
-        <h1> Campain insights </h1>
+      <h1> Campain insights </h1>
       </div>
       
 

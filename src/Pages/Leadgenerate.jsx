@@ -3,6 +3,7 @@ import { GridComponent, ColumnsDirective,ColumnDirective,Search , Page, ExcelExp
 import { employeesData,contextMenuItems, clientGrid,customersData,supportGrid } from '../data/dummy';
 import { Header } from '../components';
 import "../components/style.css";
+import Papa from 'papaparse';
 
 function Leadgenerate() {
   const [activeTab, setActiveTab] = useState('tycon');
@@ -16,6 +17,31 @@ function Leadgenerate() {
     },
     'Search'
   ];
+   //upload excel code start
+   const [tableData, setTableData] = useState(employeesData); // if we remove this excel code 1st we need to remove tableData from grid component and place "ordersData"
+   const handleFileUpload = (e) => {
+     const file = e.target.files[0];
+     if (file) {
+       const reader = new FileReader();
+       reader.onload = (event) => {
+         const csvData = event.target.result;
+         parseCSVData(csvData);
+       };
+       reader.readAsText(file);
+     }
+   };
+   const parseCSVData = (csvData) => {
+     Papa.parse(csvData, {
+       header: true,
+       dynamicTyping: true,
+       skipEmptyLines: true,
+       complete: (results) => {
+         // Merge the uploaded data with the existing data
+         setTableData([...tableData, ...results.data]);
+       },
+     });
+   };
+   //upload excel code end
   const getCurrentDateTime = () => {
     const now = new Date();
     const formattedDate = now.toISOString().slice(0, 19).replace(/:/g, '-');
@@ -102,9 +128,17 @@ function Leadgenerate() {
           <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
             {/* Insert your content for the Tycon tab here */}
             <Header category="Page" title="lead management" />
+            {/* Frontend of Upload Data Start */}
+      <div className=" mb-10" >
+        <h1 className="text-xl font-bold mb-3">Add More Data</h1>
+
+      
+      <input type="file" accept=".csv" onChange={handleFileUpload} />
+      </div>
+      {/* Frontend of Upload Data End */}
 
             <GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
-              dataSource={employeesData}
+              dataSource={tableData}
               allowPaging
               allowSorting
               width="auto"
@@ -131,9 +165,17 @@ function Leadgenerate() {
           <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl ">
             {/* Insert your content for the Tycon tab here */}
             <Header category="Page" title="lead management" />
+            {/* Frontend of Upload Data Start */}
+      <div className=" mb-10" >
+        <h1 className="text-xl font-bold mb-3">Add More Data</h1>
+
+      
+      <input type="file" accept=".csv" onChange={handleFileUpload} />
+      </div>
+      {/* Frontend of Upload Data End */}
 
             <GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
-              dataSource={employeesData}
+              dataSource={tableData}
 
               allowPaging
               allowSorting
@@ -163,11 +205,19 @@ function Leadgenerate() {
             <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
             {/* Insert your content for the Tycon tab here */}
             <Header category="Page" title="lead management" />
+            {/* Frontend of Upload Data Start */}
+      <div className=" mb-10" >
+        <h1 className="text-xl font-bold mb-3">Add More Data</h1>
+
+      
+      <input type="file" accept=".csv" onChange={handleFileUpload} />
+      </div>
+      {/* Frontend of Upload Data End */}
   
 
             <GridComponent
             id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
-              dataSource={employeesData}
+              dataSource={tableData}
               allowPaging
               allowSorting
               width="auto"
@@ -194,6 +244,14 @@ function Leadgenerate() {
         {activeTab === 'styam' && (
           <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
           <Header category= "Page" title="lead management" />
+          {/* Frontend of Upload Data Start */}
+      <div className=" mb-10" >
+        <h1 className="text-xl font-bold mb-3">Add More Data</h1>
+
+      
+      <input type="file" accept=".csv" onChange={handleFileUpload} />
+      </div>
+      {/* Frontend of Upload Data End */}
     
           <GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
           dataSource={customersData}

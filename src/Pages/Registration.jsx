@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import { GridComponent, ColumnsDirective,ColumnDirective, Search,Resize,Reorder, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport,Edit, Inject,Toolbar  } from '@syncfusion/ej2-react-grids';
 import { contextMenuItems, regGrid2 } from '../data/dummy';
 import { ordersData } from '../data/ordersData';
 import { Header } from '../components';
 import "../components/style.css";
+import Papa from 'papaparse';
 
 
 const Registration = () => {
@@ -17,6 +18,31 @@ const Registration = () => {
     },
     'Search', 'Delete'
   ];
+   //upload excel code start
+  const [tableData, setTableData] = useState(ordersData); // if we remove this excel code 1st we need to remove tableData from grid component and place "ordersData"
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const csvData = event.target.result;
+        parseCSVData(csvData);
+      };
+      reader.readAsText(file);
+    }
+  };
+  const parseCSVData = (csvData) => {
+    Papa.parse(csvData, {
+      header: true,
+      dynamicTyping: true,
+      skipEmptyLines: true,
+      complete: (results) => {
+        // Merge the uploaded data with the existing data
+        setTableData([...tableData, ...results.data]);
+      },
+    });
+  };
+  //upload excel code end
   const getCurrentDateTime = () => {
     const now = new Date();
     const formattedDate = now.toISOString().slice(0, 19).replace(/:/g, '-');
@@ -37,8 +63,14 @@ const Registration = () => {
   return (
     <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
       <Header category= "Page" title="RegistraTion" />
+      <div className=" mb-10" >
+        <h1 className="text-xl font-bold mb-3">Add More Data</h1>
 
-      <GridComponent id='gridcomp' dataSource={ordersData}  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
+      
+      <input type="file" accept=".csv" onChange={handleFileUpload} />
+      </div>
+
+      <GridComponent id='gridcomp' dataSource={tableData}  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
       // dataSource={ordersData}
       allowPaging
       allowSorting
