@@ -66,12 +66,12 @@ return (
                     <Route path= "/Employees" element = {<Employees/>} />
                     <Route path= "/Customers" element = {<Customers/>} />
                     <Route path= "/Clientsprofile" element = {<Clientsprofile/>} />
-                    <Route path= "/Registration" element = {<Registration/>} />
-                    <Route path= "/CoursesProgrm" element = {<CoursesProgrm/>} />
-                    <Route path= "/Leadgenerate" element = {<Leadgenerate/>} />
-                    <Route path= "/Tutor" element = {<Tutor/>} />
+                    <Route path= "/EnrollandRegistration" element = {<Registration/>} />
+                    <Route path= "/CoursesandProgrm" element = {<CoursesProgrm/>} />
+                    <Route path= "/LEADMANAGEMENT" element = {<Leadgenerate/>} />
+                    <Route path= "/instructorandtrainer" element = {<Tutor/>} />
                     <Route path= "/GrapesMain" element = {<GrapesMain/>} />
-                    <Route path= "/lms" element = {<Lmsdcm/>} />
+                    <Route path= "/LMSLogin" element = {<Lmsdcm/>} />
 
                      {/* Apps */}
                      <Route path= "/Kanban" element = {<Kanban/>} />
@@ -79,7 +79,7 @@ return (
                      <Route path= "/Editor" element = {<Editor/>} />
                      <Route path= "/Calendar" element = {<Calendar/>} />
                      <Route path= "/Color picker" element = {<ColorPicker/>} />
-                     <Route path= "/Mangement" element = {<Mangement/>} />
+                     <Route path= "/Document_Mangement" element = {<Mangement/>} />
                     {/* Charts */}
                     <Route path= "/Line" element = {<Line/>} />
                     <Route path= "/Area" element = {<Area/>} />
@@ -88,7 +88,7 @@ return (
                     <Route path= "/Fiential" element = {<Financial/>} />
                     <Route path= "/Pyramid" element = {<Pyramid/>} />
                     <Route path= "/Stacked" element = {<Stacked/>} />
-                    <Route path= "/Ticketandsupport" element = {<Ticketandsupport/>} />
+                    <Route path= "/support" element = {<Ticketandsupport/>} />
                     <Route path= "/Tabtune" element = {<Tabtune/>} />
 
                 </Routes>

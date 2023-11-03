@@ -680,7 +680,7 @@ export const links = [
       {
         name: 'Lead Management',
         icon: <BsKanban />,
-        route: 'Leadgenerate',
+        route: 'LeadManagement',
       },
       {
         name: 'Client Profiles',
@@ -690,12 +690,12 @@ export const links = [
       {
         name: 'Enrollment & Registration',
         icon: <FiEdit />,
-        route: 'Registration',
+        route: 'EnrollandRegistration',
       },
       {
         name: 'Courses & Program Management',
         icon: <FiShoppingBag />,
-        route: 'CoursesProgrm',
+        route: 'CoursesandProgrm',
         
       },
       
@@ -708,12 +708,12 @@ export const links = [
       {
         name: 'Instructor & Trainer',
         icon: <AiOutlineShoppingCart />,
-        route: 'Tutor',
+        route: 'instructorandtrainer',
       },
       {
         name: 'Login to LMS',
         icon: <IoMdContacts />,
-        route: 'lms',
+        route: 'LMSLogin',
       },
     ],
   },
@@ -728,12 +728,12 @@ export const links = [
       {
         name: 'Document Management',
         icon: <BsKanban />,
-        route: 'Mangement',
+        route: 'Document_Mangement',
       },
       {
         name: 'Support & Ticketing',
         icon: <FiEdit />,
-        route: 'Ticketandsupport',
+        route: 'support',
       },
       {
         name: 'Compliance & Security',
