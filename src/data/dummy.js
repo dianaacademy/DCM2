@@ -462,6 +462,11 @@ export const customersGrid = [
     headerText: 'Location',
     width: '150',
     textAlign: 'Center' },
+    { field: 'UpdatedDate',
+    headerText: 'Date Added',
+    width: '125',
+    textAlign: 'Center',
+  },
 
   { field: 'CustomerID',
     headerText: 'Instructor ID',
@@ -557,6 +562,12 @@ export const CampainGrid = [
     format: 'yMd',
     textAlign: 'Center' },
 
+   { field: 'UpdatedDate',
+    headerText: 'Date Added',
+    width: '125',
+    textAlign: 'Center',
+  },
+
   {
     headerText: 'More Details',
     template: gridOrderStatus2,
@@ -638,6 +649,12 @@ export const clientGrid = [
     width: '125',
     textAlign: 'Center',
     isPrimaryKey: true, },
+
+    { field: 'UpdatedDate',
+    headerText: 'Date Added',
+    width: '125',
+    textAlign: 'Center',
+  },
     {
       headerText: 'Type of Delegate',
       template: gridOrderStatus3,
@@ -1202,6 +1219,11 @@ export const regGrid = [
     width: '120',
     textAlign: 'Center',
   },
+  { field: 'UpdatedDate',
+    headerText: 'Date Added',
+    width: '125',
+    textAlign: 'Center',
+  },
   {
     field: 'TrainingID',
     headerText: 'Enrollment ID',
@@ -1275,6 +1297,12 @@ export const regGrid2 = [
     width: '120',
     textAlign: 'Center',
   },
+  { field: 'UpdatedDate',
+    headerText: 'Date Added',
+    width: '125',
+    textAlign: 'Center',
+  },
+  
   {
     headerText: 'Resources',
     template: gridOrderStatus2,
@@ -1327,6 +1355,11 @@ export const manageGrid = [
     width: '120',
     textAlign: 'Center',
   },
+  { field: 'UpdatedDate',
+    headerText: 'Date Added',
+    width: '125',
+    textAlign: 'Center',
+  },
   {
     headerText: 'Resources Link',
     template: gridOrderStatus2,
@@ -1377,6 +1410,11 @@ export const CoursesGrid = [
     width: '150',
     textAlign: 'Center',
   },
+  { field: 'UpdatedDate',
+    headerText: 'Date Added',
+    width: '125',
+    textAlign: 'Center',
+  },
   {
     headerText: 'Status',
     template: gridOrderStatusBro,
@@ -1409,7 +1447,9 @@ export const customersData = [
     CampainName: "Email Marketing",
     Clicked: "205",
     Leads:"50",
-    Updated : "a hours ago"
+    Updated : "a hours ago",
+    UpdatedDate : "12/10/2023",
+
 
 
   },
@@ -1436,7 +1476,8 @@ export const customersData = [
     CampainName: "Social Media Marketing",
     Clicked: "2105",
     Leads:"550",
-    Updated : "15 Minutes ago"
+    Updated : "15 Minutes ago",
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1003,
@@ -1460,7 +1501,8 @@ export const customersData = [
     CampainName: "Google ads",
     Clicked: "0",
     Leads:"0",
-    Updated : "a hours ago"
+    Updated : "a hours ago",
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1004,
@@ -1484,7 +1526,8 @@ export const customersData = [
     CampainName: "Email Marketing",
     Clicked: "205",
     Leads:"50",
-    Updated : "a hours ago"
+    Updated : "a hours ago",
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1005,
@@ -1508,7 +1551,8 @@ export const customersData = [
     CampainName: "Google Ads",
     Clicked: "218",
     Leads:"56",
-    Updated : "2 hours ago"
+    Updated : "2 hours ago",
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1006,
@@ -1531,7 +1575,8 @@ export const customersData = [
     CampainName: "Email Marketing",
     Clicked: "25",
     Leads:"5",
-    Updated : "1 Day ago"
+    Updated : "1 Day ago",
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1007,
@@ -1556,7 +1601,8 @@ export const customersData = [
     CampainName: "Email Marketing",
     Clicked: "205",
     Leads:"50",
-    Updated : "a hours ago"
+    Updated : "a hours ago",
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1008,
@@ -1580,7 +1626,8 @@ export const customersData = [
     CampainName: "Email Marketing",
     Clicked: "205",
     Leads:"50",
-    Updated : "a hours ago"
+    Updated : "a hours ago",
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1009,
@@ -1601,6 +1648,7 @@ export const customersData = [
     CreatedD : '22/09/2023',
     Priority : 'High',
     SpecL:'Cyber Security',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1010,
@@ -1620,6 +1668,7 @@ export const customersData = [
     CreatedD : '22/09/2023',
     Priority : 'Low',
     SpecL:'Artificial Intelligence',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1011,
@@ -1639,6 +1688,7 @@ export const customersData = [
     CreatedD : '22/09/2023',
     Priority : 'Medium',
     SpecL:'Artificial Intelligence',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1012,
@@ -1660,6 +1710,7 @@ export const customersData = [
     CreatedD : '22/09/2023',
     Priority : 'Medium',
     SpecL:'Artificial Intelligence',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1013,
@@ -1679,6 +1730,7 @@ export const customersData = [
     CreatedD : '12/10/2023',
     Priority : 'High',
     SpecL:'Artificial Intelligence',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1014,
@@ -1698,6 +1750,7 @@ export const customersData = [
     CreatedD : '22/09/2023',
     Priority : 'Low',
     SpecL:'Cyber Security',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1015,
@@ -1713,6 +1766,7 @@ export const customersData = [
     Budget: '$16.5k',
     Location: 'USA',
     SpecL:'Artificial Intelligence',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1016,
@@ -1727,6 +1781,7 @@ export const customersData = [
     Budget: '$2.4k',
     Location: 'India',
     SpecL:'Cyber Security',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1017,
@@ -1743,6 +1798,7 @@ export const customersData = [
     Budget: '$3.9k',
     Location: 'India',
     SpecL:'Artificial Intelligence',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1018,
@@ -1757,6 +1813,7 @@ export const customersData = [
     Weeks: '19',
     Budget: '$24.5k',
     Location: 'USA',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1019,
@@ -1771,6 +1828,7 @@ export const customersData = [
     Weeks: '34',
     Budget: '$16.5k',
     Location: 'USA',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1020,
@@ -1785,6 +1843,7 @@ export const customersData = [
     Weeks: '34',
     Budget: '$16.5k',
     Location: 'USA',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1021,
@@ -1798,6 +1857,7 @@ export const customersData = [
     Weeks: '40',
     Budget: '$2.4k',
     Location: 'India',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1022,
@@ -1813,6 +1873,7 @@ export const customersData = [
     Weeks: '11',
     Budget: '$3.9k',
     Location: 'India',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1023,
@@ -1827,6 +1888,7 @@ export const customersData = [
     Weeks: '19',
     Budget: '$24.5k',
     Location: 'USA',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1024,
@@ -1841,6 +1903,7 @@ export const customersData = [
     Weeks: '34',
     Budget: '$16.5k',
     Location: 'USA',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1025,
@@ -1855,6 +1918,7 @@ export const customersData = [
     Weeks: '34',
     Budget: '$16.5k',
     Location: 'USA',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1026,
@@ -1868,6 +1932,7 @@ export const customersData = [
     Weeks: '40',
     Budget: '$2.4k',
     Location: 'India',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1027,
@@ -1883,6 +1948,7 @@ export const customersData = [
     Weeks: '11',
     Budget: '$3.9k',
     Location: 'India',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1028,
@@ -1897,6 +1963,7 @@ export const customersData = [
     Weeks: '19',
     Budget: '$24.5k',
     Location: 'USA',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1029,
@@ -1911,6 +1978,7 @@ export const customersData = [
     Weeks: '34',
     Budget: '$16.5k',
     Location: 'USA',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1030,
@@ -1925,6 +1993,7 @@ export const customersData = [
     Weeks: '34',
     Budget: '$16.5k',
     Location: 'USA',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1031,
@@ -1938,6 +2007,7 @@ export const customersData = [
     Weeks: '40',
     Budget: '$2.4k',
     Location: 'India',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1032,
@@ -1953,6 +2023,7 @@ export const customersData = [
     Weeks: '11',
     Budget: '$3.9k',
     Location: 'India',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1033,
@@ -1967,6 +2038,7 @@ export const customersData = [
     Weeks: '19',
     Budget: '$24.5k',
     Location: 'USA',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1034,
@@ -1981,6 +2053,7 @@ export const customersData = [
     Weeks: '34',
     Budget: '$16.5k',
     Location: 'USA',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1035,
@@ -1995,6 +2068,7 @@ export const customersData = [
     Weeks: '34',
     Budget: '$16.5k',
     Location: 'USA',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1036,
@@ -2008,6 +2082,7 @@ export const customersData = [
     Weeks: '40',
     Budget: '$2.4k',
     Location: 'India',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1037,
@@ -2023,6 +2098,7 @@ export const customersData = [
     Weeks: '11',
     Budget: '$3.9k',
     Location: 'India',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1038,
@@ -2037,6 +2113,7 @@ export const customersData = [
     Weeks: '19',
     Budget: '$24.5k',
     Location: 'USA',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1039,
@@ -2050,6 +2127,7 @@ export const customersData = [
     Weeks: '34',
     Budget: '$16.5k',
     Location: 'USA',
+    UpdatedDate : "12/10/2023",
   },
   {
     CustomerID: 1040,
@@ -2063,6 +2141,7 @@ export const customersData = [
     Weeks: '34',
     Budget: '$16.5k',
     Location: 'USA',
+    UpdatedDate : "12/10/2023",
   },
 
 ];
@@ -2079,6 +2158,7 @@ export const employeesData = [
     Status: 'Company',
     EmployeeImage:
     avatar3,
+    UpdatedDate: '12/10/2023',
   },
   {
     EmployeeID: 2,
@@ -2091,6 +2171,7 @@ export const employeesData = [
     TOD: 'Students',
     EmployeeImage:
       avatar3,
+    UpdatedDate: '12/10/2023',
   },
   {
     EmployeeID: 3,
@@ -2103,6 +2184,7 @@ export const employeesData = [
     TOD: 'Company',
     EmployeeImage:
       avatar4,
+      UpdatedDate: '12/10/2023',
   },
   {
     EmployeeID: 4,
@@ -2115,6 +2197,7 @@ export const employeesData = [
     TOD: 'Students',
     EmployeeImage:
       avatar2,
+      UpdatedDate: '12/10/2023',
   },
   {
     EmployeeID: 5,
@@ -2127,6 +2210,7 @@ export const employeesData = [
     TOD: 'Students',
     EmployeeImage:
       avatar,
+    UpdatedDate: '12/10/2023',
   },
   {
     EmployeeID: 6,
@@ -2139,6 +2223,7 @@ export const employeesData = [
     TOD: 'Company',
     EmployeeImage:
       avatar,
+      UpdatedDate: '12/10/2023',
   },
   {
     EmployeeID: 7,
@@ -2151,6 +2236,7 @@ export const employeesData = [
     TOD: 'Students',
     EmployeeImage:
       avatar2,
+      UpdatedDate: '12/10/2023'
   },
   {
     EmployeeID: 8,
@@ -2163,6 +2249,7 @@ export const employeesData = [
     TOD: 'Students',
     EmployeeImage:
     avatar2,
+    UpdatedDate: '12/10/2023'
 
   },
   {
@@ -2176,6 +2263,7 @@ export const employeesData = [
     TOD: 'Company',
     EmployeeImage:
       avatar3,
+      UpdatedDate: '12/10/2023'
   },
   {
     EmployeeID: 10,
@@ -2188,6 +2276,7 @@ export const employeesData = [
     TOD: 'Company',
     EmployeeImage:
       avatar4,
+      UpdatedDate: '12/10/2023'
   },
   {
     EmployeeID: 11,
@@ -2200,6 +2289,7 @@ export const employeesData = [
     TOD: 'Company',
     EmployeeImage:
       avatar2,
+      UpdatedDate: '12/10/2023'
   },
   {
     EmployeeID: 12,
@@ -2212,6 +2302,7 @@ export const employeesData = [
     TOD: 'Students',
     EmployeeImage:
       avatar,
+      UpdatedDate: '12/10/2023'
   },
   {
     EmployeeID: 13,
@@ -2224,6 +2315,7 @@ export const employeesData = [
     TOD: 'Students',
     EmployeeImage:
       avatar,
+      UpdatedDate: '12/10/2023'
   },
   {
     EmployeeID: 14,
@@ -2236,6 +2328,7 @@ export const employeesData = [
     TOD: 'Company',
     EmployeeImage:
       avatar2,
+      UpdatedDate: '12/10/2023'
   },
   {
     EmployeeID: 15,
@@ -2248,6 +2341,7 @@ export const employeesData = [
     TOD: 'Students',
     EmployeeImage:
     avatar,
+    UpdatedDate: '12/10/2023'
   },
   {
     EmployeeID: 16,
@@ -2260,6 +2354,7 @@ export const employeesData = [
     TOD: 'Company',
     EmployeeImage:
       avatar3,
+      UpdatedDate: '12/10/2023'
   },
   {
     EmployeeID: 17,
@@ -2270,6 +2365,7 @@ export const employeesData = [
     ReportsTo: 'Carson',
     EmployeeImage:
       avatar4,
+      UpdatedDate: '12/10/2023'
   },
   {
     EmployeeID: 18,
@@ -2280,6 +2376,7 @@ export const employeesData = [
     ReportsTo: 'Carson',
     EmployeeImage:
       avatar2,
+      UpdatedDate: '12/10/2023'
   },
   {
     EmployeeID: 18,
@@ -2290,6 +2387,7 @@ export const employeesData = [
     ReportsTo: 'Carson',
     EmployeeImage:
       avatar,
+      UpdatedDate: '12/10/2023'
   },
   {
     EmployeeID: 19,
@@ -2300,6 +2398,7 @@ export const employeesData = [
     ReportsTo: 'Carson',
     EmployeeImage:
       avatar,
+      UpdatedDate: '12/10/2023'
   },
   {
     EmployeeID:20,
@@ -2320,6 +2419,7 @@ export const employeesData = [
     ReportsTo: 'Carson',
     EmployeeImage:
     avatar2,
+    UpdatedDate: '12/10/2023'
 
   },
   {
@@ -2331,6 +2431,7 @@ export const employeesData = [
     ReportsTo: 'Carson',
     EmployeeImage:
       avatar3,
+      UpdatedDate: '12/10/2023'
   },
   {
     EmployeeID: 22,
@@ -2351,6 +2452,7 @@ export const employeesData = [
     ReportsTo: 'Carson',
     EmployeeImage:
       avatar2,
+      UpdatedDate: '12/10/2023'
   },
   {
     EmployeeID: 24,
@@ -2361,6 +2463,7 @@ export const employeesData = [
     ReportsTo: 'Carson',
     EmployeeImage:
       avatar,
+      UpdatedDate: '12/10/2023'
   },
   {
     EmployeeID: 25,
@@ -2371,6 +2474,7 @@ export const employeesData = [
     ReportsTo: 'Carson',
     EmployeeImage:
       avatar,
+      UpdatedDate: '12/10/2023'
   },
   {
     EmployeeID: 26,
@@ -2381,6 +2485,7 @@ export const employeesData = [
     ReportsTo: 'Carson',
     EmployeeImage:
       avatar2,
+      UpdatedDate: '12/10/2023'
   },
 ];
 

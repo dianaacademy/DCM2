@@ -7,6 +7,7 @@ import Papa from 'papaparse';
 
 function Leadgenerate() {
   const [activeTab, setActiveTab] = useState('tycon');
+  const [selectedFile, setSelectedFile] = useState(null);
   let gridcomp;
   const toolbar = [
     {
@@ -19,17 +20,20 @@ function Leadgenerate() {
   ];
    //upload excel code start
    const [tableData, setTableData] = useState(employeesData); // if we remove this excel code 1st we need to remove tableData from grid component and place "ordersData"
-   const handleFileUpload = (e) => {
-     const file = e.target.files[0];
-     if (file) {
-       const reader = new FileReader();
-       reader.onload = (event) => {
-         const csvData = event.target.result;
-         parseCSVData(csvData);
-       };
-       reader.readAsText(file);
-     }
-   };
+   const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+  };
+  const handleFileUpload = () => {
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const csvData = event.target.result;
+        parseCSVData(csvData);
+      };
+      reader.readAsText(selectedFile);
+    }
+  };
    const parseCSVData = (csvData) => {
      Papa.parse(csvData, {
        header: true,
@@ -129,12 +133,16 @@ function Leadgenerate() {
             {/* Insert your content for the Tycon tab here */}
             <Header category="Page" title="lead management" />
             {/* Frontend of Upload Data Start */}
-      <div className=" mb-10" >
-        <h1 className="text-xl font-bold mb-3">Add More Data</h1>
-
-      
-      <input type="file" accept=".csv" onChange={handleFileUpload} />
-      </div>
+            <h1 className=" mt-10 text-xl font-bold mb-5">Add More Data</h1>
+        <input className="mb-5" type="file" accept=".csv" onChange={handleFileSelect} />
+        {selectedFile && (
+          <button
+            className="bg-green-500 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150 mb-5"
+            onClick={handleFileUpload}
+          >
+            Upload CSV
+          </button>
+        )}
       {/* Frontend of Upload Data End */}
 
             <GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
@@ -166,12 +174,16 @@ function Leadgenerate() {
             {/* Insert your content for the Tycon tab here */}
             <Header category="Page" title="lead management" />
             {/* Frontend of Upload Data Start */}
-      <div className=" mb-10" >
-        <h1 className="text-xl font-bold mb-3">Add More Data</h1>
-
-      
-      <input type="file" accept=".csv" onChange={handleFileUpload} />
-      </div>
+            <h1 className=" mt-10 text-xl font-bold mb-5">Add More Data</h1>
+        <input className="mb-5" type="file" accept=".csv" onChange={handleFileSelect} />
+        {selectedFile && (
+          <button
+            className="bg-green-500 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150 mb-5"
+            onClick={handleFileUpload}
+          >
+            Upload CSV
+          </button>
+        )}
       {/* Frontend of Upload Data End */}
 
             <GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
@@ -206,12 +218,16 @@ function Leadgenerate() {
             {/* Insert your content for the Tycon tab here */}
             <Header category="Page" title="lead management" />
             {/* Frontend of Upload Data Start */}
-      <div className=" mb-10" >
-        <h1 className="text-xl font-bold mb-3">Add More Data</h1>
-
-      
-      <input type="file" accept=".csv" onChange={handleFileUpload} />
-      </div>
+            <h1 className=" mt-10 text-xl font-bold mb-5">Add More Data</h1>
+        <input className="mb-5" type="file" accept=".csv" onChange={handleFileSelect} />
+        {selectedFile && (
+          <button
+            className="bg-green-500 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150 mb-5"
+            onClick={handleFileUpload}
+          >
+            Upload CSV
+          </button>
+        )}
       {/* Frontend of Upload Data End */}
   
 
@@ -245,12 +261,16 @@ function Leadgenerate() {
           <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
           <Header category= "Page" title="lead management" />
           {/* Frontend of Upload Data Start */}
-      <div className=" mb-10" >
-        <h1 className="text-xl font-bold mb-3">Add More Data</h1>
-
-      
-      <input type="file" accept=".csv" onChange={handleFileUpload} />
-      </div>
+          <h1 className=" mt-10 text-xl font-bold mb-5">Add More Data</h1>
+        <input className="mb-5" type="file" accept=".csv" onChange={handleFileSelect} />
+        {selectedFile && (
+          <button
+            className="bg-green-500 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150 mb-5"
+            onClick={handleFileUpload}
+          >
+            Upload CSV
+          </button>
+        )}
       {/* Frontend of Upload Data End */}
     
           <GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}

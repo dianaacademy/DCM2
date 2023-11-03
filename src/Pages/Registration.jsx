@@ -19,16 +19,20 @@ const Registration = () => {
     'Search', 'Delete'
   ];
    //upload excel code start
-  const [tableData, setTableData] = useState(ordersData); // if we remove this excel code 1st we need to remove tableData from grid component and place "ordersData"
-  const handleFileUpload = (e) => {
+  const [tableData, setTableData] = useState(ordersData); 
+  const [selectedFile, setSelectedFile] = useState(null);// if we remove this excel code 1st we need to remove tableData from grid component and place "ordersData"
+  const handleFileSelect = (e) => {
     const file = e.target.files[0];
-    if (file) {
+    setSelectedFile(file);
+  };
+  const handleFileUpload = () => {
+    if (selectedFile) {
       const reader = new FileReader();
       reader.onload = (event) => {
         const csvData = event.target.result;
         parseCSVData(csvData);
       };
-      reader.readAsText(file);
+      reader.readAsText(selectedFile);
     }
   };
   const parseCSVData = (csvData) => {
@@ -63,12 +67,16 @@ const Registration = () => {
   return (
     <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
       <Header category= "Page" title="RegistraTion" />
-      <div className=" mb-10" >
-        <h1 className="text-xl font-bold mb-3">Add More Data</h1>
-
-      
-      <input type="file" accept=".csv" onChange={handleFileUpload} />
-      </div>
+      <h1 className=" mt-10 text-xl font-bold mb-5">Add More Data</h1>
+        <input className="mb-5" type="file" accept=".csv" onChange={handleFileSelect} />
+        {selectedFile && (
+          <button
+            className="bg-green-500 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150 mb-5"
+            onClick={handleFileUpload}
+          >
+            Upload CSV
+          </button>
+        )}
 
       <GridComponent id='gridcomp' dataSource={tableData}  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
       // dataSource={ordersData}

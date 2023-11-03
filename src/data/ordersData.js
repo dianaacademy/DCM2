@@ -26,6 +26,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   },
   {
     OrderID: 345653,
@@ -44,6 +45,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   },
   {
     OrderID: 390457,
@@ -62,6 +64,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   },
   {
     OrderID: 893486,
@@ -80,6 +83,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   },
   {
     OrderID: 748975,
@@ -98,6 +102,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   },
   {
     OrderID: 94757,
@@ -116,6 +121,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   },
   {
     OrderID: 944895,
@@ -134,6 +140,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   },
   {
     OrderID: 845954,
@@ -152,6 +159,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   
   },
   {
@@ -171,6 +179,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   },
   {
     OrderID: 874534,
@@ -189,6 +198,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   },
   {
     OrderID: 38489,
@@ -207,6 +217,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   },
   {
     OrderID: 24546,
@@ -225,6 +236,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   },
   {
     OrderID: 874534,
@@ -243,6 +255,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   },
   {
     OrderID: 10248,
@@ -260,6 +273,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   },
   {
     OrderID: 345653,
@@ -276,6 +290,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   },
   {
     OrderID: 390457,
@@ -292,6 +307,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   },
   {
     OrderID: 893486,
@@ -308,6 +324,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   },
   {
     OrderID: 748975,
@@ -324,6 +341,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   },
   {
     OrderID: 94757,
@@ -340,6 +358,7 @@ export const ordersData = [
     PassWord : 'Diana@123',
     StatusBro : 'ongoing',
     StatusBgBro: '#8BE78B',
+    UpdatedDate: '12/08/2023',
   },
   {
     OrderID: 944895,

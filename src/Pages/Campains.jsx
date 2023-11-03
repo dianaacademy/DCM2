@@ -55,6 +55,33 @@ export default function Modal() {
   
   return (
     <> 
+    <div className="text-center text-3xl pt-10 pb-10 font-bold">
+        <h1> Campaign insights </h1>
+      </div>
+
+
+      
+
+<GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
+      dataSource={customersData}
+      allowPaging
+      allowSorting
+      pageSettings={pageOptions}
+      allowReordering={true} allowDrop={true}
+      allowResizing
+      editSettings={{allowDeleting:true, allowEditing:true, pageSizes: true}}
+      width="auto"
+      >
+        
+        <ColumnsDirective>
+        {CampainGrid.map((item,index) => (<ColumnDirective key= {index}  {...item}/>
+        ))}
+        </ColumnsDirective>
+        
+        <Inject services = {[ Page, Toolbar,Reorder,Selection,Edit,Sort,Filter , ExcelExport]}/>
+        
+      </GridComponent>
+ 
    <div className="flex flex-wrap justify-center">
   <div className="w-1/3 p-5">
     <div
@@ -70,6 +97,8 @@ export default function Modal() {
       <p className="text-center pt-5  pb-5">New Course Template</p>
     </div>
   </div>
+
+  
 
   <div className="w-1/3 p-5">
     <div
@@ -260,34 +289,6 @@ export default function Modal() {
 
         
       ) : null}
-
-
-      <div className="text-center text-3xl pt-10 pb-10 font-bold">
-        <h1> Campaign insights </h1>
-      </div>
-
-
-      
-
-<GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
-      dataSource={customersData}
-      allowPaging
-      allowSorting
-      pageSettings={pageOptions}
-      allowReordering={true} allowDrop={true}
-      allowResizing
-      editSettings={{allowDeleting:true, allowEditing:true, pageSizes: true}}
-      width="auto"
-      >
-        
-        <ColumnsDirective>
-        {CampainGrid.map((item,index) => (<ColumnDirective key= {index}  {...item}/>
-        ))}
-        </ColumnsDirective>
-        
-        <Inject services = {[ Page, Toolbar,Reorder,Selection,Edit,Sort,Filter , ExcelExport]}/>
-        
-      </GridComponent>
  
     </>
    

@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GridComponent, ColumnsDirective,ColumnDirective, Resize, Sort,Reorder, ContextMenu, Filter, Page, ExcelExport, PdfExport,Edit, Inject } from '@syncfusion/ej2-react-grids';
 import { contextMenuItems, CoursesGrid } from '../data/dummy';
 import { ordersData } from '../data/ordersData';
 import { Header } from '../components';
 import "../components/style.css";
+import Papa from 'papaparse';
 
 
 const CoursesProgrm = () => {
   const [showModal, setShowModal] = React.useState(false);
+  const [tableData, setTableData] = useState(ordersData);
   let gridcomp;
   const toolbar = [
     {
@@ -23,6 +25,29 @@ const CoursesProgrm = () => {
     const formattedDate = now.toISOString().slice(0, 19).replace(/:/g, '-');
     return formattedDate;
   };
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const csvData = event.target.result;
+        parseCSVData(csvData);
+      };
+      reader.readAsText(file);
+    }
+  };
+  const parseCSVData = (csvData) => {
+    Papa.parse(csvData, {
+      header: true,
+      dynamicTyping: true,
+      skipEmptyLines: true,
+      complete: (results) => {
+        // Merge the uploaded data with the existing data
+        setTableData([...tableData, ...results.data]);
+      },
+    });
+  };
+
 
   const toolbarClick = (args) => {
     if (gridcomp && args.item.id === 'gridcomp_excelexport') {
@@ -61,7 +86,6 @@ const CoursesProgrm = () => {
                     onClick={() => setShowModal(false)}
                   >
                     <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      ×
                     </span>
                   </button>
                 </div>
@@ -77,8 +101,8 @@ const CoursesProgrm = () => {
               <div>
                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              <option selected>Completed</option>
-               <option value="US">Pending</option>
+              <option selected>Ongoing</option>
+               <option value="US">Completed</option>
               </select>
                 </div>
               
@@ -109,11 +133,16 @@ const CoursesProgrm = () => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
+      <div className=" mb-10" >
+        <h1 className="text-xl font-bold mb-3">Add More Data</h1>
 
+      
+      <input type="file" accept=".csv" onChange={handleFileUpload} />
+      </div>
       <GridComponent
       
       id ="gridcomp" toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
-      dataSource={ordersData}
+      dataSource={tableData}
       allowPaging
       allowSorting
       allowReordering={true} allowDrop={true}
