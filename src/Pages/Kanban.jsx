@@ -1,29 +1,121 @@
-import React from 'react';
-import { KanbanComponent,ColumnsDirTypecast,ColumnDirective, ColumnsDirective} from '@syncfusion/ej2-react-kanban';
-import { kanbanData,kanbanGrid } from '../data/dummy';
-import { Header } from '../components';
-import "../components/style.css";
+import React, { useState, useEffect } from 'react';
+import '../components/style.css';
+import QR from '../data/qr.png';
+import border from '../data/border.svg';
+import Cert from '../data/cert.png';
+import dianat from '../data/dianat.png';
+import lloyd from '../data/lloyd.png';
+import logojs from '../data/logojs.webp';
+import sign from '../data/sign.png';
+import signceo from '../data/signceo.png';
+import topd from '../data/topd.png';
+import ukas from '../data/ukas.png';
 
+function App() {
+  // State to hold form data
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    recognized: '',
+    date: '',
+    certname: '',
+  });
 
-const Kanban = () => {
+  useEffect(() => {
+    // Get the query parameters from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // Update the formData state with the captured data
+    setFormData({
+      name: urlParams.get('name'),
+      email: urlParams.get('email'),
+      recognized: urlParams.get('recognized'),
+      date: urlParams.get('date'),
+      certname: urlParams.get('certname'),
+    });
+  }, []);
+
   return (
-    <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-      <Header category="App"  title="Document Management"  />
-      <KanbanComponent
-      
-      id = "Kanban"
-      dataSource={kanbanData}
-      cardSettings={{ contentField : 'Summary', headerField: 'id'}}
-      keyField ="Status"
-      >
-        <ColumnsDirective>
+    <div className="Ukasuni">
+      <div className="App">
+        <div className="tophead">
+          <img src={topd} alt="" width="500px" />
+        </div>
 
-      {kanbanGrid.map((item,index) => <ColumnDirective key= {index} {...item} />)}
-        </ColumnsDirective>
-      </KanbanComponent>
+        <div className="certnumber">
+          <h1>
+            CERTIFICATE NO. <span id="certname">{formData.certname}</span>
+          </h1>
+        </div>
 
+        <div className="container">
+          <div className="logo2">
+            <img src={logojs} alt="" width="200px" />
+          </div>
+          <div className="logo5">
+            <img src={lloyd} alt="" width="90px" />
+            <img src={ukas} alt="" width="70px" />
+          </div>
+
+          <div className="marquee">
+            <div className="marquee3">Certificate</div>
+          </div>
+
+          <div className="border">
+            <img src={border} alt="" width="350px" />
+          </div>
+          <div className="border2">
+            <img src={border} alt="" width="350px" />
+          </div>
+
+          <div className="marquee2">of Completion</div>
+
+          <div className="assignment">This certificate is presented to</div>
+          <div className="assignment1">This is to certify that Mr</div>
+
+          <div className="person">
+            <span id="name">{formData.name}</span>
+          </div>
+          <div className="assignment2">
+            successfully completed the <span id="email">{formData.email}</span> and is recognized as{' '}
+            <span id="recognized">{formData.recognized}</span> with Diana Advanced Tech Academy
+          </div>
+          <div className="qrcode">
+            <img src={QR} alt="" width="100px" />
+          </div>
+
+          <div className="certdate">
+            <h1>
+              Date:- <span id="date">{formData.date}</span>
+              <br />
+            </h1>
+          </div>
+
+          <div className="bottom">
+            <div className="director">
+              <div className="direcsign">
+                <img src={sign} alt="" width="200px" />
+              </div>
+              <div className="h1">DIRECTOR</div>
+            </div>
+
+            <div className="logo1">
+              <img src={Cert} alt="" width="200px" />
+            </div>
+
+            <div className="sinature">
+              <div className="ceosign">
+                <img src={signceo} alt="" width="250px" />
+              </div>
+              <div className="h1">CEO</div>
+            </div>
+          </div>
+
+          <div className="section"></div>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Kanban
+export default App;
