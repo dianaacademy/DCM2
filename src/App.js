@@ -79,7 +79,7 @@ return (
                      <Route path= "/Editor" element = {<Editor/>} />
                      <Route path= "/Calendar" element = {<Calendar/>} />
                      <Route path= "/Color picker" element = {<ColorPicker/>} />
-                     <Route path= "/Document_Mangement" element = {<Mangement/>} />
+                     <Route path= "/Document_Management" element = {<Mangement/>} />
                     {/* Charts */}
                     <Route path= "/Line" element = {<Line/>} />
                     <Route path= "/drop" element = {<Editdrop/>} />

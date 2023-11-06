@@ -731,7 +731,7 @@ export const links = [
       {
         name: 'Document Management',
         icon: <BsKanban />,
-        route: 'Document_Mangement',
+        route: 'Document_Management',
       },
       {
         name: 'Support & Ticketing',

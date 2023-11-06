@@ -105,6 +105,12 @@ const Ticketandsupport = () => {
               <option value="CA">Low </option>
               </select>
               </div>
+              <label for="message" class="block  mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Created</label>
+                <div class=" mt-2 relative flex  flex-wrap items-stretch mb-3 w-80">
+                   <input type="Date" placeholder="Date Added" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
+                   <span class="z-10 h-full leading-snug font-normal text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
+                  </span>
+                </div>
               <button
                     className="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 mt-5"
                     type="Submit"
