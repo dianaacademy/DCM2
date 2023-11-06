@@ -620,8 +620,8 @@ export const clientGrid = [
     width: '150',
     template: gridEmployeeProfile,
     textAlign: 'Center' },
-  { field: 'Name',
-    headerText: '',
+  { field: 'ClientsName',
+    headerText: 'CLients Name',
     width: '0',
     textAlign: 'Center',
   },
@@ -629,7 +629,7 @@ export const clientGrid = [
     headerText: 'Designation',
     width: '170',
     textAlign: 'Center',
-      field: 'Title',
+      field: 'Designation',
       textAlign: 'Center',
     
   },
@@ -637,14 +637,17 @@ export const clientGrid = [
     width: '120',
     textAlign: 'Center',
     template: gridEmployeeCountry },
+  {field: 'Country',
+  
+  },
 
-  { field: 'ComName',
+  { field: 'CompanyName',
     headerText: 'Company Name',
     width: '135',
     format: 'yMd',
     textAlign: 'Center' },
 
-  { field: 'EmployeeID',
+  { field: 'ClientsID',
     headerText: 'CLIENT ID',
     width: '125',
     textAlign: 'Center',
@@ -685,17 +688,17 @@ export const links = [
       {
         name: 'Client Profiles',
         icon: <IoMdContacts />,
-        route: 'Clientsprofile',
+        route: 'Clientsprofiles',
       },
       {
         name: 'Enrollment & Registration',
         icon: <FiEdit />,
-        route: 'EnrollandRegistration',
+        route: 'EnrollmentandRegistration',
       },
       {
         name: 'Courses & Program Management',
         icon: <FiShoppingBag />,
-        route: 'CoursesandProgrm',
+        route: 'CoursesandProgrammanagement',
         
       },
       
@@ -744,6 +747,11 @@ export const links = [
         name: 'Campaign',
         icon: <AiOutlineBarChart />,
         route: 'campaign',
+      },
+      {
+        name: 'Generate Certificate',
+        icon: <AiOutlineBarChart />,
+        route: 'Generate-Certificate',
       },
       // {
       //   name: 'Email Editor',
@@ -1170,7 +1178,7 @@ export const regGrid = [
     width: '120',
   },
   {
-    field: 'OrderItems',
+    field: 'CourseName',
     headerText: 'Course Name',
     width: '130',
     editType: 'dropdownedit',
@@ -1207,7 +1215,7 @@ export const regGrid = [
     width: '100',
   },
   {
-    field: 'OrderID',
+    field: 'CourseID',
     headerText: 'Order ID',
     width: '120',
     textAlign: 'Center',
@@ -1246,13 +1254,15 @@ export const regGrid2 = [
     template: gridOrderImage,
     textAlign: 'Center',
     width: '120',
+    isPrimaryKey : true,
   },
   {
-    field: 'OrderItems',
+    field: 'CourseName',
     headerText: 'Course Name',
     width: '130',
     editType: 'dropdownedit',
     textAlign: 'Center',
+    isPrimaryKey:true,
   },
 
   {
@@ -1261,6 +1271,7 @@ export const regGrid2 = [
     width: '130',
     editType: 'dropdownedit',
     textAlign: 'Center',
+    isPrimaryKey:true,
   },
 
 
@@ -1268,6 +1279,7 @@ export const regGrid2 = [
     headerText: 'Customer Name',
     width: '130',
     textAlign: 'Center',
+    isPrimaryKey:true,
   },
   {
     field: 'TotalAmount',
@@ -1276,6 +1288,7 @@ export const regGrid2 = [
     textAlign: 'Center',
     editType: 'numericedit',
     width: '130',
+    isPrimaryKey:true,
   },
   {
     headerText: 'Status',
@@ -1285,10 +1298,11 @@ export const regGrid2 = [
     width: '100',
   },
   {
-    field: 'OrderID',
+    field: 'CourseID',
     headerText: 'Order ID',
     width: '120',
     textAlign: 'Center',
+    isPrimaryKey:true,
   },
 
   {
@@ -1301,6 +1315,7 @@ export const regGrid2 = [
     headerText: 'Date Added',
     width: '125',
     textAlign: 'Center',
+    isPrimaryKey:true,
   },
   
   {
@@ -1325,7 +1340,7 @@ export const manageGrid = [
     width: '120',
   },
   {
-    field: 'OrderItems',
+    field: 'CourseName',
     headerText: 'Course name',
     width: '150',
     editType: 'dropdownedit',
@@ -1344,7 +1359,7 @@ export const manageGrid = [
     width: '120',
   },
   {
-    field: 'OrderID',
+    field: 'CourseID',
     headerText: 'Course ID',
     width: '120',
     textAlign: 'Center',
@@ -1377,20 +1392,20 @@ export const CoursesGrid = [
     width: '120',
   },
   {
-    field: 'OrderItems',
+    field: 'CourseName',
     headerText: 'Courses',
     width: '150',
     editType: 'dropdownedit',
     textAlign: 'Center',
   },
   {
-    field: 'OrderID',
+    field: 'CourseID',
     headerText: 'Course ID',
     width: '80',
     editType: 'dropdownedit',
     textAlign: 'Center',
   },
-  { field: 'CustomerName',
+  { field: 'InstructorName',
     headerText: 'Instructor',
     width: '150',
     textAlign: 'Center',
@@ -2149,12 +2164,13 @@ export const customersData = [
 export const employeesData = [
   {
     EmployeeID: 1,
+    ClientsID: 1,
     Name: 'Nancy Davolio',
-    Title: 'Sales Representative',
+    Designation: 'Sales Representative',
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    ComName: 'NewAge',
+    CompanyName: 'NewAge',
     Status: 'Company',
     EmployeeImage:
     avatar3,
@@ -2162,12 +2178,13 @@ export const employeesData = [
   },
   {
     EmployeeID: 2,
+    ClientsID: 2,
     Name: 'Nasimiyu Danai',
-    Title: 'Marketing Head',
+    Designation: 'Marketing Head',
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    ComName: 'Zenex',
+    CompanyName: 'Zenex',
     TOD: 'Students',
     EmployeeImage:
       avatar3,
@@ -2175,12 +2192,13 @@ export const employeesData = [
   },
   {
     EmployeeID: 3,
+    ClientsID: 3,
     Name: 'Iulia Albu',
-    Title: 'HR',
+    Designation: 'HR',
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    ComName: 'NewAge',
+    CompanyName: 'NewAge',
     TOD: 'Company',
     EmployeeImage:
       avatar4,
@@ -2188,12 +2206,13 @@ export const employeesData = [
   },
   {
     EmployeeID: 4,
+    ClientsID: 4,
     Name: 'Siegbert Gottfried',
-    Title: 'Marketing Head',
+    Designation: 'Marketing Head',
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    ComName: 'Zenex',
+    CompanyName: 'Zenex',
     TOD: 'Students',
     EmployeeImage:
       avatar2,
@@ -2201,12 +2220,13 @@ export const employeesData = [
   },
   {
     EmployeeID: 5,
+    ClientsID: 5,
     Name: 'Omar Darobe',
-    Title: 'HR',
+    Designation: 'HR',
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    ComName: 'Zenex',
+    CompanyName: 'Zenex',
     TOD: 'Students',
     EmployeeImage:
       avatar,
@@ -2214,12 +2234,13 @@ export const employeesData = [
   },
   {
     EmployeeID: 6,
+    ClientsID: 6,
     Name: 'Penjani Inyene',
-    Title: 'Marketing Head',
+    Designation: 'Marketing Head',
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    ComName: 'NewAge',
+    CompanyName: 'NewAge',
     TOD: 'Company',
     EmployeeImage:
       avatar,
@@ -2227,12 +2248,13 @@ export const employeesData = [
   },
   {
     EmployeeID: 7,
+    ClientsID: 7,
     Name: 'Miron Vitold',
-    Title: 'HR',
+    Designation: 'HR',
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    ComName: 'Zenex',
+    CompanyName: 'Zenex',
     TOD: 'Students',
     EmployeeImage:
       avatar2,
@@ -2240,12 +2262,13 @@ export const employeesData = [
   },
   {
     EmployeeID: 8,
+    ClientsID: 8,
     Name: 'Nancy Davolio',
-    Title: 'Sales Representative',
+    Designation: 'Sales Representative',
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    ComName: 'Zenex',
+    CompanyName: 'Zenex',
     TOD: 'Students',
     EmployeeImage:
     avatar2,
@@ -2254,12 +2277,13 @@ export const employeesData = [
   },
   {
     EmployeeID: 9,
+    ClientsID: 9,
     Name: 'Nasimiyu Danai',
-    Title: 'Marketing Head',
+    Designation: 'Marketing Head',
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    ComName: 'NewAge',
+    CompanyName: 'NewAge',
     TOD: 'Company',
     EmployeeImage:
       avatar3,
@@ -2267,12 +2291,13 @@ export const employeesData = [
   },
   {
     EmployeeID: 10,
+    ClientsID: 10,
     Name: 'Iulia Albu',
-    Title: 'HR',
+    Designation: 'HR',
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    ComName: 'NewAge',
+    CompanyName: 'NewAge',
     TOD: 'Company',
     EmployeeImage:
       avatar4,
@@ -2280,12 +2305,13 @@ export const employeesData = [
   },
   {
     EmployeeID: 11,
+    ClientsID: 11,
     Name: 'Siegbert Gottfried',
-    Title: 'Marketing Head',
+    Designation: 'Marketing Head',
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    ComName: 'NewAge',
+    CompanyName: 'NewAge',
     TOD: 'Company',
     EmployeeImage:
       avatar2,
@@ -2293,12 +2319,13 @@ export const employeesData = [
   },
   {
     EmployeeID: 12,
+    ClientsID: 12,
     Name: 'Omar Darobe',
-    Title: 'HR',
+    Designation: 'HR',
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    ComName: 'Zenex',
+    CompanyName: 'Zenex',
     TOD: 'Students',
     EmployeeImage:
       avatar,
@@ -2306,12 +2333,13 @@ export const employeesData = [
   },
   {
     EmployeeID: 13,
+    ClientsID: 13,
     Name: 'Penjani Inyene',
-    Title: 'Marketing Head',
+    Designation: 'Marketing Head',
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    ComName: 'Zenex',
+    CompanyName: 'Zenex',
     TOD: 'Students',
     EmployeeImage:
       avatar,
@@ -2319,12 +2347,13 @@ export const employeesData = [
   },
   {
     EmployeeID: 14,
+    ClientsID: 14,
     Name: 'Miron Vitold',
-    Title: 'HR',
+    Designation: 'HR',
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    ComName: 'NewAge',
+    CompanyName: 'NewAge',
     TOD: 'Company',
     EmployeeImage:
       avatar2,
@@ -2332,12 +2361,13 @@ export const employeesData = [
   },
   {
     EmployeeID: 15,
+    ClientsID: 15,
     Name: 'Nancy Davolio',
-    Title: 'Sales Representative',
+    Designation: 'Sales Representative',
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    ComName: 'Zenex',
+    CompanyName: 'Zenex',
     TOD: 'Students',
     EmployeeImage:
     avatar,
@@ -2345,146 +2375,16 @@ export const employeesData = [
   },
   {
     EmployeeID: 16,
+    ClientsID: 16,
     Name: 'Nasimiyu Danai',
-    Title: 'Marketing Head',
+    Designation: 'Marketing Head',
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    ComName: 'NewAge',
+    CompanyName: 'NewAge',
     TOD: 'Company',
     EmployeeImage:
       avatar3,
-      UpdatedDate: '12/10/2023'
-  },
-  {
-    EmployeeID: 17,
-    Name: 'Iulia Albu',
-    Title: 'HR',
-    HireDate: '01/02/2021',
-    Country: 'USA',
-    ReportsTo: 'Carson',
-    EmployeeImage:
-      avatar4,
-      UpdatedDate: '12/10/2023'
-  },
-  {
-    EmployeeID: 18,
-    Name: 'Siegbert Gottfried',
-    Title: 'Marketing Head',
-    HireDate: '01/02/2021',
-    Country: 'USA',
-    ReportsTo: 'Carson',
-    EmployeeImage:
-      avatar2,
-      UpdatedDate: '12/10/2023'
-  },
-  {
-    EmployeeID: 18,
-    Name: 'Omar Darobe',
-    Title: 'HR',
-    HireDate: '01/02/2021',
-    Country: 'USA',
-    ReportsTo: 'Carson',
-    EmployeeImage:
-      avatar,
-      UpdatedDate: '12/10/2023'
-  },
-  {
-    EmployeeID: 19,
-    Name: 'Penjani Inyene',
-    Title: 'Marketing Head',
-    HireDate: '01/02/2021',
-    Country: 'USA',
-    ReportsTo: 'Carson',
-    EmployeeImage:
-      avatar,
-      UpdatedDate: '12/10/2023'
-  },
-  {
-    EmployeeID:20,
-    Name: 'Miron Vitold',
-    Title: 'HR',
-    HireDate: '01/02/2021',
-    Country: 'USA',
-    ReportsTo: 'Carson',
-    EmployeeImage:
-      avatar2,
-  },
-  {
-    EmployeeID: 21,
-    Name: 'Nancy Davolio',
-    Title: 'Sales Representative',
-    HireDate: '01/02/2021',
-    Country: 'USA',
-    ReportsTo: 'Carson',
-    EmployeeImage:
-    avatar2,
-    UpdatedDate: '12/10/2023'
-
-  },
-  {
-    EmployeeID: 21,
-    Name: 'Nasimiyu Danai',
-    Title: 'Marketing Head',
-    HireDate: '01/02/2021',
-    Country: 'USA',
-    ReportsTo: 'Carson',
-    EmployeeImage:
-      avatar3,
-      UpdatedDate: '12/10/2023'
-  },
-  {
-    EmployeeID: 22,
-    Name: 'Iulia Albu',
-    Title: 'HR',
-    HireDate: '01/02/2021',
-    Country: 'USA',
-    ReportsTo: 'Carson',
-    EmployeeImage:
-      avatar4,
-  },
-  {
-    EmployeeID: 23,
-    Name: 'Siegbert Gottfried',
-    Title: 'Marketing Head',
-    HireDate: '01/02/2021',
-    Country: 'USA',
-    ReportsTo: 'Carson',
-    EmployeeImage:
-      avatar2,
-      UpdatedDate: '12/10/2023'
-  },
-  {
-    EmployeeID: 24,
-    Name: 'Omar Darobe',
-    Title: 'HR',
-    HireDate: '01/02/2021',
-    Country: 'USA',
-    ReportsTo: 'Carson',
-    EmployeeImage:
-      avatar,
-      UpdatedDate: '12/10/2023'
-  },
-  {
-    EmployeeID: 25,
-    Name: 'Penjani Inyene',
-    Title: 'Marketing Head',
-    HireDate: '01/02/2021',
-    Country: 'USA',
-    ReportsTo: 'Carson',
-    EmployeeImage:
-      avatar,
-      UpdatedDate: '12/10/2023'
-  },
-  {
-    EmployeeID: 26,
-    Name: 'Miron Vitold',
-    Title: 'HR',
-    HireDate: '01/02/2021',
-    Country: 'USA',
-    ReportsTo: 'Carson',
-    EmployeeImage:
-      avatar2,
       UpdatedDate: '12/10/2023'
   },
 ];

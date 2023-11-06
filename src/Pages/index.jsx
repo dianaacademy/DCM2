@@ -13,6 +13,7 @@ export { default as CoursesProgrm } from './CoursesProgrm';
 export { default as Ecommerce } from './Ecommerce';
 export { default as Kanban } from './Kanban';
 export { default as Orders } from './Orders';
+export { default as Editdrop } from './Editdrop';
 export { default as Employees } from './Employees';
 export { default as Editor } from './Editor';
 export { default as Customers } from './Customers';

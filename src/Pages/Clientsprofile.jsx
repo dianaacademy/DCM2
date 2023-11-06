@@ -2,7 +2,7 @@ import React from 'react';
 import { GridComponent, ColumnsDirective,ColumnDirective,Search , Reorder,Resize,Page,Sort,Filter,ContextMenu, ExcelExport, PdfExport,Edit, Inject,Toolbar } from '@syncfusion/ej2-react-grids';
 import { employeesData,contextMenuItems, clientGrid } from '../data/dummy';
 import { Header } from '../components';
-import "../components/style.css";
+
 
 
 const Clientsprofile = () => {
@@ -30,7 +30,6 @@ const Clientsprofile = () => {
       const excelExportProperties = {
         fileName: fileName,
       };
-
       gridcomp.excelExport(excelExportProperties);
     }
   };
@@ -60,7 +59,6 @@ const Clientsprofile = () => {
                     onClick={() => setShowModal(false)}
                   >
                     <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      ×
                     </span>
                   </button>
                 </div>
@@ -87,11 +85,17 @@ const Clientsprofile = () => {
                   </span>
                 </div>     
               <div>
-                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type of Delegate</label>
+              <label for="countriess" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type of Delegate</label>
                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               <option selected>Company</option>
                <option value="US">Students</option>
               </select>
+                </div>
+                <label for="message" class="block  mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Added</label>
+                <div class=" mt-2 relative flex  flex-wrap items-stretch mb-3 w-80">
+                   <input type="Date" placeholder="Date Added" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
+                   <span class="z-10 h-full leading-snug font-normal text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
+                  </span>
                 </div>
               
               <button

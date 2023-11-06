@@ -61,7 +61,7 @@ function App() {
             <div className="marquee3">Certificate</div>
           </div>
 
-          <div className="border">
+          <div className="border5">
             <img src={border} alt="" width="350px" />
           </div>
           <div className="border2">

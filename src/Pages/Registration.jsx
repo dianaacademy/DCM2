@@ -1,10 +1,13 @@
 import React, { useState }  from 'react';
-import { GridComponent, ColumnsDirective,ColumnDirective, Search,Resize,Reorder, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport,Edit, Inject,Toolbar  } from '@syncfusion/ej2-react-grids';
+import { GridComponent, ColumnsDirective,ColumnDirective, Search,Resize,Reorder, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport,Edit, Inject,Toolbar,} from '@syncfusion/ej2-react-grids';
+import { DataManager, Query } from '@syncfusion/ej2-data';
+import { DropDownList } from '@syncfusion/ej2-dropdowns';
 import { contextMenuItems, regGrid2 } from '../data/dummy';
 import { ordersData } from '../data/ordersData';
 import { Header } from '../components';
 import "../components/style.css";
 import Papa from 'papaparse';
+import { cascadeData } from '../data/ordersData';
 
 
 const Registration = () => {
@@ -16,12 +19,46 @@ const Registration = () => {
       prefixIcon: 'e-btn-icon e-excelexport e-icons e-icon-left',
       id: 'gridcomp_excelexport',
     },
-    'Search', 'Delete'
+    'Search', 'Add', 'Edit', 'Delete', 'Update', 'Cancel'
   ];
    //upload excel code start
   const [tableData, setTableData] = useState(ordersData); 
   const [selectedFile, setSelectedFile] = useState(null);// if we remove this excel code 1st we need to remove tableData from grid component and place "ordersData"
-  const handleFileSelect = (e) => {
+
+  //dropdown edit start
+let countryElem;
+let countryObj;
+const countryParams = {
+      create: () => {
+          countryElem = document.createElement('input');
+          return countryElem;
+      },
+      destroy: () => {
+          countryObj.destroy();
+      },
+      read: () => {
+          return countryObj.text;
+      },
+      write: () => {
+          countryObj = new DropDownList({
+              change: () => {
+                 const tempQuery = new Query().where('countryId', 'equal', countryObj.value); },
+              dataSource: new DataManager(country),
+              fields: { value: 'countryId', text: 'countryName' },
+              floatLabelType: 'Never',
+              placeholder: 'Select a country'
+          });
+          countryObj.appendTo(countryElem);
+      }
+  };
+
+  const country = [
+    { countryName: 'United States', countryId: '1' },
+    { countryName: 'Australia', countryId: '2' }
+];
+
+ //dropdown edit End
+const handleFileSelect = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
   };
@@ -83,15 +120,17 @@ const Registration = () => {
       allowPaging
       allowSorting
       allowReordering={true} allowDrop={true}
+      editSettings={{allowDeleting:true, allowEditing:true}}
       allowResizing
       // allowExcelExport={true}
       // toolbar={['ExcelExport']}
       >
-        <ColumnsDirective>
+        <ColumnsDirective >
         {regGrid2.map((item,index) => (<ColumnDirective key= {index}  {...item}/>
         ))}
+        <ColumnDirective  field='Status' headerText='Status' width='150' editType='dropdownedit' edit={countryParams} textAlign="Center"/>
         </ColumnsDirective>
-        <Inject services = {[Reorder,Resize,Sort,ContextMenu, Filter,Page, ExcelExport, Edit,PdfExport,Search,Toolbar  ]}/>
+        <Inject services = {[Reorder,Resize,Sort,ContextMenu, Filter,Page, ExcelExport, Edit,PdfExport,Search,Toolbar]}/>
       </GridComponent>
     </div>
   )
