@@ -616,13 +616,13 @@ export const employeesGrid = [
 
 
 export const clientGrid = [
-  { headerText: 'Clients',
-    width: '150',
-    template: gridEmployeeProfile,
-    textAlign: 'Center' },
-  { field: 'ClientsName',
-    headerText: 'CLients Name',
-    width: '0',
+  // { headerText: 'Clients',
+  //   width: '150',
+  //   template: gridEmployeeProfile,
+  //   textAlign: 'Center' },
+  { field: 'Name',
+    headerText: 'Clients Name',
+    width: '120',
     textAlign: 'Center',
   },
   { 
@@ -633,13 +633,11 @@ export const clientGrid = [
       textAlign: 'Center',
     
   },
-  { headerText: 'Country',
+  { field: 'Country',
+    headerText: 'Country',
     width: '120',
-    textAlign: 'Center',
-    template: gridEmployeeCountry },
-  {field: 'Country',
-  
-  },
+    textAlign: 'Center',},
+    // template: gridEmployeeCountry },
 
   { field: 'CompanyName',
     headerText: 'Company Name',
@@ -660,8 +658,8 @@ export const clientGrid = [
   },
     {
       headerText: 'Type of Delegate',
-      template: gridOrderStatus3,
-      field: 'Status',
+      // template: gridOrderStatus3,
+      field: 'TypeofDelegate',
       textAlign: 'Center',
       width: '150',
   },
@@ -1433,7 +1431,7 @@ export const CoursesGrid = [
   {
     headerText: 'Status',
     template: gridOrderStatusBro,
-    field: 'OrderItems',
+    field: 'StatusBro',
     textAlign: 'Center',
     width: '120',
   },
@@ -2175,6 +2173,7 @@ export const employeesData = [
     EmployeeImage:
     avatar3,
     UpdatedDate: '12/10/2023',
+    TypeofDelegate: 'Delegate',
   },
   {
     EmployeeID: 2,
@@ -2189,6 +2188,7 @@ export const employeesData = [
     EmployeeImage:
       avatar3,
     UpdatedDate: '12/10/2023',
+    TypeofDelegate: 'Delegate',
   },
   {
     EmployeeID: 3,
@@ -2203,6 +2203,7 @@ export const employeesData = [
     EmployeeImage:
       avatar4,
       UpdatedDate: '12/10/2023',
+      TypeofDelegate: 'Delegate',
   },
   {
     EmployeeID: 4,
@@ -2217,6 +2218,7 @@ export const employeesData = [
     EmployeeImage:
       avatar2,
       UpdatedDate: '12/10/2023',
+      TypeofDelegate: 'Delegate',
   },
   {
     EmployeeID: 5,
@@ -2231,6 +2233,7 @@ export const employeesData = [
     EmployeeImage:
       avatar,
     UpdatedDate: '12/10/2023',
+    TypeofDelegate: 'Delegate',
   },
   {
     EmployeeID: 6,
@@ -2245,6 +2248,7 @@ export const employeesData = [
     EmployeeImage:
       avatar,
       UpdatedDate: '12/10/2023',
+      TypeofDelegate: 'Delegate',
   },
   {
     EmployeeID: 7,
@@ -2258,7 +2262,8 @@ export const employeesData = [
     TOD: 'Students',
     EmployeeImage:
       avatar2,
-      UpdatedDate: '12/10/2023'
+      UpdatedDate: '12/10/2023',
+      TypeofDelegate: 'Delegate',
   },
   {
     EmployeeID: 8,
@@ -2272,7 +2277,8 @@ export const employeesData = [
     TOD: 'Students',
     EmployeeImage:
     avatar2,
-    UpdatedDate: '12/10/2023'
+    UpdatedDate: '12/10/2023',
+    TypeofDelegate: 'Delegate',
 
   },
   {
@@ -2287,7 +2293,8 @@ export const employeesData = [
     TOD: 'Company',
     EmployeeImage:
       avatar3,
-      UpdatedDate: '12/10/2023'
+      UpdatedDate: '12/10/2023',
+      TypeofDelegate: 'Delegate',
   },
   {
     EmployeeID: 10,
@@ -2301,7 +2308,8 @@ export const employeesData = [
     TOD: 'Company',
     EmployeeImage:
       avatar4,
-      UpdatedDate: '12/10/2023'
+      UpdatedDate: '12/10/2023',
+      TypeofDelegate: 'Delegate',
   },
   {
     EmployeeID: 11,
@@ -2315,7 +2323,8 @@ export const employeesData = [
     TOD: 'Company',
     EmployeeImage:
       avatar2,
-      UpdatedDate: '12/10/2023'
+      UpdatedDate: '12/10/2023',
+      TypeofDelegate: 'Delegate',
   },
   {
     EmployeeID: 12,
@@ -2329,7 +2338,8 @@ export const employeesData = [
     TOD: 'Students',
     EmployeeImage:
       avatar,
-      UpdatedDate: '12/10/2023'
+      UpdatedDate: '12/10/2023',
+      TypeofDelegate: 'Delegate',
   },
   {
     EmployeeID: 13,
@@ -2343,7 +2353,8 @@ export const employeesData = [
     TOD: 'Students',
     EmployeeImage:
       avatar,
-      UpdatedDate: '12/10/2023'
+      UpdatedDate: '12/10/2023',
+      TypeofDelegate: 'Delegate',
   },
   {
     EmployeeID: 14,
@@ -2357,7 +2368,8 @@ export const employeesData = [
     TOD: 'Company',
     EmployeeImage:
       avatar2,
-      UpdatedDate: '12/10/2023'
+      UpdatedDate: '12/10/2023',
+      TypeofDelegate: 'Delegate',
   },
   {
     EmployeeID: 15,
@@ -2371,7 +2383,8 @@ export const employeesData = [
     TOD: 'Students',
     EmployeeImage:
     avatar,
-    UpdatedDate: '12/10/2023'
+    UpdatedDate: '12/10/2023',
+    TypeofDelegate: 'Delegate',
   },
   {
     EmployeeID: 16,
@@ -2385,7 +2398,8 @@ export const employeesData = [
     TOD: 'Company',
     EmployeeImage:
       avatar3,
-      UpdatedDate: '12/10/2023'
+      UpdatedDate: '12/10/2023',
+      TypeofDelegate: 'Delegate',
   },
 ];
 
