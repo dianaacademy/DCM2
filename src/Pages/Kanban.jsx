@@ -19,6 +19,8 @@ function App() {
     recognized: '',
     date: '',
     certname: '',
+    title: '',
+    name2: '',
   });
 
   useEffect(() => {
@@ -32,6 +34,8 @@ function App() {
       recognized: urlParams.get('recognized'),
       date: urlParams.get('date'),
       certname: urlParams.get('certname'),
+      title: urlParams.get('title'),
+      name2:urlParams.get('name2'),
     });
   }, []);
 
@@ -64,20 +68,24 @@ function App() {
           <div className="border5">
             <img src={border} alt="" width="350px" />
           </div>
-          <div className="border2">
+          {/* <div className="border2">
             <img src={border} alt="" width="350px" />
-          </div>
+          </div> */}
 
           <div className="marquee2">of Completion</div>
 
-          <div className="assignment">This certificate is presented to</div>
-          <div className="assignment1">This is to certify that Mr</div>
+          <div className="assignment">This certificate is presented to </div>
+          <div className="assignment1">This is to certify that <span id="title">{ formData.title }</span> </div>
+            
 
           <div className="person">
             <span id="name">{formData.name}</span>
+            <span id="name2">&nbsp;{formData.name2}</span>
+            
           </div>
           <div className="assignment2">
-            successfully completed the <span id="email">{formData.email}</span> and is recognized as{' '}
+          
+            has successfully completed the <span id="email">{formData.email}</span> and is recognized as{' '}
             <span id="recognized">{formData.recognized}</span> with Diana Advanced Tech Academy
           </div>
           <div className="qrcode">
@@ -97,6 +105,9 @@ function App() {
                 <img src={sign} alt="" width="200px" />
               </div>
               <div className="h1">DIRECTOR</div>
+              <div className="border2">
+            <img src={border} alt="" width="350px" />
+          </div>
             </div>
 
             <div className="logo1">

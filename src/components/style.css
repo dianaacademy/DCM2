@@ -8,6 +8,9 @@
     font-size: 700;
  }
         .Ukasuni {
+        margin-left:70px;
+        margin-bottom:50px;
+        margin-top:20px;
             color: black;
             display: table;
             font-family: Georgia, serif;
@@ -171,8 +174,10 @@
             border-bottom: 2px solid black;
             font-size: 32px;
             font-style: italic;
-            margin: 20px auto;
-
+            padding-left:15px;
+            padding-right:15px;
+            margin-left:10px;
+            margin-right:10px;
             display: inline-block;
         }
 
@@ -226,8 +231,8 @@
             margin-top: -280px;
         }
         .border2{
-            margin-top: 295px;
-            margin-left: 70px;
+            margin-top: -310px;
+            margin-left: -45px;
             position: absolute;
             transform: rotate(180deg)
         }
