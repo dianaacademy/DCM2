@@ -1,4 +1,4 @@
-import React ,{ useState }from "react";
+import React, { useState, useEffect } from 'react';
 import { GridComponent, ColumnsDirective,ColumnDirective,Search , Page, ExcelExport,Selection,Sort,Filter, PdfExport,Edit, Inject,Toolbar,Reorder,showGrandTotals } from '@syncfusion/ej2-react-grids';
 import { employeesData,contextMenuItems, clientGrid,customersData,supportGrid, CampainGrid } from '../data/dummy';
 import { Header } from '../components';
@@ -6,8 +6,20 @@ import Backup2x from './Backup2x.jsx';
 import { Html } from '../components';
 import "../components/style.css";
 import { GrapesMain } from "../components";
+import axios from 'axios';
 
 export default function Modal() {
+  const [gridData, setGridData] = useState([]);
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/campaigns')
+      .then((result) => {
+        setGridData(result.data);
+        console.log(result.data); // Add this line to log the fetched data
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
     const pageOptions = {
         pageSize: 8,
     };
@@ -63,7 +75,7 @@ export default function Modal() {
       
 
 <GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
-      dataSource={customersData}
+      dataSource={gridData}
       allowPaging
       allowSorting
       pageSettings={pageOptions}

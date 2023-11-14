@@ -24,7 +24,7 @@ export const gridOrderImage = (props) => (
   <div>
     <img
       className="rounded-xl h-20 md:ml-3"
-      src={props.ProductImage}
+      src={props.IconURL}
       alt="order-item"
     />
   </div>
@@ -1184,7 +1184,7 @@ export const regGrid = [
   },
 
   {
-    field: 'DOR',
+    field: 'RegisterDate',
     headerText: 'Date of Registration',
     width: '130',
     editType: 'dropdownedit',
@@ -1192,7 +1192,7 @@ export const regGrid = [
   },
 
 
-  { field: 'CustomerName',
+  { field: 'StudentName',
     headerText: 'Customer Name',
     width: '130',
     textAlign: 'Center',
@@ -1213,7 +1213,7 @@ export const regGrid = [
     width: '100',
   },
   {
-    field: 'CourseID',
+    field: 'OrderID',
     headerText: 'Order ID',
     width: '120',
     textAlign: 'Center',
@@ -1225,20 +1225,14 @@ export const regGrid = [
     width: '120',
     textAlign: 'Center',
   },
-  { field: 'UpdatedDate',
+  { field: 'DateAdded',
     headerText: 'Date Added',
     width: '125',
     textAlign: 'Center',
   },
   {
-    field: 'TrainingID',
+    field: 'EnrollmentID',
     headerText: 'Enrollment ID',
-    width: '120',
-    textAlign: 'Center',
-  },
-  {
-    field: 'PassWord',
-    headerText: 'Password',
     width: '120',
     textAlign: 'Center',
   },

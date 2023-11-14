@@ -26,6 +26,7 @@ const Clientsprofile = () => {
   const [TypeofDelegate, setTypeofDelegate] = useState('');
   const [UpdatedDate, setUpdatedDate] = useState('');
   const [gridData, setGridData] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
   const editOptions = { allowEditing: true, allowAdding: true, allowDeleting: true };
   const toolbar = ['Search', 'Delete'];
   const [lastClientId, setLastClientId] = useState(100);
@@ -33,8 +34,10 @@ const Clientsprofile = () => {
   useEffect(() => {
     axios
       .get('http://localhost:3001/clients')
-      .then((result) => setGridData(result.data))
-      
+      .then((result) => {
+        setGridData(result.data);
+        console.log(result.data); // Add this line to log the fetched data
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -114,6 +117,40 @@ const Clientsprofile = () => {
   function rowNumberTemplate(props) {
     return props.index + 1;
   }
+
+  //upload excel code start
+
+
+  const [tableData, setTableData] = useState(gridData); // if we remove this excel code 1st we need to remove tableData from grid component and place "ordersData"
+  const handleFileSelect = (e) => {
+  const file = e.target.files[0];
+  setSelectedFile(file);
+  };
+
+ //Excel Upload 
+ 
+  const handleFileUpload = () => {
+   if (selectedFile) {
+     const formData = new FormData();
+     formData.append('file', selectedFile);
+     
+
+     axios.post('http://localhost:3001/clients/upload', formData)
+       .then((result) => {
+        console.log(result);
+        // Reload the grid data after adding a new record
+        axios.get('http://localhost:3001/clients').then((result) => setGridData(result.data));
+        setShowModal(false);
+      })
+       .catch((error) => {
+         console.error('Error uploading CSV file:', error);
+         // Handle error, if needed
+       });
+   }
+   
+ };
+
+// Excel Upload End
   
 
   return (
@@ -217,6 +254,20 @@ const Clientsprofile = () => {
         <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
       </>
       )}
+
+       {/* Upload file Frontend */}
+
+<h1 className=" mt-10 text-xl font-bold mb-5">Add More Data</h1>
+        <input className="mb-5" type="file" accept=".csv" onChange={handleFileSelect} />
+        {selectedFile && (
+          <button
+            className="bg-green-500 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150 mb-5 ml-5"
+            onClick={handleFileUpload}
+          >
+            Upload CSV
+          </button>
+        )}
+
       <GridComponent
         dataSource={gridData}
         allowPaging

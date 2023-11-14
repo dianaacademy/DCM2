@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { GridComponent, Search, ColumnsDirective,ColumnDirective, Resize,Reorder, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport,Edit, Inject } from '@syncfusion/ej2-react-grids';
 import { contextMenuItems, manageGrid } from '../data/dummy';
 import { ordersData } from '../data/ordersData';
 import { Header } from '../components';
 import { refreshCell } from '@syncfusion/ej2/spreadsheet';
 import "../components/style.css";
+import axios from 'axios';
 
 
 const Mangement = () => {
+  const [gridData, setGridData] = useState([]);
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/documents')
+      .then((result) => {
+        setGridData(result.data);
+        console.log(result.data); // Add this line to log the fetched data
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+
+
   let gridcomp;
   
 
@@ -53,7 +67,7 @@ const Mangement = () => {
       <Header category="Page" title="Document Management" />
       <GridComponent
         id="gridcomp"
-        dataSource={ordersData}
+        dataSource={gridData}
         toolbar={toolbar}
         allowExcelExport={true}
         toolbarClick={toolbarClick}

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {GridComponent, ColumnsDirective,ColumnDirective, Search,Resize,Reorder, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport,Edit, Inject,Toolbar} from '@syncfusion/ej2-react-grids';
 import {customersData, customersGrid , } from '../data/dummy';
 import { Header } from '../components';
@@ -8,6 +9,20 @@ import "../components/style.css";
 
 const Tutor = () => {
   const [showModal, setShowModal] = React.useState(false);
+  const [InstructorName, setInstructorName] = useState('');
+  const [InstructorEmail, setInstructorEmail] = useState('');
+  const [InstructorPhone, setInstructorPhone] = useState('');
+  const [Specialisations, setSpecialisations] = useState('');
+  const [ProjectName, setProjectName] = useState('');
+  const [Status, setStatus] = useState('');
+  const [Weeks, setWeeks] = useState('');
+  const [ShiftTimings, setShiftTimings] = useState('');
+  const [Location, setLocation] = useState('');
+  const [DateAdded, setDateAdded] = useState('');
+  const [InstructorID, seInstructorID] = useState('');
+  const [gridData, setGridData] = useState([]);
+  const [StatusBg, setStatusBg] = useState('');
+  const [InstructorImage, setInstructorImage] = useState('');
   let gridcomp;
   const toolbar = [
     {
@@ -35,6 +50,95 @@ const Tutor = () => {
       gridcomp.excelExport(excelExportProperties);
     }
   };
+
+//Server Code 
+
+useEffect(() => {
+  axios
+    .get('http://localhost:3001/instructor')
+    .then((result) => {
+      setGridData(result.data);
+    })
+    .catch((err) => console.log(err));
+}, []);
+
+  const Submit = (e) => {
+    e.preventDefault();
+
+    // Validate input fields
+    if (InstructorName.trim() === '' || InstructorID.trim() === '') {
+      // Display an error message or handle the validation as needed
+      console.log('Please fill in all fields.');
+      return;
+    }
+  axios
+    .post('http://localhost:3001/instructorandtrainer', { InstructorName, InstructorImage,StatusBg,InstructorID,DateAdded,Location,ShiftTimings,Weeks,Status,ProjectName,Specialisations,InstructorPhone,InstructorEmail })
+    .then((result) => {
+      console.log(result);
+      // Reload the grid data after adding a new record
+      axios.get('http://localhost:3001/instructor').then((result) => setGridData(result.data));
+      setShowModal(false);
+    })
+    .catch((err) => console.log(err));
+};
+
+const actionCompleteHandler = (args) => {
+  if (args.requestType === 'save') {
+    const updatedData = args.data;
+    const instructorId = updatedData._id;
+    updateinstructor(instructorId, updatedData);
+  }
+};
+
+const updateinstructor = async (_id, updatedData) => {
+  try {
+    const response = await axios.put(`http://localhost:3001/instructor/update/${_id}`, updatedData);
+    if (response.status === 200) {
+      // Update gridData state after successfully updating a record
+      setGridData((prevGridData) => {
+        return prevGridData.map((instructor) => {
+          if (instructor._id === _id) {
+            return updatedData;
+          }
+          return instructor;
+        });
+      });
+    } else {
+      console.error('Error updating record:', response);
+    }
+  } catch (error) {
+    console.error('Error updating record:', error);
+  }
+};
+
+const handleGridActionBegin = (args) => {
+  if (args.requestType === 'delete') {
+    // Get the selected record's ID
+    const record = args.data[0];
+    const recordId = record._id; // Assuming "_id" is the unique identifier
+
+    // Send a delete request to the server
+    axios
+      .delete(`http://localhost:3001/instructor/delete/${recordId}`)
+      .then((response) => {
+        if (response.status === 200) {
+          // Data was successfully deleted, you can update your local state if needed
+          // Update gridData state
+          const updatedGridData = gridData.filter((data) => data._id !== recordId);
+          setGridData(updatedGridData);
+        } else {
+          console.error('Error deleting record:', response);
+        }
+      })
+      .catch((error) => {
+        console.error('Error deleting record:', error);
+      });
+  }
+};
+
+ //Server Code End
+
+
   return (
     <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
       <Header category= "Page" title="Instructor"/>
@@ -131,8 +235,8 @@ const Tutor = () => {
         </>
       ) : null}
 
-      <GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
-      dataSource={customersData}
+      <GridComponent  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
+      dataSource={gridData}
       allowPaging
       allowSorting
       allowReordering={true} allowDrop={true}
@@ -140,8 +244,21 @@ const Tutor = () => {
       editSettings={{allowDeleting:true, allowEditing:true}}
       width="auto">
         <ColumnsDirective>
-        {customersGrid.map((item,index) => (<ColumnDirective key= {index}  {...item}/>
-        ))}
+        {/* {customersGrid.map((item,index) => (<ColumnDirective key= {index}  {...item}/>
+        ))} */}
+
+
+
+          <ColumnDirective field="InstructorID" headerText="Instructor ID" />
+          <ColumnDirective field="InstructorName" headerText="Instructor Name" />
+          <ColumnDirective field="InstructorEmail" headerText="Instructor Email" />
+          <ColumnDirective field="InstructorPhone" headerText="Instructor Phone" />
+          <ColumnDirective field="Specialisations" headerText="Specialisations" />
+          <ColumnDirective field="ProjectName" headerText="Project Name" />
+          <ColumnDirective field="Weeks" headerText="Weeks" />
+          <ColumnDirective field="ShiftTimings" headerText="Shift Timings" />
+          <ColumnDirective field="Location" headerText="Location" />
+          <ColumnDirective field="DateAdded" headerText="DateAdded" />
         </ColumnsDirective>
         <Inject services = {[ Reorder,Resize,Sort,ContextMenu, Filter,Page, ExcelExport, Edit,PdfExport,Search,Toolbar ]}/>
       </GridComponent>

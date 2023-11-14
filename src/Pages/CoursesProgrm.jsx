@@ -16,6 +16,7 @@ import {
 } from '@syncfusion/ej2-react-grids';
 import { Header } from '../components';
 import "../components/style.css";
+import Papa from 'papaparse';
 
 const CoursesProgrm = () => {
   const [showModal, setShowModal] = useState(false);
@@ -28,6 +29,7 @@ const CoursesProgrm = () => {
   const [EndDate, setEndDate] = useState('');
   const [UpdatedDate, setUpdatedDate] = useState('');
   const [gridData, setGridData] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
   const editOptions = { allowEditing: true, allowAdding: true, allowDeleting: true };
   const toolbar = ['Search', 'Delete'];
 
@@ -112,6 +114,33 @@ const CoursesProgrm = () => {
     }
   };
 
+  //upload excel code start
+   const handleFileSelect = (e) => {
+   const file = e.target.files[0];
+   setSelectedFile(file);
+   };
+
+  //Excel file Upload Backend
+  
+   const handleFileUpload = () => {
+    if (selectedFile) {
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+
+      axios.post('http://localhost:3001/clients/upload', formData)
+        .then((response) => {
+          console.log(response.data);
+          // Handle success, if needed
+        })
+        .catch((error) => {
+          console.error('Error uploading CSV file:', error);
+          // Handle error, if needed
+        });
+    }
+  };
+// Excel Upload End
+
+  
   return (
     <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
       <Header category="Page" title="Course and Program" />
@@ -229,6 +258,20 @@ const CoursesProgrm = () => {
         <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
       </>
       )}
+
+      {/* Upload file Frontend */}
+
+<h1 className=" mt-10 text-xl font-bold mb-5">Add More Data</h1>
+        <input className="mb-5" type="file" accept=".csv" onChange={handleFileSelect} />
+        {selectedFile && (
+          <button
+            className="bg-green-500 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150 mb-5 ml-5"
+            onClick={handleFileUpload}
+          >
+            Upload CSV
+          </button>
+        )}
+
       <GridComponent
         dataSource={gridData}
         allowPaging

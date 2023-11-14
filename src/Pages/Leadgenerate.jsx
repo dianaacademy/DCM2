@@ -17,6 +17,7 @@ function Leadgenerate() {
   const [TypeofDelegate, setTypeofDelegate] = useState('');
   const [UpdatedDate, setUpdatedDate] = useState('');
   const [gridData, setGridData] = useState([]);
+  const [showModal, setShowModal] = useState(false);
   let gridcomp;
   const editOptions = { allowEditing: true, allowAdding: true, allowDeleting: true };
   const toolbar = [
@@ -29,42 +30,38 @@ function Leadgenerate() {
                   'Search','Delete'
                    ];
 
-//upload excel code start
-   const [tableData, setTableData] = useState(employeesData); // if we remove this excel code 1st we need to remove tableData from grid component and place "ordersData"
+                   useEffect(() => {
+                    axios
+                      .get('http://localhost:3001/leads')
+                      .then((result) => setGridData(result.data))
+                      .catch((err) => console.log(err));
+                  }, []);
+   //upload excel code start
    const handleFileSelect = (e) => {
    const file = e.target.files[0];
    setSelectedFile(file);
    };
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:3001/leads')
-      .then((result) => setGridData(result.data))
-      .catch((err) => console.log(err));
-  }, []);
+  //Excel file Upload Backend
   
-  const handleFileUpload = () => {
+   const handleFileUpload = () => {
     if (selectedFile) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const csvData = event.target.result;
-        parseCSVData(csvData);
-      };
-      reader.readAsText(selectedFile);
-    }
+      const formData = new FormData();
+      formData.append('file', selectedFile);
 
+      axios.post('http://localhost:3001/leads/upload', formData)
+      .then((result) => {
+        console.log(result);
+        // Reload the grid data after adding a new record
+        axios.get('http://localhost:3001/leads').then((result) => setGridData(result.data));
+        setShowModal(false);
+      })
+        .catch((error) => {
+          console.error('Error uploading CSV file:', error);
+          // Handle error, if needed
+        });
+    }
   };
-  const parseCSVData = (csvData) => {
-     Papa.parse(csvData, {
-       header: true,
-       dynamicTyping: true,
-       skipEmptyLines: true,
-       complete: (results) => {
-         // Merge the uploaded data with the existing data
-         setTableData([...tableData, ...results.data]);
-       },
-     });
-   };
 
    //upload excel code end
 
@@ -444,7 +441,7 @@ function Leadgenerate() {
             {/* Insert your content for the Tycon tab here */}
             <Header category="Page" title="lead management" />
             {/* Frontend of Upload Data Start */}
-            <h1 className=" mt-10 text-xl font-bold mb-5">Add More Data</h1>
+            <h1 className=" mt-10 text-xl font-bold mb-5 ml-5">Add More Data</h1>
         <input className="mb-5" type="file" accept=".csv" onChange={handleFileSelect} />
         {selectedFile && (
           <button

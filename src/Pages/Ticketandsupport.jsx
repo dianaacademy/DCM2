@@ -1,13 +1,17 @@
-import React  ,{ useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {GridComponent,ColumnsDirective,ColumnDirective, Page, Selection,Reorder, Inject, Edit, Toolbar, Sort, Filter,ExcelExport} from '@syncfusion/ej2-react-grids';
-import {customersData, supportGrid , } from '../data/dummy';
 import { Header } from '../components';
-import { showGrandTotals } from '@syncfusion/ej2/pivotview';
-import "../components/style.css";
+
+
+
+
 
 
 
 const Ticketandsupport = () => {
+  const [gridData1, setGridData1] = useState([]);
+  
   let gridcomp;
   const toolbar = [
     {
@@ -23,6 +27,14 @@ const Ticketandsupport = () => {
     const formattedDate = now.toISOString().slice(0, 19).replace(/:/g, '-');
     return formattedDate;
   };
+
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/support')
+      .then((result) => setGridData1(result.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   const toolbarClick = (args) => {
     if (gridcomp && args.item.id === 'gridcomp_excelexport') {
@@ -135,17 +147,23 @@ const Ticketandsupport = () => {
         </>
       ) : null}
       
-<GridComponent id='gridcomp' toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
-      dataSource={customersData}
+      <GridComponent 
+      dataSource={gridData1}
       allowPaging
+      toolbar={toolbar}
       allowSorting
-      allowReordering={true} allowDrop={true}
-      allowResizing
-      editSettings={{allowDeleting:true, allowEditing:true}}
-      width="auto">
+      allowReordering={true}
+      allowResizing>
         <ColumnsDirective>
-        {supportGrid.map((item,index) => (<ColumnDirective key= {index}  {...item}/>
-        ))}
+        <ColumnDirective field="TicketId" headerText="Ticket Id" />
+        <ColumnDirective field="Name" headerText="Name" />
+        <ColumnDirective field="Summary" headerText="Summary" />
+        <ColumnDirective field="Status" headerText="Status" />
+        <ColumnDirective field="Assignee" headerText="Assignee" />
+        <ColumnDirective field="Reporter" headerText="Reporter" />
+        <ColumnDirective field="Department" headerText="Department" />
+        <ColumnDirective field="Created" headerText="Created" />
+        <ColumnDirective field="Priority" headerText="Priority" />
         </ColumnsDirective>
         <Inject services = {[ Page, Toolbar,Reorder,Selection,Edit,Sort,Filter,ExcelExport]}/>
       </GridComponent>

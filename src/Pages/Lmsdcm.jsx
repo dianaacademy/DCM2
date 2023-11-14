@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
+import axios from 'axios';
 import { GridComponent, ColumnsDirective,ColumnDirective, Search,Resize,Reorder, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport,Edit, Inject, } from '@syncfusion/ej2-react-grids';
 import { contextMenuItems, regGrid } from '../data/dummy';
 import { ordersData } from '../data/ordersData';
@@ -7,6 +8,11 @@ import "../components/style.css";
 
 
 const Lmsdcm = () => {
+  const [gridData, setGridData] = useState([]);
+
+
+ 
+
   let gridcomp;
 
   const toolbar = [
@@ -26,6 +32,13 @@ const Lmsdcm = () => {
     },
     'Search',
   ];
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/login')
+      .then((result) => setGridData(result.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   const getCurrentDateTime = () => {
     const now = new Date();
@@ -52,7 +65,7 @@ const Lmsdcm = () => {
       <GridComponent 
       
       id="gridcomp"
-        dataSource={ordersData}
+        dataSource={gridData}
         toolbar={toolbar}
         allowExcelExport={true}
         toolbarClick={toolbarClick}
