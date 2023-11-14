@@ -1,16 +1,28 @@
-import React, { useState }  from 'react';
+import React, { useState, useEffect } from 'react';
 import { GridComponent, ColumnsDirective,ColumnDirective, Search,Resize,Reorder, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport,Edit, Inject,Toolbar,} from '@syncfusion/ej2-react-grids';
 import { DataManager, Query } from '@syncfusion/ej2-data';
 import { DropDownList } from '@syncfusion/ej2-dropdowns';
 import { contextMenuItems, regGrid2 } from '../data/dummy';
 import { ordersData } from '../data/ordersData';
+import axios from 'axios';
 import { Header } from '../components';
 import "../components/style.css";
 import Papa from 'papaparse';
-import { cascadeData } from '../data/ordersData';
+import { cascadeData } from '../data/ordersData'
 
 
 const Registration = () => {
+  const [gridData, setGridData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/enrollusers')
+      .then((result) => {
+        setGridData(result.data);
+        console.log(result.data); // Add this line to log the fetched data
+      })
+      .catch((err) => console.log(err));
+  }, []);
   let gridcomp;
   const toolbar = [
     {
@@ -115,7 +127,7 @@ const handleFileSelect = (e) => {
           </button>
         )}
 
-      <GridComponent id='gridcomp' dataSource={tableData}  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
+      <GridComponent id='gridcomp' dataSource={gridData}  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
       // dataSource={ordersData}
       allowPaging
       allowSorting

@@ -17,7 +17,7 @@ function getFirstThreeLettersOfSecondWord(str) {
 }
 
 
-function generateCertificateNumber(title, firstName, lastName, recognized, date) {
+function generateCertificateNumber( firstName, lastName, recognized, date) {
   const recognizedAsPrefix = recognized.slice(0, 3).toUpperCase();
   const recognizedAsSuffix = getFirstThreeLettersOfSecondWord(recognized);
   const lastNamePrefix = lastName[0].toUpperCase();
@@ -25,11 +25,12 @@ function generateCertificateNumber(title, firstName, lastName, recognized, date)
 
   // Check if a date is provided, otherwise, use the current date and time
   let dateFormatted;
-  let dateFormatted2;
   if (date) {
     const dateParts = date.split("-");
-    dateFormatted = `${dateParts[2]}${dateParts[1]}${dateParts[0]}`;
-
+    const today = new Date();
+    const hours = String(today.getUTCHours()).padStart(2, '0');
+    const minutes = String(today.getUTCMinutes()).padStart(2, '0');
+    dateFormatted = `${dateParts[2]}${dateParts[1]}${dateParts[0]}-${hours}${minutes}`;
   } else {
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
@@ -53,19 +54,19 @@ function App() {
     // Get form values
     const title = document.getElementById("title").value;
     const firstName = document.getElementById("Firstname").value;
-    const name2 = document.getElementById("name2").value;
+    const lastName = document.getElementById("Lastname").value;
     const recognized = document.getElementById("recognized").value;
     const date = document.getElementById("date").value;
     const email = document.getElementById("email").value;
 
     // Generate the certificate number
-    const certname = generateCertificateNumber(title, firstName, name2, recognized, date,email);
+    const certname = generateCertificateNumber(firstName, lastName, recognized, date);
     
     // Set the certificate number in the input field
     document.getElementById("certname").value = certname;
 
-    // Build the query strings
-    const queryString = `?title=${encodeURIComponent(title)}&name=${encodeURIComponent(firstName)}&name2=${encodeURIComponent(name2)}&recognized=${encodeURIComponent(recognized)}&date=${encodeURIComponent(date)}&certname=${encodeURIComponent(certname)}&email=${encodeURIComponent(email)}`;
+    // Build the query string
+    const queryString = `?title=${encodeURIComponent(title)}&name=${encodeURIComponent(firstName)}&name2=${encodeURIComponent(lastName)}&recognized=${encodeURIComponent(recognized)}&date=${encodeURIComponent(date)}&certname=${encodeURIComponent(certname)}&email=${encodeURIComponent(email)}`;
 
     // Redirect to the "Kanban" page with the query string
     window.location.href = `Kanban${queryString}`;
@@ -75,7 +76,7 @@ function App() {
   };
 
   return (
-    <div className="container5 m-20">
+    <div className="container4 m-20">
       <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -83,16 +84,17 @@ function App() {
         crossOrigin="anonymous"
       />
       <form id="myForm">
-        <div className="row g-3 mb-2">
+        <div className="row g-3">
           <div className="col-md-4 ">
-            <label  htmlFor="title">Title</label>
+            <label htmlFor="title">Title</label>
             <select
               className="form-control mt-2"
               id="title"
               name="title"
             >
-              <option value="Mr">Mr</option>
-              <option value="Mrs">Mrs</option>
+              <option value="Mr.">Mr.</option>
+              <option value="Miss">Miss</option>
+              <option value="Mrs.">Mrs.</option>
             </select>
           </div>
           <div className="col-md-4">
@@ -107,14 +109,14 @@ function App() {
             />
           </div>
           <div className="col-md-4">
-            <label htmlFor="name2" className="form-label">
+            <label htmlFor="Lastname" className="form-label">
               Last Name
             </label>
             <input
               type="text"
               className="form-control"
-              id="name2"
-              name="name2"
+              id="Lastname"
+              name="Lastname"
             />
           </div>
           {/* <div className="col-md-4">
@@ -141,17 +143,15 @@ function App() {
               <option value="AI">AI</option>
                   <option value="BIG DATA">BIG DATA</option>
                   <option value="DevOps">DevOps</option>
-                  <option value="VM ware">VM ware</option>
+                  <option value="AWS">AWS</option>
                   <option value="Web Development">Web Development</option>
                   <option value="5G">5G</option>
-                  <option value="AWS">AWS</option>
+                  <option value="VM ware">VM ware</option>
                   <option value="Linux">Linux</option>
                   <option value="Azure">Azure</option>
                   <option value="Digital Marketing">Digital Marketing</option>
                   <option value="Oracle">Oracle</option>
                   <option value="Coding">Coding</option>
-                  <option value="Diana Internship Program">Diana Internship Program</option>
-                  <option value=" Diana Employee Elevate Program"> Diana Employee Elevate Program</option>
             </select>
           </div>
           {domain === 'Cyber Security' && (
@@ -363,6 +363,20 @@ function App() {
               id="date"
               name="date"
             />
+          </div>
+          <div className="col-md-4 hidden">
+            <label htmlFor="certname" className="form-label">
+              Certificate Number
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="certname"
+              name="certname"
+              readOnly
+            />
+          </div>
+          <div className="col-12">
           </div>
           <div className="col-12">
             <button type="submit" className="btn btn-primary" onClick={handleSubmit}>

@@ -10,6 +10,7 @@ import "../components/style.css";
 const Tutor = () => {
   const [showModal, setShowModal] = React.useState(false);
   const [InstructorName, setInstructorName] = useState('');
+  const [InstructorStatus, setInstructorStatus] = useState('');
   const [InstructorEmail, setInstructorEmail] = useState('');
   const [InstructorPhone, setInstructorPhone] = useState('');
   const [Specialisations, setSpecialisations] = useState('');
@@ -72,7 +73,7 @@ useEffect(() => {
       return;
     }
   axios
-    .post('http://localhost:3001/instructorandtrainer', { InstructorName, InstructorImage,StatusBg,InstructorID,DateAdded,Location,ShiftTimings,Weeks,Status,ProjectName,Specialisations,InstructorPhone,InstructorEmail })
+    .post('http://localhost:3001/instructorandtrainer', { InstructorName, InstructorImage,StatusBg,InstructorID,DateAdded,Location,ShiftTimings,Weeks,Status,ProjectName,Specialisations,InstructorPhone,InstructorEmail,InstructorStatus })
     .then((result) => {
       console.log(result);
       // Reload the grid data after adding a new record
@@ -172,36 +173,64 @@ const handleGridActionBegin = (args) => {
                 <div className="relative p-6 flex-auto">
                 <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
                    <input type="text" placeholder="Instructor Name" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
-                   <span class="z-10 h-full leading-snug font-normal text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
+                   <span class="z-10 h-full leading-snug font-normal text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3"
+                    value={InstructorName}
+                    onChange={(e) => setInstructorName(e.target.value)}>
+                  </span>
+                </div>
+                <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
+                   <input type="text" placeholder="Instructor Email" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
+                   <span class="z-10 h-full leading-snug font-normal text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3"
+                    value={InstructorEmail}
+                    onChange={(e) => setInstructorEmail(e.target.value)}>
+                  </span>
+                </div>
+                <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
+                   <input type="text" placeholder="Instructor Phone" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
+                   <span class="z-10 h-full leading-snug font-normal text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3"
+                    value={InstructorPhone}
+                    onChange={(e) => setInstructorPhone(e.target.value)}>
                   </span>
                 </div>
                 <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Instructor</label>
-<textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Add Specialisation Seperate by Comma(,) "></textarea> 
+<textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Add Specialisation Seperate by Comma(,) "value={Specialisations}
+    onChange={(e) => setSpecialisations(e.target.value)}></textarea> 
 
 <div class=" mt-2 relative flex  flex-wrap items-stretch mb-3 w-80">
-                   <input type="text" placeholder="Project Name" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
+                   <input type="text" placeholder="Project Name" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"
+                   value={ProjectName}
+                   onChange={(e) => setProjectName(e.target.value)}/>
                    <span class="z-10 h-full leading-snug font-normal text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
                   </span>
                 </div>
                 <div class=" mt-2 relative flex  flex-wrap items-stretch mb-3 w-80">
-                   <input type="text" placeholder="Location" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
+                   <input type="text" placeholder="Location" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"
+                   value={Location}
+                   onChange={(e) => setLocation(e.target.value)}/>
                    <span class="z-10 h-full leading-snug font-normal text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
                   </span>
                 </div>
                 <div class=" mt-2 relative flex  flex-wrap items-stretch mb-3 w-80">
-                   <input type="text" placeholder="Shift Timings" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
+                   <input type="text" placeholder="Shift Timings" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"
+                   value={ShiftTimings}
+                   onChange={(e) => setShiftTimings(e.target.value)}/>
                    <span class="z-10 h-full leading-snug font-normal text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
                   </span>
                 </div>
               <div>
                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
-               <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              <option selected>Active</option>
-               <option value="US">Inactive</option>
+               <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
+               "
+               value={InstructorStatus}
+                    onChange={(e) => setInstructorStatus(e.target.value)}>
+               <option value="Active">Active</option>
+               <option value="Inactive">Inactive</option>
               </select>
                 </div>
                 <label for="message" class="block  mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Added</label>
-                <div class=" mt-2 relative flex  flex-wrap items-stretch mb-3 w-80">
+                <div class=" mt-2 relative flex  flex-wrap items-stretch mb-3 w-80"
+                value={DateAdded}
+                onChange={(e) => setDateAdded(e.target.value)}>
                    <input type="Date" placeholder="Date Added" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
                    <span class="z-10 h-full leading-snug font-normal text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
                   </span>
@@ -209,8 +238,8 @@ const handleGridActionBegin = (args) => {
               
               <button
                     className="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 mt-5"
-                    type="Submit"
-                    onClick={() => setShowModal(false)}
+                    type="submit" // Use lowercase "submit" for the type
+                  onClick={Submit}
                   >
                   Submit
               </button>
@@ -242,7 +271,9 @@ const handleGridActionBegin = (args) => {
       allowReordering={true} allowDrop={true}
       allowResizing
       editSettings={{allowDeleting:true, allowEditing:true}}
-      width="auto">
+      width="auto"
+      actionComplete={actionCompleteHandler}
+        actionBegin={handleGridActionBegin}>
         <ColumnsDirective>
         {/* {customersGrid.map((item,index) => (<ColumnDirective key= {index}  {...item}/>
         ))} */}
