@@ -23,6 +23,61 @@ const Registration = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  const actionCompleteHandler = (args) => {
+    if (args.requestType === 'save') {
+      const updatedData = args.data;
+      const updateenrollusersId = updatedData._id;
+      updateenrollusers(updateenrollusersId, updatedData);
+    }
+  };
+
+  const updateenrollusers = async (_id, updatedData) => {
+    try {
+      const response = await axios.put(`http://localhost:3001/enrollusers/update/${_id}`, updatedData);
+      if (response.status === 200) {
+        // Update gridData state after successfully updating a record
+        setGridData((prevGridData) => {
+          return prevGridData.map((enrollusers) => {
+            if (enrollusers._id === _id) {
+              return updatedData;
+            }
+            return enrollusers;
+          });
+        });
+      } else {
+        console.error('Error updating record:', response);
+      }
+    } catch (error) {
+      console.error('Error updating record:', error);
+    }
+  };
+  
+  const handleGridActionBegin = (args) => {
+    if (args.requestType === 'delete') {
+      // Get the selected record's ID
+      const record = args.data[0];
+      const recordId = record._id; // Assuming "_id" is the unique identifier
+  
+      // Send a delete request to the server
+      axios
+        .delete(`http://localhost:3001/enrollusers/delete/${recordId}`)
+        .then((response) => {
+          if (response.status === 200) {
+            // Data was successfully deleted, you can update your local state if needed
+            // Update gridData state
+            const updatedGridData = gridData.filter((data) => data._id !== recordId);
+            setGridData(updatedGridData);
+          } else {
+            console.error('Error deleting record:', response);
+          }
+        })
+        .catch((error) => {
+          console.error('Error deleting record:', error);
+        });
+    }
+  };
+
   let gridcomp;
   const toolbar = [
     {
@@ -58,15 +113,15 @@ const countryParams = {
               dataSource: new DataManager(country),
               fields: { value: 'countryId', text: 'countryName' },
               floatLabelType: 'Never',
-              placeholder: 'Select a country'
+              placeholder: 'Status'
           });
           countryObj.appendTo(countryElem);
       }
   };
 
   const country = [
-    { countryName: 'United States', countryId: '1' },
-    { countryName: 'Australia', countryId: '2' }
+    { countryName: 'Completed', countryId: '1' },
+    { countryName: 'Cancelled', countryId: '2' }
 ];
 
  //dropdown edit End
@@ -134,9 +189,12 @@ const handleFileSelect = (e) => {
       allowReordering={true} allowDrop={true}
       editSettings={{allowDeleting:true, allowEditing:true}}
       allowResizing
+      actionComplete={actionCompleteHandler}
+        actionBegin={handleGridActionBegin}
       // allowExcelExport={true}
       // toolbar={['ExcelExport']}
       >
+        
         <ColumnsDirective >
         {regGrid2.map((item,index) => (<ColumnDirective key= {index}  {...item}/>
         ))}

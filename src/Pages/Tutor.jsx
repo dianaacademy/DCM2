@@ -19,11 +19,11 @@ const Tutor = () => {
   const [Weeks, setWeeks] = useState('');
   const [ShiftTimings, setShiftTimings] = useState('');
   const [Location, setLocation] = useState('');
-  const [DateAdded, setDateAdded] = useState('');
-  const [InstructorID, seInstructorID] = useState('');
+  const [dateFormatted, setdateFormatted] = useState('');
   const [gridData, setGridData] = useState([]);
   const [StatusBg, setStatusBg] = useState('');
   const [InstructorImage, setInstructorImage] = useState('');
+  const deletedInstructorIDs = new Set();
   let gridcomp;
   const toolbar = [
     {
@@ -51,6 +51,26 @@ const Tutor = () => {
       gridcomp.excelExport(excelExportProperties);
     }
   };
+  let InstructorID = generateUniqueClientId();
+  function generateUniqueClientId() {
+    // Generate a random 6-digit number
+    return Math.floor(100000 + Math.random() * 900000);
+  }
+  while (deletedInstructorIDs.has(InstructorID)) {
+    InstructorID = generateUniqueClientId();
+  }
+
+  let DateAdded;
+  if (dateFormatted) {
+    const dateParts = dateFormatted.split("-");
+    DateAdded = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+  } else {
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    const yyyy = today.getFullYear();
+    DateAdded = `${dd}-${mm}-${yyyy}`;
+  }
 
 //Server Code 
 
@@ -67,13 +87,13 @@ useEffect(() => {
     e.preventDefault();
 
     // Validate input fields
-    if (InstructorName.trim() === '' || InstructorID.trim() === '') {
+    if (InstructorName.trim() === '' || InstructorEmail.trim() === '') {
       // Display an error message or handle the validation as needed
-      console.log('Please fill in all fields.');
+      console.log('Please fill');
       return;
     }
   axios
-    .post('http://localhost:3001/instructorandtrainer', { InstructorName, InstructorImage,StatusBg,InstructorID,DateAdded,Location,ShiftTimings,Weeks,Status,ProjectName,Specialisations,InstructorPhone,InstructorEmail,InstructorStatus })
+    .post('http://localhost:3001/instructorandtrainer', { InstructorName,DateAdded,Location,ShiftTimings,ProjectName,Specialisations,InstructorPhone,InstructorEmail,InstructorStatus ,InstructorID})
     .then((result) => {
       console.log(result);
       // Reload the grid data after adding a new record
@@ -154,11 +174,11 @@ const handleGridActionBegin = (args) => {
       {showModal ? (
         <>
           <div
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+            className="  justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none  pt-60"
           >
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+            <div className=" relative w-auto my-6 mx-auto max-w-3xl">
               {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+              <div className=" border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start ">
                   <button
@@ -170,26 +190,28 @@ const handleGridActionBegin = (args) => {
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative p-6 flex-auto">
-                <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
-                   <input type="text" placeholder="Instructor Name" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
+                <div className=" mt-30 relative p-6 flex-auto">
+                <div class="  mt-30 relative flex  flex-wrap items-stretch mb-3 w-80">
+                   <input type="text" placeholder="Instructor Name" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10" value={InstructorName}
+                    onChange={(e) => setInstructorName(e.target.value)}/>
                    <span class="z-10 h-full leading-snug font-normal text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3"
-                    value={InstructorName}
-                    onChange={(e) => setInstructorName(e.target.value)}>
+                    >
                   </span>
                 </div>
                 <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
-                   <input type="text" placeholder="Instructor Email" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
+                   <input type="text" placeholder="Instructor Email" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"
+                   value={InstructorEmail}
+                   onChange={(e) => setInstructorEmail(e.target.value)}/>
                    <span class="z-10 h-full leading-snug font-normal text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3"
-                    value={InstructorEmail}
-                    onChange={(e) => setInstructorEmail(e.target.value)}>
+                    >
                   </span>
                 </div>
                 <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
-                   <input type="text" placeholder="Instructor Phone" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
+                   <input type="text" placeholder="Instructor Phone" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"
+                   value={InstructorPhone}
+                   onChange={(e) => setInstructorPhone(e.target.value)}/>
                    <span class="z-10 h-full leading-snug font-normal text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3"
-                    value={InstructorPhone}
-                    onChange={(e) => setInstructorPhone(e.target.value)}>
+                    >
                   </span>
                 </div>
                 <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Instructor</label>
@@ -229,8 +251,8 @@ const handleGridActionBegin = (args) => {
                 </div>
                 <label for="message" class="block  mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Added</label>
                 <div class=" mt-2 relative flex  flex-wrap items-stretch mb-3 w-80"
-                value={DateAdded}
-                onChange={(e) => setDateAdded(e.target.value)}>
+                value={dateFormatted}
+                onChange={(e) => setdateFormatted(e.target.value)}>
                    <input type="Date" placeholder="Date Added" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"/>
                    <span class="z-10 h-full leading-snug font-normal text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
                   </span>
@@ -286,7 +308,7 @@ const handleGridActionBegin = (args) => {
           <ColumnDirective field="InstructorPhone" headerText="Instructor Phone" />
           <ColumnDirective field="Specialisations" headerText="Specialisations" />
           <ColumnDirective field="ProjectName" headerText="Project Name" />
-          <ColumnDirective field="Weeks" headerText="Weeks" />
+          {/* <ColumnDirective field="Weeks" headerText="Weeks" /> */}
           <ColumnDirective field="ShiftTimings" headerText="Shift Timings" />
           <ColumnDirective field="Location" headerText="Location" />
           <ColumnDirective field="DateAdded" headerText="DateAdded" />

@@ -10,7 +10,7 @@ import { Header } from '../components';
 
 
 const Ticketandsupport = () => {
-  const [gridData1, setGridData1] = useState([]);
+  const [gridData, setGridData] = useState([]);
   
   let gridcomp;
   const toolbar = [
@@ -32,9 +32,64 @@ const Ticketandsupport = () => {
   useEffect(() => {
     axios
       .get('http://localhost:3001/support')
-      .then((result) => setGridData1(result.data))
+      .then((result) => setGridData(result.data))
       .catch((err) => console.log(err));
   }, []);
+
+  const actionCompleteHandler = (args) => {
+    if (args.requestType === 'save') {
+      const updatedData = args.data;
+      const supportId = updatedData._id;
+      updatesupport(supportId, updatedData);
+    }
+  };
+
+  const updatesupport = async (_id, updatedData) => {
+    try {
+      const response = await axios.put(`http://localhost:3001/support/update/${_id}`, updatedData);
+      if (response.status === 200) {
+        // Update gridData state after successfully updating a record
+        setGridData((prevGridData) => {
+          return prevGridData.map((support) => {
+            if (support._id === _id) {
+              return updatedData;
+            }
+            return support;
+          });
+        });
+      } else {
+        console.error('Error updating record:', response);
+      }
+    } catch (error) {
+      console.error('Error updating record:', error);
+    }
+  };
+  
+  const handleGridActionBegin = (args) => {
+    if (args.requestType === 'delete') {
+      // Get the selected record's ID
+      const record = args.data[0];
+      const recordId = record._id; // Assuming "_id" is the unique identifier
+  
+      // Send a delete request to the server
+      axios
+        .delete(`http://localhost:3001/support/delete/${recordId}`)
+        .then((response) => {
+          if (response.status === 200) {
+            // Data was successfully deleted, you can update your local state if needed
+            // Update gridData state
+            const updatedGridData = gridData.filter((data) => data._id !== recordId);
+            setGridData(updatedGridData);
+          } else {
+            console.error('Error deleting record:', response);
+          }
+        })
+        .catch((error) => {
+          console.error('Error deleting record:', error);
+        });
+    }
+  };
+  
 
   const toolbarClick = (args) => {
     if (gridcomp && args.item.id === 'gridcomp_excelexport') {
@@ -148,12 +203,15 @@ const Ticketandsupport = () => {
       ) : null}
       
       <GridComponent 
-      dataSource={gridData1}
+      dataSource={gridData}
       allowPaging
       toolbar={toolbar}
       allowSorting
+      editSettings={{allowDeleting:true, allowEditing:true}}
       allowReordering={true}
-      allowResizing>
+      allowResizing
+      actionComplete={actionCompleteHandler}
+        actionBegin={handleGridActionBegin}>
         <ColumnsDirective>
         <ColumnDirective field="TicketId" headerText="Ticket Id" />
         <ColumnDirective field="Name" headerText="Name" />

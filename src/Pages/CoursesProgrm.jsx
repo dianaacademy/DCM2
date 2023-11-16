@@ -14,6 +14,8 @@ import {
   Inject,
   Toolbar,
 } from '@syncfusion/ej2-react-grids';
+import { DropDownList } from '@syncfusion/ej2-dropdowns';
+import { DataManager, Query } from '@syncfusion/ej2-data';
 import { Header } from '../components';
 import "../components/style.css";
 import Papa from 'papaparse';
@@ -31,7 +33,7 @@ const CoursesProgrm = () => {
   const [gridData, setGridData] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const editOptions = { allowEditing: true, allowAdding: true, allowDeleting: true };
-  const toolbar = ['Search', 'Delete'];
+  const toolbar = ['Search', 'Edit', 'Delete', 'Update', 'Cancel'];
 
   useEffect(() => {
     axios
@@ -140,6 +142,40 @@ const CoursesProgrm = () => {
   };
 // Excel Upload End
 
+ //dropdown edit start
+ let StatusElem;
+ let statusObj;
+ const statusParams = {
+       create: () => {
+        StatusElem = document.createElement('input');
+           return StatusElem;
+       },
+       destroy: () => {
+        statusObj.destroy();
+       },
+       read: () => {
+           return statusObj.text;
+       },
+       write: () => {
+        statusObj = new DropDownList({
+               change: () => {
+                  const tempQuery = new Query().where('countryId', 'equal', statusObj.value); },
+               dataSource: new DataManager(status),
+               fields: { value: 'statusId', text: 'statusName' },
+               floatLabelType: 'Never',
+               placeholder: 'Status'
+           });
+           statusObj.appendTo(StatusElem);
+       }
+   };
+ 
+   const status = [
+     { statusName: 'Ongoing', statusId: '1' },
+     { statusName: 'Completed', statusId: '2' }
+ ];
+ 
+  //dropdown edit End
+
   
   return (
     <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
@@ -153,12 +189,12 @@ const CoursesProgrm = () => {
       </button>
       {showModal && (
         <>
-        <div
-          className=" mt-20 rounded-lg justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-        >
+       <div
+            className="  justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none  pt-60"
+          >
           <div className="relative w-auto my-6 mx-auto max-w-3xl">
             {/*content*/}
-            <div className="border-0  shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+            <div className="border-0  rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
               {/*header*/}
               <div className="flex items-start ">
                 <button
@@ -171,7 +207,7 @@ const CoursesProgrm = () => {
               </div>
               {/*body*/}
               <div className="relative p-6 flex-auto">
-              <div class="mt-40 relative flex  flex-wrap items-stretch mb-3 w-80">
+              <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
                  <input type="text" placeholder="Course Name" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white  rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"
                  value={CourseName}
                  onChange={(e) => setCourseName(e.target.value)}
@@ -287,11 +323,13 @@ const CoursesProgrm = () => {
           <ColumnDirective field="CourseName" headerText="Course Name" />
           <ColumnDirective field="CourseID" headerText="Course ID" />
           <ColumnDirective field="InstructorName" headerText="Instructor Name" />
+          <ColumnDirective  field='StatusBro' headerText='Status' editType='dropdownedit' edit={statusParams} textAlign="Center"/>
           <ColumnDirective field="TrainingID" headerText="Training ID" />
           <ColumnDirective field="StartDate" headerText="Start Date" />
           <ColumnDirective field="EndDate" headerText="End Date" />
           <ColumnDirective field="UpdatedDate" headerText="Updated Date" />
-          <ColumnDirective field="StatusBro" headerText="Status" />
+          {/* <ColumnDirective field="StatusBro" headerText="Status" /> */}
+          
         </ColumnsDirective>
         <Inject services={[Resize, Sort, ContextMenu, Reorder, Filter, Page, Edit, Toolbar]} />
       </GridComponent>

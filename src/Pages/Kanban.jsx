@@ -73,7 +73,6 @@ function App() {
           </div> */}
 
           <div className="marquee2">of Completion</div>
-
           <div className="assignment">This certificate is presented to </div>
           <div className="assignment1">This is to certify that <span id="title">{ formData.title }</span> </div>
             
