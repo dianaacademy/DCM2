@@ -162,7 +162,7 @@ function App() {
               id="email"
               name="email"
             >
-              <option value="MDIANA'S CERTIFIED A+ CERTIFICATIONdr">DIANA'S CERTIFIED A+ CERTIFICATION</option>
+              <option value="CERTIFIED A+ PROFESSIONAL">DIANA'S CERTIFIED A+ CERTIFICATION</option>
               <option value="DIANA'S SYSTEMS CERTIFIED SECURITY PROFESSIONAL">DIANA'S SYSTEMS CERTIFIED SECURITY PROFESSIONAL SSCP</option>
               <option value="DIANA CERTIFIED WIRESHARK PROFESSIONAL"> DIANA CERTIFIED WIRESHARK PROFESSIONAL DCWP</option>
               <option value="DIANA'S CYBERARK ADMINSTRATION CERTIFICATION PAM">DIANA'S CYBERARK ADMINSTRATION CERTIFICATION PAM (DCPAM)</option>
@@ -224,7 +224,7 @@ function App() {
 
           {domain === 'BIG DATA' && (
             <div className="col-md-4">
-            <label htmlFor="Big Data">Choose Releated Program</label>
+            <label htmlFor="Big Data">Choose Related Program</label>
             <select
               className="form-control mt-2"
               id="email"
@@ -270,7 +270,7 @@ function App() {
               <option value="Diana Certified Puppet Professional for Infrastructure Automation">Diana Certified Puppet Professional for Infrastructure Automation</option>
               <option value="Diana Certified Ansible Elite Certification : Advanced DevOps Automationwith playbooks">Diana Certified Ansible Elite Certification : Advanced DevOps Automationwith playbooks</option>
               <option value="Diana Certified Git Maestro: Expert-Level Version Control Training">Diana Certified Git Maestro: Expert-Level Version Control Training</option>
-            </select>
+            </select >
           </div>
           )}
 
@@ -342,7 +342,7 @@ function App() {
             </select>
           </div>
           )}
-          <div className="col-md-4">
+          {/* <div className="col-md-4">
             <label htmlFor="recognized" className="form-label">
               Recognized as
             </label>
@@ -352,7 +352,20 @@ function App() {
               id="recognized"
               name="recognized"
             />
-          </div>
+          </div> */}
+          <div className="col-md-4 hidden">
+  <label htmlFor="recognized" className="form-label">
+    Recognized as
+  </label>
+  <input
+    type="text"
+    className="form-control"
+    id="recognized"
+    name="recognized"
+    defaultValue="abc" // Add defaultValue attribute with the value "abc"
+  />
+</div>
+
           <div className="col-md-4">
             <label htmlFor="date" className="form-label">
               Date of issue

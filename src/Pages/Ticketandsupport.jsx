@@ -170,7 +170,7 @@ const Ticketandsupport = () => {
               <option selected>High</option>
               <option value="US">Medium</option>
               <option value="CA">Low </option>
-              </select>
+              </select >
               </div>
               <label for="message" class="block  mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Created</label>
                 <div class=" mt-2 relative flex  flex-wrap items-stretch mb-3 w-80">

@@ -114,7 +114,7 @@ const actionCompleteHandler = (args) => {
 const updateinstructor = async (_id, updatedData) => {
   try {
     const response = await axios.put(`http://localhost:3001/instructor/update/${_id}`, updatedData);
-    if (response.status === 200) {
+    if (response.status === 200 ) {
       // Update gridData state after successfully updating a record
       setGridData((prevGridData) => {
         return prevGridData.map((instructor) => {

@@ -84,8 +84,8 @@ function App() {
           </div>
           <div className="assignment2">
           
-            has successfully completed the <span id="email">{formData.email}</span> and is recognized as{' '}
-            <span id="recognized">{formData.recognized}</span> with Diana Advanced Tech Academy
+          has completed the Course successfully and is recognized as{' '}
+          <span id="email">{formData.email}</span> with Diana Advanced Tech Academy
           </div>
           <div className="qrcode">
             <img src={QR} alt="" width="100px" />

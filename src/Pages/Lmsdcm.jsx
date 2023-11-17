@@ -31,7 +31,7 @@ const Lmsdcm = () => {
         display: 'inline-block',
       },
     },
-    'Search','Edit', 'Delete', 'Update', 'Cancel'
+    'Search','Edit', 'Delete', 'Update', 'Cancel '
   ];
 
   useEffect(() => {
