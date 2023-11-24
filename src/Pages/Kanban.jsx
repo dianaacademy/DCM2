@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import html2pdf from 'html2pdf.js';
 import '../components/style.css';
 import QR from '../data/qr.png';
 import border from '../data/border.svg';
@@ -39,11 +40,47 @@ function App() {
     });
   }, []);
 
+  const exportAsPDF = () => {
+    const element = document.getElementById('Ukasuni');
+    const opt = {
+      margin: 0.5,
+      filename: 'certificate.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'px', format: [1300, 1250], orientation: 'landscape' },
+    };
+  
+    // Get the dimensions of the content to be exported
+    const contentWidth = element.offsetWidth;
+    const contentHeight = element.offsetHeight;
+  
+    // Get the dimensions of the PDF
+    const pdfWidth = opt.jsPDF.format[0];
+    const pdfHeight = opt.jsPDF.format[1];
+  
+    // Calculate margins for centering content in the PDF
+    const horizontalMargin = (pdfWidth - contentWidth) / 2;
+    const verticalMargin = (pdfHeight - contentHeight) / 2;
+  
+    // Apply translation to the content for centering in the PDF
+    element.style.transform = `translate(${horizontalMargin}px, ${verticalMargin}px)`;
+  
+    // Generate the PDF and save
+    html2pdf().from(element).set(opt).save();
+  };
+
   return (
-    <div className="Ukasuni">
-      <div className="App">
+    <div className="App">
+      <button
+               className="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-  mb-5 ease-linear transition-all duration-150 ml-10 mt-2"
+               type="button"
+               onClick={exportAsPDF}
+              >
+             Download PDF
+            </button>
+      <div id="Ukasuni">
         <div className="tophead">
-          <img src={topd} alt="" width="500px" />
+          <img src={topd} alt="" width="500px"/>
         </div>
 
         <div className="certnumber">
@@ -82,7 +119,7 @@ function App() {
             <span id="name2">&nbsp;{formData.name2}</span>
             
           </div>
-          <div className="assignment2">
+          <div className="assignment2 ">
           
           has completed the Course successfully and is recognized as{' '}
           <span id="email">{formData.email}</span> with Diana Advanced Tech Academy
@@ -124,8 +161,11 @@ function App() {
           <div className="section"></div>
         </div>
       </div>
+     
     </div>
+    
   );
+  
 }
 
 export default App;

@@ -74,7 +74,7 @@ export default function Modal() {
         type="button"
         onClick={() => setShowModal(true)}
       >
-       Updates and Notification
+       Updates and Notification 
       </button>
 
       </div>

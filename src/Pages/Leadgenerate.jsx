@@ -20,7 +20,7 @@ function Leadgenerate() {
   const [showModal, setShowModal] = useState(false);
   let gridcomp;
   const editOptions = { allowEditing: true, allowAdding: true, allowDeleting: true };
-  const toolbar = [
+  const toolbar  = [
                   {
                   text: 'Export CSV',
                   tooltipText: 'Export to Excel',

@@ -1,45 +1,42 @@
-import React, { useState } from 'react';
+// import * as ReactDOM from 'react-dom';
+// import * as React from 'react';
+// import { useRef } from 'react';
+// import { ScheduleComponent, ViewDirective, Week, Resize, ExcelExport, DragAndDrop, Inject, ViewsDirective } from '@syncfusion/ej2-react-schedule';
+// import { scheduleData } from './datasource';
+// /**
+//  *  Schedule header customization sample
+//  */
+// const App = () => {
+//     const scheduleObj = useRef(null);
+//     const eventSettings = { dataSource: scheduleData };
 
-const CopyToClipboardButton = ({ textToCopy }) => {
-  const [isCopied, setIsCopied] = useState(false);
-
-  const handleCopyToClipboard = () => {
-    navigator.clipboard.writeText(textToCopy)
-      .then(() => {
-        setIsCopied(true);
-        setTimeout(() => setIsCopied(false), 2000); // Reset the "Copied" state after 2 seconds
-      })
-      .catch(err => console.error('Failed to copy text: ', err));
-  };
-
-  return (
-    <div className="relative">
-      <button
-        className="bg-blue-500 mt-5 text-white font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg cursor-pointer"
-        onClick={handleCopyToClipboard}
-      >
-        {isCopied ? 'Copied!' : 'Copy to Clipboard'}
-      </button>
-    </div>
-  );
-};
-
-const App = () => {
-  const sampleCode = `function sayHello() {
-    console.log('Hello, World!');
-  }`;
-
-  return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Code Sharing Page</h1>
-      <div className="border border-gray-300 p-4 rounded-lg bg-gray-100">
-        <pre className="whitespace-pre-wrap">
-          <code>{sampleCode}</code>
-        </pre>
-        <CopyToClipboardButton textToCopy={sampleCode} />
-      </div>
-    </div>
-  );
-};
-
-export default App;
+//     const onActionBegin = (args) => {
+//         if (args.requestType === 'toolbarItemRendering') {
+//             let exportItem = {
+//                 align: 'Right', showTextOn: 'Both', prefixIcon: 'e-icon-schedule-excel-export',
+//                 text: 'Excel Export', cssClass: 'e-excel-export', click: onExportClick
+//             };
+//             args.items.push(exportItem);
+//         }
+//     }
+//     const onExportClick = () => {
+//         let customFields = [
+//             { name: 'Subject', text: 'Summary' },
+//             { name: 'StartTime', text: 'First Date' },
+//             { name: 'EndTime', text: 'Last Date' },
+//             { name: 'Location', text: 'Place' },
+//             { name: 'OwnerId', text: 'Owners' }
+//         ];
+//         let exportValues = { fieldsInfo: customFields };
+//         scheduleObj.current.exportToExcel(exportValues);
+//     }
+//     return (<ScheduleComponent cssClass='excel-export' width='100%' height='550px' id='schedule' ref={scheduleObj} selectedDate={new Date(2019, 0, 10)} eventSettings={eventSettings} actionBegin={onActionBegin}>
+//         <ViewsDirective>
+//             <ViewDirective option='Week' />
+//         </ViewsDirective>
+//         <Inject services={[Week, Resize, DragAndDrop, ExcelExport]} />
+//     </ScheduleComponent>);
+// }
+// ;
+// const root = ReactDOM.createRoot(document.getElementById('schedule'));
+// root.render(<App />);

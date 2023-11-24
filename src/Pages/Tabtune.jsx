@@ -47,7 +47,7 @@ function generateCertificateNumber( firstName, lastName, recognized, date) {
 }
 
 function App() {
-  const [domain, setDomain] = useState('');
+  const [domain, setDomain] = useState('Cyber Security');
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent the default form submission
 
@@ -163,7 +163,7 @@ function App() {
               name="email"
             >
               <option value="CERTIFIED A+ PROFESSIONAL">DIANA'S CERTIFIED A+ CERTIFICATION</option>
-              <option value="DIANA'S SYSTEMS CERTIFIED SECURITY PROFESSIONAL">DIANA'S SYSTEMS CERTIFIED SECURITY PROFESSIONAL SSCP</option>
+              <option value="DIANA'S SYSTEMS CERTIFIED SECURITY PROFESSIONAL">DIANA'S SYSTEMS CERTIFIED SECURITY PROFESSIONAL SSCP </option>
               <option value="DIANA CERTIFIED WIRESHARK PROFESSIONAL"> DIANA CERTIFIED WIRESHARK PROFESSIONAL DCWP</option>
               <option value="DIANA'S CYBERARK ADMINSTRATION CERTIFICATION PAM">DIANA'S CYBERARK ADMINSTRATION CERTIFICATION PAM (DCPAM)</option>
               <option value="DIANA'S CYBERARK ADMINSTRATION CERTIFICATION EPM">DIANA'S CYBERARK ADMINSTRATION CERTIFICATION EPM (DCEPM)</option>
@@ -181,7 +181,7 @@ function App() {
             </select>
           </div>
           )}
-
+          
           {domain === 'AI' && (
             <div className="col-md-4">
             <label htmlFor="Blockchain">Choose Releated Program</label>

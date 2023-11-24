@@ -1,43 +1,29 @@
-import React, { useEffect, useState } from "react";
-import grapesjs from "grapesjs";
-import gjsPresetWebpage from "grapesjs-preset-webpage";
-import gjsForms from 'grapesjs-plugin-forms';
-import thePlugin from 'grapesjs-plugin-export';
-import plugin from 'grapesjs-blocks-basic';
-import Navbare from 'grapesjs-navbar';
-import newsletter from 'grapesjs-preset-newsletter';
+// FolderPage.js
+import React, { useState } from 'react';
+import { folders } from '../data/folder';
+import FolderList from '../components/FolderList';
+import TemplateList from './TemplatePage';
 
-import "../components/app.css";
+const FolderPage = () => {
+  const [selectedFolder, setSelectedFolder] = useState(null);
 
-
-function GrapesjsMain() {
-  const [editor, setEditor] = useState(null);
-
-  useEffect(() => {
-    const editor = grapesjs.init({
-      container: "#editor",
-      plugins : [gjsPresetWebpage,
-        gjsForms
-        ,thePlugin ,plugin,Navbare,newsletter,  
-    ],
-      pluginsOpts:{
-        gjsPresetWebpage:{},
-        gjsForms:{},
-        thePlugin:{},
-        plugin:{},
-        Navbare:{},
-        newsletter:{},
-
-      }
-    });
-    setEditor(editor);
-  }, []);
+  const handleFolderClick = folder => {
+    setSelectedFolder(folder);
+  };
 
   return (
-    <div className="GrapesjsMain">
-      <div id="editor"></div>
+    <div>
+      <div>
+      <h1 className="text-center pt-5  pb-5 text-xxl">All Templates</h1>
+        <FolderList folders={folders} handleFolderClick={handleFolderClick} />
+      </div>
+      <div>
+        {selectedFolder && (
+          <TemplateList templates={selectedFolder.templates} />
+        )}
+      </div>
     </div>
   );
-}
+};
 
-export default GrapesjsMain;
+export default FolderPage;

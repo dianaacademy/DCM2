@@ -2,13 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {GridComponent,ColumnsDirective,ColumnDirective, Page, Selection,Reorder, Inject, Edit, Toolbar, Sort, Filter,ExcelExport} from '@syncfusion/ej2-react-grids';
 import { Header } from '../components';
-
-
-
-
-
-
-
 const Ticketandsupport = () => {
   const [gridData, setGridData] = useState([]);
   
@@ -225,7 +218,7 @@ const Ticketandsupport = () => {
         </ColumnsDirective>
         <Inject services = {[ Page, Toolbar,Reorder,Selection,Edit,Sort,Filter,ExcelExport]}/>
       </GridComponent>
-    </div>
+    </div >
   )
   }
 
