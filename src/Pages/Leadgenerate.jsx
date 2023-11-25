@@ -331,7 +331,7 @@ function Leadgenerate() {
                 </span>
               </div>
               <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
-                 <input type="text" placeholder="Country" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"
+                 <input type="text" placeholder="Country" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10 "
                  value={Country}
                  onChange={(e) => setCountry(e.target.value)}/>
                  <span class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300  bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">

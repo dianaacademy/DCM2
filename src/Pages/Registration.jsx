@@ -195,7 +195,7 @@ const handleFileSelect = (e) => {
       // toolbar={['ExcelExport']}
       >
         
-        <ColumnsDirective >
+        <ColumnsDirective>
         {regGrid2.map((item,index) => (<ColumnDirective key= {index}  {...item}/>
         ))}
         <ColumnDirective  field='Status' headerText='Status' width='150' editType='dropdownedit' edit={countryParams} textAlign="Center"/>

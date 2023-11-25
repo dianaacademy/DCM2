@@ -73,7 +73,7 @@ export default function Modal() {
       className="bg-indigo-500 text-white font-bold uppercase text-sm  shadow hover:shadow-lg cursor-pointer rounded-md"
       onClick={() => {setShowModal(true);
         handleImageClick('https://ik.imagekit.io/kkb/px-conversions%20(28)/weeee?updatedAt=1697019040527');
-        handleUrlClick('https://ashwasandevelopers.com/subscribe-to-webinars-and-blog-updates/');
+        handleUrlClick('https://dianaadvancedtechacademy.uk/subscribe-to-webinars-and-blog-updates/');
 
     }}
     >
@@ -92,7 +92,7 @@ export default function Modal() {
       className="bg-indigo-500 text-white font-bold uppercase text-sm  shadow hover:shadow-lg cursor-pointer rounded-md "
       onClick={() => {setShowModal(true);
         handleImageClick('https://ik.imagekit.io/kkb/px-conversions%20(28)/5.webp?updatedAt=1697018949453');
-        handleUrlClick('https://ashwasandevelopers.com/get-program-imformation ');
+        handleUrlClick('https://dianaadvancedtechacademy.uk/apply-for-program/');
     }}
     >
       <img className="rounded-md"
@@ -109,7 +109,7 @@ export default function Modal() {
       className="bg-indigo-500 text-white font-bold uppercase text-sm  shadow hover:shadow-lg cursor-pointer rounded-md      "
       onClick={() => {setShowModal(true);
         handleImageClick('https://ik.imagekit.io/kkb/px-conversions%20(28)/1.webp?updatedAt=1697018954407');
-        handleUrlClick('https://ashwasandevelopers.com/book-a-free-consultation-with-our-course-advisors/');
+        handleUrlClick('https://dianaadvancedtechacademy.uk/book-a-free-consultation-with-our-course-advisors/');
     }}
     >
       <img className="rounded-md"
@@ -127,7 +127,7 @@ export default function Modal() {
       className="bg-indigo-500 text-white font-bold uppercase text-sm  shadow hover:shadow-lg cursor-pointer rounded-md      "
       onClick={() => {setShowModal(true);
         handleImageClick('https://ik.imagekit.io/kkb/px-conversions%20(28)/4.webp?updatedAt=1697018965526');
-        handleUrlClick('https://ashwasandevelopers.com/apply-for-a-program/');
+        handleUrlClick('https://dianaadvancedtechacademy.uk/apply-for-program/');
     }}
     >
       <img className="rounded-md"
@@ -144,7 +144,7 @@ export default function Modal() {
       className="bg-indigo-500 text-white font-bold uppercase text-sm  shadow hover:shadow-lg cursor-pointer rounded-md      "
       onClick={() => {setShowModal(true);
         handleImageClick('https://ik.imagekit.io/kkb/px-conversions%20(28)/3.webp?updatedAt=1697018965529');
-        handleUrlClick('https://ashwasandevelopers.com/book-a-call-with-an-advisor');
+        handleUrlClick('https://dianaadvancedtechacademy.uk/book-a-free-consultation-with-our-course-advisors/');
     }}
     >
       <img className="rounded-md"
@@ -157,7 +157,7 @@ export default function Modal() {
 
 
 
-  <div className="w-1/3 p-5">
+  {/* <div className="w-1/3 p-5">
     <div
       className="bg-indigo-500 text-white font-bold uppercase text-sm  shadow hover:shadow-lg cursor-pointer rounded-md      "
       onClick={() => {setShowModal(true);
@@ -170,7 +170,7 @@ export default function Modal() {
       />     
       <p className="text-center pt-5  pb-5">Whatsapp Group Joining Link</p>
     </div>
-  </div>
+  </div> */}
   
   
   
