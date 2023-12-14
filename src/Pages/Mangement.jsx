@@ -31,7 +31,7 @@ const Mangement = () => {
       tooltipText: 'Export to Excel',
       prefixIcon: 'e-btn-icon e-excelexport e-icons e-icon-left',
       id: 'gridcomp_excelexport',
-      style: {
+      style:  {
         background: 'blue',
         color: 'white',
         padding: '10px 20px',

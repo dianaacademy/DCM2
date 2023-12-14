@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import{Navbar, Footer, Sidebar, ThemeSettings, GrapesMain,} from './components';
-import { Leadgenerate ,Clientsprofile,Registration,CoursesProgrm ,Mangement,Ecommerce, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Line, Kanban, Area,Campains, Security,Bar, Pie, Financial, ColorPicker, ColorMapping, Editor,Tutor,Ticketandsupport,Tabtune,Lmsdcm,Editdrop,} from './Pages';
+import { Leadgenerate ,Clientsprofile,Registration,CoursesProgrm ,Mangement,Ecommerce, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Line, Kanban, Area,Campains, Security,Bar, Pie, Financial, ColorPicker, ColorMapping, Editor,Tutor,Ticketandsupport,Tabtune,Lmsdcm,Editdrop, Internshipl, Lettership,} from './Pages';
 import { useStateContext } from './contexts/ContextProvider';
 import FolderList from './components/FolderList';
 import TemplatePage from './components/TemplatePage';
@@ -95,6 +95,8 @@ return (
                     <Route path= "/Stacked" element = {<Stacked/>} />
                     <Route path= "/support" element = {<Ticketandsupport/>} />
                     <Route path= "/Tabtune" element = {<Tabtune/>} />
+                    <Route path= "/internship" element = {<Internshipl/>} />
+                    <Route path= "/internshipLetter" element = {<Lettership/>} />
                     {/* <Route path= "/templates" element = {<TemplatePage/>} /> */}
 
                     <Route exact path="/" component={FolderList} />

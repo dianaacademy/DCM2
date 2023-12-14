@@ -95,7 +95,7 @@ const CoursesProgrm = () => {
     if (args.requestType === 'delete') {
       // Get the selected record's ID
       const record = args.data[0];
-      const recordId = record._id; // Assuming "_id" is the unique identifier
+      const recordId = record._id ; // Assuming "_id" is the unique identifier
 
       // Send a delete request to the server
       axios

@@ -4,6 +4,8 @@ export { default as Campains } from './Campains';
 export { default as Backup2x } from './Backup2x';
 export { default as Tabtune } from './Tabtune';
 export { default as Security } from './Security';
+export { default as Internshipl } from './Intershipl';
+export { default as Lettership } from './Lettership';
 export { default as Ticketandsupport } from './Ticketandsupport';
 export { default as Mangement } from './Mangement';
 export { default as Tutor } from './Tutor';

@@ -28,7 +28,7 @@ const Clientsprofile = () => {
   const [gridData, setGridData] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const editOptions = { allowEditing: true, allowAdding: true, allowDeleting: true };
-  const toolbar = ['Search', 'Delete'];
+  const toolbar = ['Search', 'Delete'] ;
   const [lastClientId, setLastClientId] = useState(100);
 
   useEffect(() => {

@@ -147,7 +147,7 @@ export default function Modal() {
         handleUrlClick('https://dianaadvancedtechacademy.uk/book-a-free-consultation-with-our-course-advisors/');
     }}
     >
-      <img className="rounded-md"
+      <img className ="rounded-md"
         src="https://ik.imagekit.io/kkb/px-conversions%20(28)/3.webp?updatedAt=1697018965529"
         alt="Data Privacy"
       />

@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Josefin+Sans:wght@400;500;600&family=Nunito:wght@300;500;600&display=swap');
+.e-grid .e-gridheader {
+    border:2px solid green
+
+}
+.e-grid .e-headercell {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-size: 700;
+ }
+ .thecontainer {
+    margin: 100px;
+    width: 850px;
+    height: 1100px;
+    display: table-cell;
+    vertical-align: middle;
+    background:white;
+    /* background-image: url("../data/headernfooter.png");
+    /* background-image: url("dianat.png"); */
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+
+
+
+
+.thecontainer {
+position: relative;
+}
+
+
+
+.topheader {
+    z-index: 2;
+    position: absolute;
+    margin-top: -86px;
+}
+
+
+
+
+
+.marqueezx {
+    color: black;
+    font-size: 15px;
+    border-color: black;
+   border-top: 1px solid black;
+   border-right: 1px solid black;
+   border-left: 1px solid black;
+border-radius: 10px;
+    
+   
+    margin: 160px 50px 0px 50px;
+    padding-top: 20px;
+   
+
+    
+    
+    
+    text-align: left;
+}
+
+.marquee3zx {
+    color: rgb(0, 0, 0);
+    font-size: 25px;
+    margin: 15px;
+    display: inline-block;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-weight: bold;
+    display: flex;
+    font-family: 'Anton', sans-serif;
+    letter-spacing: -0.7px;
+
+    align-items: center;
+    align-content: space-around;
+    justify-content: center;
+}
+
+.marquee2zx {
+    color: rgb(0, 0, 0);
+    font-size: 45px;
+    margin-top: -40px;
+}
+
+.assignmentzx {
+    margin: 0px 30px 20px 30px;
+    font-size: 15px;
+    font-weight: 400;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: left;
+}
+
+.assignment1zx {
+    margin: 0px;
+    font-size: 35px;
+    display: inline-block;
+}
+
+.assignment2zx {
+    margin: 0 30px 20px 30px;
+    font-size: 15px;
+    font-weight: 400;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: left;
+    
+}
+.assignment3zx {
+    margin: 0 30px 20px 30px;
+    font-size: 15px;
+    font-weight: 400;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: left;
+    
+}
+.assignmentzx {
+    margin: 0 30px 50px 30px;
+    font-size: 15px;
+    font-weight: 400;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: left;
+    
+}
+.assifnment55 {
+    margin: 5px 30px 0px 30px;
+    font-size: 15px;
+    font-weight: 400;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: left;
+    
+}
+.assignment4zx {
+    margin: 20px 0px 20px 0px;
+    font-size: 15px;
+    font-weight: 400;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: left;
+    
+}
+.assifnment56 {
+    margin: 5px 30px 15px 30px;
+    font-size: 15px;
+    font-weight: 400;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: left;
+    
+}
+
+
+
+
+
+
+
+
+.bottomzx {
+    margin: 0px 30px 30px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+   
+}
+
+.direcsignzx img {
+display: block; /* Ensures the image is treated as a block element */
+float: left; /* Floats the image to the left */
+margin-right: 10px;
+z-index: 5;
+  position: relative; /* Adds some space to the right of the image (adjust as needed) */
+}

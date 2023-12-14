@@ -48,6 +48,7 @@ function generateCertificateNumber( firstName, lastName, recognized, date) {
 
 function App() {
   const [domain, setDomain] = useState('Cyber Security');
+  const [activeTab, setActiveTab] = useState('tycon');
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent the default form submission
 
@@ -71,12 +72,164 @@ function App() {
     // Redirect to the "Kanban" page with the query string
     window.location.href = `Kanban${queryString}`;
   };
+
+
+
+
+
+
+
+  
+  const handleSubmit2 = (event) => {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Get form values
+    const title = document.getElementById("title").value;
+    const firstName = document.getElementById("Firstname").value;
+    const lastName = document.getElementById("Lastname").value;
+    const recognized = document.getElementById("recognized").value;
+    const date = document.getElementById("date").value;
+    const email = document.getElementById("email").value;
+
+    // Generate the certificate number
+    const certname = generateCertificateNumber(firstName, lastName, recognized, date);
+    
+    // Set the certificate number in the input field
+    document.getElementById("certname").value = certname;
+
+    // Build the query string
+    const queryString = `?title=${encodeURIComponent(title)}&name=${encodeURIComponent(firstName)}&name2=${encodeURIComponent(lastName)}&recognized=${encodeURIComponent(recognized)}&date=${encodeURIComponent(date)}&certname=${encodeURIComponent(certname)}&email=${encodeURIComponent(email)}`;
+
+    // Redirect to the "Kanban" page with the query string
+    window.location.href = `internship${queryString}`;
+  };
+  const handleSubmit3 = (event) => {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Get form values
+    const title = document.getElementById("title").value;
+    const fullname = document.getElementById("fullname").value;
+    const recognized = document.getElementById("recognized").value;
+    const keynotes = document.getElementById("keynotes").value;
+
+
+
+
+
+    function formatDate(inputDate) {
+      const months = [
+          "January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"
+      ];
+  
+      const dateObj = new Date(inputDate);
+      const day = dateObj.getDate();
+      const monthIndex = dateObj.getMonth();
+      const year = dateObj.getFullYear();
+  
+      function getDaySuffix(day) {
+          if (day >= 11 && day <= 13) {
+              return "th";
+          }
+          switch (day % 10) {
+              case 1:
+                  return "st";
+              case 2:
+                  return "nd";
+              case 3:
+                  return "rd";
+              default:
+                  return "th";
+          }
+      }
+  
+      const monthName = months[monthIndex];
+      const daySuffix = getDaySuffix(day);
+  
+      return `${day}${daySuffix} ${monthName} ${year}`;
+  }
+
+  const date = document.getElementById("date").value;
+  const sdate = document.getElementById("sdate").value;
+  const enddate = document.getElementById("enddate").value;
+  
+  const formatteddate = formatDate(date);
+  const formattedsdate = formatDate(sdate);
+  const formattedenddate = formatDate(enddate);
+  
+
+
+
+
+
+
+
+
+
+    // Build the query string
+    const queryString = `?title=${encodeURIComponent(title)}&fullname=${encodeURIComponent(fullname)}&recognized=${encodeURIComponent(recognized)}&date=${encodeURIComponent(formatteddate)}&sdate=${encodeURIComponent(formattedsdate)}&enddate=${encodeURIComponent(formattedenddate)}&keynotes=${encodeURIComponent(keynotes)}`;
+
+    // Redirect to the "Kanban" page with the query string
+    window.location.href = `internshipLetter${queryString}`;
+  };
   const handleDomainChange = (event) => {
     setDomain(event.target.value);
   };
+  const handleTabClick = (tabName) => {
+    setActiveTab(tabName);
+  };
+  const Submit = (e) => {
+    e.preventDefault();}
+
 
   return (
-    <div className="container4 m-20">
+
+<>
+<div className=" h-50px flex flex-col pl-10 pt-10 ">
+<div className="flex">
+        <button
+          className={`w-1/3 text-center font-serif  font-bold uppercase px-5 py-5 shadow-lg rounded block leading-normal mr-5  ${
+            activeTab === 'tycon' ? 'bg-indigo-600 text-white' : 'bg-gray-300 text-gray-700'
+          }`}
+          onClick={() => handleTabClick('tycon')}
+        >
+          <div className="flex flex-col  text-left"> 
+            <span>Generate Certificate</span>
+           {
+            activeTab === 'tycom' ? '' : ''
+               }
+         </div>
+        </button>
+        <button
+          className={`w-1/3 text-center font-serif  font-bold uppercase px-5 py-5 shadow-lg rounded block leading-normal mr-5  ${
+            activeTab === 'intern' ? 'bg-indigo-600 text-white' : 'bg-gray-300 text-gray-700'
+          }`}
+          onClick={() => handleTabClick('intern')}
+        >
+          <div className="flex flex-col  text-left"> 
+            <span>Generate Internship Certificate</span>
+           {
+            activeTab === 'intern' ? '' : ''
+               }
+         </div>
+        </button>
+        <button
+       className={`w-1/3 text-left  font-serif font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal mr-5 relative ${
+        activeTab === 'tycom' ? 'bg-indigo-600 text-white' : 'bg-gray-300 text-gray-700'
+         }`}
+       onClick={() => handleTabClick('tycom')}
+     >
+     <div className="flex flex-col  text-left"> {/* Add a flex container */}
+    <span>Internship Letter</span>
+    {
+      activeTab === 'tycom' ? '' : ''
+    }
+  </div>
+</button>
+</div>
+
+{activeTab === 'tycon' && (
+  <div className="container4 m-20">
       <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -138,6 +291,7 @@ function App() {
               name="domain"
               onChange={handleDomainChange}
             >
+              <option value="Internship">Internship</option>
               <option value="Cyber Security">Cyber Security</option>
               <option value="Blockchain">Blockchain</option>
               <option value="AI">AI</option>
@@ -398,8 +552,207 @@ function App() {
           </div>
         </div>
       </form>
+    
     </div>
+
+)}
+
+
+{activeTab === 'tycom' && (
+  <div className="container4 m-20">
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossOrigin="anonymous"
+      />
+      <form id="myForm">
+        <div className="row g-3">
+        <div className="col-md-4">
+    <label htmlFor="title">Title</label>
+    <select
+       className="form-control mt-2"
+       id="title"
+       name="title">
+       <option value="Mr.">Mr.</option>
+       <option value="Miss">Miss</option>
+       <option value="Mrs.">Mrs.</option>
+    </select>
+ </div>    
+<div className="col-md-4">
+    <label htmlFor="Full Name" className="form-label"> Full Name</label>
+        <input
+         type="text"
+         className="form-control"
+         id="fullname"
+         name="fullname"
+        />
+</div>
+<div className="col-md-4">
+    <label htmlFor="Completed as" className="form-label">Completed as</label>
+        <input
+         type="text"
+         className="form-control"
+         id="recognized"
+         name="recognized"
+        />
+</div>
+<div className="col-md-4">
+    <label htmlFor="From Date" className="form-label">From Date</label>
+        <input
+         type="date"
+         className="form-control"
+         id="sdate"
+         name="sdate"
+        />
+</div>
+<div className="col-md-4">
+    <label htmlFor="End Date" className="form-label">End Date</label>
+        <input
+         type="date"
+         className="form-control"
+         id="enddate"
+         name="enddate"
+        />
+</div>
+<div className="col-md-4">
+    <label htmlFor="Issue Date" className="form-label">Issue Date</label>
+        <input
+         type="date"
+         className="form-control"
+         id="date"
+         name="date"
+        />
+</div>
+<div class="col-md-4">
+    <label for="keynotes" class="form-label">Key Notes</label>
+    <textarea
+        class="form-control"
+        id="keynotes"
+        name="keynotes"
+    ></textarea>
+</div>
+<div className="col-12">
+            <button type="submit" className="btn btn-primary" onClick={handleSubmit3}>
+              Generate Certificate
+            </button>
+          </div>
+
+          </div>
+
+        </form>
+
+
+</div>
+)}
+{activeTab === 'intern' && (
+  <div className="container4 m-20">
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossOrigin="anonymous"
+      />
+      <form id="myForm">
+        <div className="row g-3">
+        <div className="col-md-4">
+    <label htmlFor="title">Title</label>
+    <select
+       className="form-control mt-2"
+       id="title"
+       name="title">
+       <option value="Mr.">Mr.</option>
+       <option value="Miss">Miss</option>
+       <option value="Mrs.">Mrs.</option>
+    </select>
+ </div>    
+ <div className="col-md-4">
+            <label htmlFor="Firstname" className="form-label">
+              First Name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="Firstname"
+              name="Firstname"
+            />
+          </div>
+          <div className="col-md-4">
+            <label htmlFor="Lastname" className="form-label">
+              Last Name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="Lastname"
+              name="Lastname"
+            />
+          </div>
+<div className="col-md-4">
+    <label htmlFor="Recognize as" className="form-label">Recognize as</label>
+        <input
+         type="text"
+         className="form-control"
+         id="email"
+         name="email"
+        />
+</div>
+<div className="col-md-4">
+    <label htmlFor="From Date" className="form-label">issue Date</label>
+        <input
+         type="date"
+         className="form-control"
+         id="date"
+         name="date"
+        />
+</div>
+<div className="col-md-4 hidden">
+  <label htmlFor="recognized" className="form-label">
+    Recognized as
+  </label>
+  <input
+    type="text"
+    className="form-control"
+    id="recognized"
+    name="recognized"
+    defaultValue="abc" // Add defaultValue attribute with the value "abc"
+  />
+</div>
+<div className="col-md-4 hidden">
+            <label htmlFor="certname" className="form-label">
+              Certificate Number
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="certname"
+              name="certname"
+              readOnly
+            />
+          </div>
+<div className="col-12">
+            <button type="submit" className="btn btn-primary" onClick={handleSubmit2}>
+              Generate Certificate
+            </button>
+          </div>
+
+          </div>
+
+        </form>
+
+
+</div>
+)}
+
+</div>
+</>
+
+
+    
+   
   );
+  
 }
+
 
 export default App;
