@@ -700,6 +700,13 @@ export const links = [
         
       },
       
+      {
+        name: 'Hiring Candidate List',
+        icon: <IoMdContacts />,
+        route: 'hiring',
+        
+      },
+      
     ],
   },
 
