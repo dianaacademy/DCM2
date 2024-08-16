@@ -19,6 +19,7 @@ export { default as Pie } from './Charts/Pie';
 export { default as ChartsHeader } from './ChartsHeader';
 export { default as Header } from './Header';
 export { default as Html } from './Html';
+export { default as UserProfileMenu } from './UserProfileMenu';
 
 
 

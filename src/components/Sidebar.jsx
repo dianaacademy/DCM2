@@ -49,7 +49,7 @@ const Sidebar = () => {
     className={({isActive })=> 
   isActive ? activeLink: normalLink}
     >
-      {Link.icon}
+      {Link.icon} 
       <span className="capitalize">
         {Link.name}
 

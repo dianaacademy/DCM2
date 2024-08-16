@@ -12,7 +12,7 @@ const Mangement = () => {
   const [gridData, setGridData] = useState([]);
   useEffect(() => {
     axios
-      .get('http://localhost:3001/documents')
+      .get('https://server-beta-wheat-43.vercel.app/documents')
       .then((result) => {
         setGridData(result.data);
         console.log(result.data); // Add this line to log the fetched data

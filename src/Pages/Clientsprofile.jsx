@@ -33,7 +33,7 @@ const Clientsprofile = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/clients')
+      .get('https://server-beta-wheat-43.vercel.app/clients')
       .then((result) => {
         setGridData(result.data);
         console.log(result.data); // Add this line to log the fetched data
@@ -51,11 +51,11 @@ const Clientsprofile = () => {
         return;
       }
     axios
-      .post('http://localhost:3001/Clientsprofiles', { Name, Designation, Country,CompanyName,TypeofDelegate,UpdatedDate })
+      .post('https://server-beta-wheat-43.vercel.app/Clientsprofiles', { Name, Designation, Country,CompanyName,TypeofDelegate,UpdatedDate })
       .then((result) => {
         console.log(result);
         // Reload the grid data after adding a new record
-        axios.get('http://localhost:3001/clients').then((result) => setGridData(result.data));
+        axios.get('https://server-beta-wheat-43.vercel.app/clients').then((result) => setGridData(result.data));
         setShowModal(false);
       })
       .catch((err) => console.log(err));
@@ -71,7 +71,7 @@ const Clientsprofile = () => {
 
   const updateCourse = async (_id, updatedData) => {
     try {
-      const response = await axios.put(`http://localhost:3001/clients/update/${_id}`, updatedData);
+      const response = await axios.put(`https://server-beta-wheat-43.vercel.app/clients/update/${_id}`, updatedData);
       if (response.status === 200) {
         // Update gridData state after successfully updating a record
         setGridData((prevGridData) => {
@@ -98,7 +98,7 @@ const Clientsprofile = () => {
 
       // Send a delete request to the server
       axios
-        .delete(`http://localhost:3001/clients/delete/${recordId}`)
+        .delete(`https://server-beta-wheat-43.vercel.app/clients/delete/${recordId}`)
         .then((response) => {
           if (response.status === 200) {
             // Data was successfully deleted, you can update your local state if needed
@@ -135,11 +135,11 @@ const Clientsprofile = () => {
      formData.append('file', selectedFile);
      
 
-     axios.post('http://localhost:3001/clients/upload', formData)
+     axios.post('https://server-beta-wheat-43.vercel.app/clients/upload', formData)
        .then((result) => {
         console.log(result);
         // Reload the grid data after adding a new record
-        axios.get('http://localhost:3001/clients').then((result) => setGridData(result.data));
+        axios.get('https://server-beta-wheat-43.vercel.app/clients').then((result) => setGridData(result.data));
         setShowModal(false);
       })
        .catch((error) => {

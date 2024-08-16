@@ -67,7 +67,7 @@ const onExportClick = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/Calendar')
+      .get('https://server-beta-wheat-43.vercel.app/Calendar')
       .then((result) => {
         setGridData(result.data);
         console.log(result.data); // Add this line to log the fetched data
@@ -85,7 +85,7 @@ const onExportClick = () => {
 
   const updateCourse = async (_id, updatedData) => {
     try {
-      const response = await axios.put(`http://localhost:3001/Calendar/update/${_id}`, updatedData);
+      const response = await axios.put(`https://server-beta-wheat-43.vercel.app/Calendar/update/${_id}`, updatedData);
       if (response.status === 200) {
         // Update gridData state after successfully updating a record
         setGridData((prevGridData) => {
@@ -112,7 +112,7 @@ const onExportClick = () => {
 
       // Send a delete request to the server
       axios
-        .delete(`http://localhost:3001/Calendar/delete/${recordId}`)
+        .delete(`https://server-beta-wheat-43.vercel.app/Calendar/delete/${recordId}`)
         .then((response) => {
           if (response.status === 200) {
             // Data was successfully deleted, you can update your local state if needed
@@ -142,11 +142,11 @@ const onExportClick = () => {
       formData.append('file', selectedFile);
       
  
-      axios.post('http://localhost:3001/Calendar/upload', formData)
+      axios.post('https://server-beta-wheat-43.vercel.app/Calendar/upload', formData)
         .then((result) => {
          console.log(result);
          // Reload the grid data after adding a new record
-         axios.get('http://localhost:3001/Calendar').then((result) => setGridData(result.data));
+         axios.get('https://server-beta-wheat-43.vercel.app/Calendar').then((result) => setGridData(result.data));
          setShowModal(false);
        })
         .catch((error) => {

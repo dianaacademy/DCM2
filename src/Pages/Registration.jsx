@@ -16,7 +16,7 @@ const Registration = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/enrollusers')
+      .get('https://server-beta-wheat-43.vercel.app/enrollusers')
       .then((result) => {
         setGridData(result.data);
         console.log(result.data); // Add this line to log the fetched data
@@ -34,7 +34,7 @@ const Registration = () => {
 
   const updateenrollusers = async (_id, updatedData) => {
     try {
-      const response = await axios.put(`http://localhost:3001/enrollusers/update/${_id}`, updatedData);
+      const response = await axios.put(`https://server-beta-wheat-43.vercel.app/enrollusers/update/${_id}`, updatedData);
       if (response.status === 200) {
         // Update gridData state after successfully updating a record
         setGridData((prevGridData) => {
@@ -61,7 +61,7 @@ const Registration = () => {
   
       // Send a delete request to the server
       axios
-        .delete(`http://localhost:3001/enrollusers/delete/${recordId}`)
+        .delete(`https://server-beta-wheat-43.vercel.app/enrollusers/delete/${recordId}`)
         .then((response) => {
           if (response.status === 200) {
             // Data was successfully deleted, you can update your local state if needed

@@ -11,7 +11,7 @@ import {
   Filter,
   Page,
   Edit,
-  Inject,
+  Inject, 
   Toolbar,
 } from '@syncfusion/ej2-react-grids';
 import { DropDownList } from '@syncfusion/ej2-dropdowns';

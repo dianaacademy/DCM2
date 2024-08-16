@@ -36,7 +36,7 @@ const Lmsdcm = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/login')
+      .get('https://server-beta-wheat-43.vercel.app/login')
       .then((result) => setGridData(result.data))
       .catch((err) => console.log(err));
   }, []);
@@ -52,7 +52,7 @@ const Lmsdcm = () => {
 
   const updateCourse = async (_id, updatedData) => {
     try {
-      const response = await axios.put(`http://localhost:3001/login/update/${_id}`, updatedData);
+      const response = await axios.put(`https://server-beta-wheat-43.vercel.app/login/update/${_id}`, updatedData);
       if (response.status === 200) {
         // Update gridData state after successfully updating a record
         setGridData((prevGridData) => {
@@ -79,7 +79,7 @@ const Lmsdcm = () => {
 
       // Send a delete request to the server
       axios
-        .delete(`http://localhost:3001/login/delete/${recordId}`)
+        .delete(`https://server-beta-wheat-43.vercel.app/login/delete/${recordId}`)
         .then((response) => {
           if (response.status === 200) {
             // Data was successfully deleted, you can update your local state if needed

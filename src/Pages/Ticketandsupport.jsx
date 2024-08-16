@@ -24,7 +24,7 @@ const Ticketandsupport = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/support')
+      .get('https://server-beta-wheat-43.vercel.app/support')
       .then((result) => setGridData(result.data))
       .catch((err) => console.log(err));
   }, []);
@@ -39,7 +39,7 @@ const Ticketandsupport = () => {
 
   const updatesupport = async (_id, updatedData) => {
     try {
-      const response = await axios.put(`http://localhost:3001/support/update/${_id}`, updatedData);
+      const response = await axios.put(`https://server-beta-wheat-43.vercel.app/support/update/${_id}`, updatedData);
       if (response.status === 200) {
         // Update gridData state after successfully updating a record
         setGridData((prevGridData) => {
@@ -66,7 +66,7 @@ const Ticketandsupport = () => {
   
       // Send a delete request to the server
       axios
-        .delete(`http://localhost:3001/support/delete/${recordId}`)
+        .delete(`https://server-beta-wheat-43.vercel.app/support/delete/${recordId}`)
         .then((response) => {
           if (response.status === 200) {
             // Data was successfully deleted, you can update your local state if needed

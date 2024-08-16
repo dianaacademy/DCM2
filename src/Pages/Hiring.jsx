@@ -39,7 +39,7 @@ const Hiring = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/hirings')
+      .get('https://server-beta-wheat-43.vercel.app/hirings')
       .then((result) => setGridData(result.data))
       .catch((err) => console.log(err));
   }, []);
@@ -54,11 +54,11 @@ const Hiring = () => {
         return;
       }
     axios
-      .post('http://localhost:3001/CoursesandProgrammanagement', { candidateName, candidateEmail,candidatePhone,StatusBro,Location,updated,interviewround,candidateID })
+      .post('https://server-beta-wheat-43.vercel.app/CoursesandProgrammanagement', { candidateName, candidateEmail,candidatePhone,StatusBro,Location,updated,interviewround,candidateID })
       .then((result) => {
         console.log(result);
         // Reload the grid data after adding a new record
-        axios.get('http://localhost:3001').then((result) => setGridData(result.data));
+        axios.get('https://server-beta-wheat-43.vercel.app').then((result) => setGridData(result.data));
         setShowModal(false);
       })
       .catch((err) => console.log(err));
@@ -74,7 +74,7 @@ const Hiring = () => {
 
   const updateCourse = async (_id, updatedData) => {
     try {
-      const response = await axios.put(`http://localhost:3001/update/${_id}`, updatedData);
+      const response = await axios.put(`https://server-beta-wheat-43.vercel.app/update/${_id}`, updatedData);
       if (response.status === 200) {
         // Update gridData state after successfully updating a record
         setGridData((prevGridData) => {
@@ -101,7 +101,7 @@ const Hiring = () => {
 
       // Send a delete request to the server
       axios
-        .delete(`http://localhost:3001/delete/${recordId}`)
+        .delete(`https://server-beta-wheat-43.vercel.app/delete/${recordId}`)
         .then((response) => {
           if (response.status === 200) {
             // Data was successfully deleted, you can update your local state if needed
@@ -131,7 +131,7 @@ const Hiring = () => {
       const formData = new FormData();
       formData.append('file', selectedFile);
 
-      axios.post('http://localhost:3001/clients/upload', formData)
+      axios.post('https://server-beta-wheat-43.vercel.app/clients/upload', formData)
         .then((response) => {
           console.log(response.data);
           // Handle success, if needed

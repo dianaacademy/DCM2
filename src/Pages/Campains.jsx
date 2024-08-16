@@ -8,11 +8,11 @@ import "../components/style.css";
 import { GrapesMain } from "../components";
 import axios from 'axios';
 
-export default function Modal() {
+export default function Modal() { 
   const [gridData, setGridData] = useState([]);
   useEffect(() => {
     axios
-      .get('http://localhost:3001/campaigns')
+      .get('https://server-beta-wheat-43.vercel.app/campaigns')
       .then((result) => {
         setGridData(result.data);
         console.log(result.data); // Add this line to log the fetched data

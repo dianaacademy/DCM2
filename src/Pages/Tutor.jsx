@@ -76,7 +76,7 @@ const Tutor = () => {
 
 useEffect(() => {
   axios
-    .get('http://localhost:3001/instructor')
+    .get('https://server-beta-wheat-43.vercel.app/instructor')
     .then((result) => {
       setGridData(result.data);
     })
@@ -93,11 +93,11 @@ useEffect(() => {
       return;
     }
   axios
-    .post('http://localhost:3001/instructorandtrainer', { InstructorName,DateAdded,Location,ShiftTimings,ProjectName,Specialisations,InstructorPhone,InstructorEmail,InstructorStatus ,InstructorID})
+    .post('https://server-beta-wheat-43.vercel.app/instructorandtrainer', { InstructorName,DateAdded,Location,ShiftTimings,ProjectName,Specialisations,InstructorPhone,InstructorEmail,InstructorStatus ,InstructorID})
     .then((result) => {
       console.log(result);
       // Reload the grid data after adding a new record
-      axios.get('http://localhost:3001/instructor').then((result) => setGridData(result.data));
+      axios.get('https://server-beta-wheat-43.vercel.app/instructor').then((result) => setGridData(result.data));
       setShowModal(false);
     })
     .catch((err) => console.log(err));
@@ -113,7 +113,7 @@ const actionCompleteHandler = (args) => {
 
 const updateinstructor = async (_id, updatedData) => {
   try {
-    const response = await axios.put(`http://localhost:3001/instructor/update/${_id}`, updatedData);
+    const response = await axios.put(`https://server-beta-wheat-43.vercel.app/instructor/update/${_id}`, updatedData);
     if (response.status === 200 ) {
       // Update gridData state after successfully updating a record
       setGridData((prevGridData) => {
@@ -140,7 +140,7 @@ const handleGridActionBegin = (args) => {
 
     // Send a delete request to the server
     axios
-      .delete(`http://localhost:3001/instructor/delete/${recordId}`)
+      .delete(`https://server-beta-wheat-43.vercel.app/instructor/delete/${recordId}`)
       .then((response) => {
         if (response.status === 200) {
           // Data was successfully deleted, you can update your local state if needed

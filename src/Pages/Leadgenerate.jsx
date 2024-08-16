@@ -1,549 +1,227 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { GridComponent, ColumnsDirective,ColumnDirective,Search , Page, ExcelExport,Selection,Sort,Filter, PdfExport,Edit, Inject,Toolbar,showGrandTotals } from '@syncfusion/ej2-react-grids';
-import { employeesData,contextMenuItems, clientGrid,customersData,supportGrid } from '../data/dummy';
-import { Header } from '../components';
-import "../components/style.css";
-import Papa from 'papaparse';
+
+import { GridComponent, ColumnsDirective, ColumnDirective, Search, Page, ExcelExport, Edit, Inject, Toolbar,Freeze } from '@syncfusion/ej2-react-grids';
+import { Button } from '../../src/components/ui/button';
+import { Badge } from '../../src/components/ui/badge';
+
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import AddNewLeadsDialog from './AddNewLeadsDialog';
+import { Sheetforleads } from '../components/Sheetforleads';
 
 function Leadgenerate() {
-  const [activeTab, setActiveTab] = useState('tycon');
   const [selectedFile, setSelectedFile] = useState(null);
-  const [formFreshLeads, setformFreshLeads] = useState(false);
-  const [Name, setName] = useState('');
-  const [Designation, setDesignation] = useState('');
-  const [Country, setCountry] = useState('');
-  const [CompanyName, setCompanyName] = useState('');
-  const [TypeofDelegate, setTypeofDelegate] = useState('');
-  const [UpdatedDate, setUpdatedDate] = useState('');
   const [gridData, setGridData] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  let gridcomp;
-  const editOptions = { allowEditing: true, allowAdding: true, allowDeleting: true };
-  const toolbar  = [
-                  {
-                  text: 'Export CSV',
-                  tooltipText: 'Export to Excel',
-                  prefixIcon: 'e-btn-icon e-excelexport e-icons e-icon-left',
-                  id: 'gridcomp_excelexport',
-                  },
-                  'Search','Delete'
-                   ];
-
-                   useEffect(() => {
-                    axios
-                      .get('http://localhost:3001/leads')
-                      .then((result) => setGridData(result.data))
-                      .catch((err) => console.log(err));
-                  }, []);
-   //upload excel code start
-   const handleFileSelect = (e) => {
-   const file = e.target.files[0];
-   setSelectedFile(file);
-   };
-
-  //Excel file Upload Backend
+  const [filteredData, setFilteredData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   
-   const handleFileUpload = () => {
+  
+  const location = useLocation();
+  const navigate = useNavigate();
+  let gridcomp;
+  const searchParams = new URLSearchParams(location.search);
+  const program = searchParams.get('program') || '';
+  const followupStatus = searchParams.get('followupstatus') || '';
+
+  useEffect(() => {
+    fetchData();
+  }, [location.search]);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const result = await axios.get('http://localhost:3001/leads');
+      setGridData(result.data);
+      filterData(result.data);
+    } catch (err) {
+      console.error('Error fetching data:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const statusTextMap = {
+    freshleads: 'Fresh Leads',
+    followuptoday: 'Follow up Today',
+    instrested: 'Interested',
+    followupoverdues: 'Follow up Overdues',
+  };
+
+  const programText = program ? program.charAt(0).toUpperCase() + program.slice(1) : '';
+  const followupStatusText = followupStatus ? statusTextMap[followupStatus] || followupStatus.charAt(0).toUpperCase() + followupStatus.slice(1) : '';
+
+  const filterData = (data) => {
+    let filtered = data;
+    if (program) {
+      filtered = filtered.filter(item => item.program.toUpperCase() === program.toUpperCase());
+    }
+    if (followupStatus) {
+      filtered = filtered.filter(item => item.followupstatus === followupStatus);
+    }
+    setFilteredData(filtered);
+  };
+
+  const handleStatusButtonClick = (status) => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set('followupstatus', status);
+    navigate(`?${newParams.toString()}`, { replace: true });
+  };
+
+  const handleFileSelect = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
+  const handleFileUpload = async () => {
     if (selectedFile) {
       const formData = new FormData();
       formData.append('file', selectedFile);
-
-      axios.post('http://localhost:3001/leads/upload', formData)
-      .then((result) => {
-        console.log(result);
-        // Reload the grid data after adding a new record
-        axios.get('http://localhost:3001/leads').then((result) => setGridData(result.data));
-        setShowModal(false);
-      })
-        .catch((error) => {
-          console.error('Error uploading CSV file:', error);
-          // Handle error, if needed
-        });
+      try {
+        await axios.post('http://localhost:3001/leads/upload', formData);
+        fetchData();
+      } catch (error) {
+        console.error('Error uploading CSV file:', error);
+      }
     }
-  };
-
-   //upload excel code end
-
-  const getCurrentDateTime = () => {
-    const now = new Date();
-    const formattedDate = now.toISOString().slice(0, 19).replace(/:/g, '-');
-    return formattedDate;  
   };
 
   const toolbarClick = (args) => {
-    if (gridcomp && args.item.id === 'gridcomp_excelexport') {
-      const currentDateTime = getCurrentDateTime();
-      const fileName = `Leads-List_${currentDateTime}.xlsx`;
+    if (args.item.id === 'gridcomp_excelexport') {
       const excelExportProperties = {
-        fileName: fileName,
+        fileName: `Leads-List_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.xlsx`,
       };
-
+      args.cancel = true;
       gridcomp.excelExport(excelExportProperties);
     }
   };
-  const handleTabClick = (tabName) => {
-    setActiveTab(tabName);
-  };
-  const Submit = (e) => {
-    e.preventDefault();
 
-    // Validate input fields
-    if (Name.trim() === '' || CompanyName.trim() === '') {
-      // Display an error message or handle the validation as needed
-      console.log('Please fill in all fields.');
-      return;
-    }
-    axios
-      .post('http://localhost:3001/LeadManagement', { Name, Designation, Country,CompanyName,TypeofDelegate,UpdatedDate })
-      .then((result) => {
-        console.log(result);
-        // Reload the grid data after adding a new record
-        axios.get('http://localhost:3001/leads').then((result) => setGridData(result.data));
-        setformFreshLeads(false);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const actionCompleteHandler = (args) => {
+  const actionCompleteHandler = async (args) => {
     if (args.requestType === 'save') {
-      const updatedData = args.data;
-      const courseId = updatedData._id;
-      updateCourse(courseId, updatedData);
-    }
-  };
-
-  const updateCourse = async (_id, updatedData) => {
-    try {
-      const response = await axios.put(`http://localhost:3001/leads/update/${_id}`, updatedData);
-      if (response.status === 200) {
-        // Update gridData state after successfully updating a record
-        setGridData((prevGridData) => {
-          return prevGridData.map((course) => {
-            if (course._id === _id) {
-              return updatedData;
-            }
-            return course;
-          });
-        });
-      } else {
-        console.error('Error updating record:', response);
+      try {
+        await axios.put(`http://localhost:3001/leads/update/${args.data._id}`, args.data);
+        fetchData();
+      } catch (error) {
+        console.error('Error updating record:', error);
       }
-    } catch (error) {
-      console.error('Error updating record:', error);
     }
   };
 
-  const handleGridActionBegin = (args) => {
+  const handleGridActionBegin = async (args) => {
     if (args.requestType === 'delete') {
-      // Get the selected record's ID
-      const record = args.data[0];
-      const recordId = record._id; // Assuming "_id" is the unique identifier
-
-      // Send a delete request to the server
-      axios
-        .delete(`http://localhost:3001/leads/delete/${recordId}`)
-        .then((response) => {
-          if (response.status === 200) {
-            // Data was successfully deleted, you can update your local state if needed
-            // Update gridData state
-            const updatedGridData = gridData.filter((data) => data._id !== recordId);
-            setGridData(updatedGridData);
-          } else {
-            console.error('Error deleting record:', response);
-          }
-        })
-        .catch((error) => {
-          console.error('Error deleting record:', error);
-        });
+      try {
+        await axios.delete(`http://localhost:3001/leads/delete/${args.data[0]._id}`);
+        fetchData();
+      } catch (error) {
+        console.error('Error deleting record:', error);
+      }
     }
   };
 
+  const rowNumberTemplate = (props) => props.index + 1;
+
+  const editOptions = { allowEditing: true, allowAdding: true, allowDeleting: true };
+  const toolbar = ['ExcelExport', 'Search', 'Add', 'Edit', 'Delete', 'Update', 'Cancel'];
 
 
-    function rowNumberTemplate(props) {
-      return props.index + 1;
-    }
-    
+
 
   return (
-    <div className="bg-gray-100 h-screen flex flex-col pl-10 pt-10 ">
-      <div className="flex">
-        <button
-          className={`w-1/4 text-center font-serif  font-bold uppercase px-5 py-5 shadow-lg rounded block leading-normal mr-5 ${
-            activeTab === 'tycon' ? 'bg-indigo-600 text-white' : 'bg-gray-300 text-gray-700'
-          }`}
-          onClick={() => handleTabClick('tycon')}
-        >
-          <div className="flex flex-col  text-left"> 
-            <span>Fresh leads</span>
-           <span className={`mt-2 px-2 py-1 rounded-lg items-center text-left${
-            activeTab === 'tycom' ? 'bg-white p-2' : ''
-               }`}>63
-          </span>
-         </div>
-        </button>
-        <button
-       className={`w-1/4 text-left  font-serif font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal mr-5 relative ${
-        activeTab === 'tycom' ? 'bg-indigo-600 text-white' : 'bg-gray-300 text-gray-700'
-         }`}
-       onClick={() => handleTabClick('tycom')}
-     >
-     <div className="flex flex-col  text-left"> {/* Add a flex container */}
-    <span>Follow up Today</span>
-    <span className={`mt-2 px-2 py-1 rounded-lg items-center text-left${
-      activeTab === 'tycom' ? 'bg-white p-2' : ''
-    }`}>63
-    </span>
-  </div>
-</button>
+    <div className="bg-gray-100 min-h-screen p-6 overflow-hidden">
+      <div className="flex space-x-4 mb-6 transition-all duration-300 ease-in-out">
+        {['freshleads', 'followuptoday', 'instrested', 'followupoverdues'].map((status) => {
+          const displayText = statusTextMap[status] || status.charAt(0).toUpperCase() + status.slice(1);
 
-
-        <button
-          className={`w-1/4 text-center font-serif  font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal mr-5 ${
-            activeTab === 'styam' ? 'bg-indigo-600 text-white' : 'bg-gray-300 text-gray-700'
-          }`}
-          onClick={() => handleTabClick('styam')}
-        ><div className="flex flex-col  text-left"> {/* Add a flex container */}
-        <span>Instrested</span>
-        <span className={`mt-2 px-2 py-1 rounded-lg items-center text-left${
-          activeTab === 'styam' ? 'bg-white p-2' : ''
-        }`}>40
-        </span>
-      </div>
-        </button>
-        <button
-          className={`w-1/4 text-center font-serif font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal mr-5 ${
-            activeTab === 'nine' ? 'bg-indigo-600 text-white' : 'bg-gray-300 text-gray-700'
-          }`}
-          onClick={() => handleTabClick('nine')}
-        ><div className="flex flex-col  text-left"> {/* Add a flex container */}
-        <span>Follow up Overdues</span>
-        <span className={`mt-2 px-2 py-1 rounded-lg items-center text-left${
-          activeTab === 'nine' ? 'bg-white p-2' : ''
-        }`}>63
-        </span>
-      </div>
-        </button>
-      </div>
-      <div className="p-4">
-        {activeTab === 'tycon' && (
-          <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
-            {/* Insert your content for the Tycon tab here */}
-            <Header category="Page" title="lead management" />
-            <button
-               className="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-  mb-5 ease-linear transition-all duration-150"
-               type="button"
-            onClick={() => setformFreshLeads(true)}
-              >
-             + Add Record
-            </button>
-            {/* Frontend of Upload Data Start */}
-            <h1 className=" mt-10 text-xl font-bold mb-5">Add More Data</h1>
-        <input className="mb-5" type="file" accept=".csv" onChange={handleFileSelect} />
-        {selectedFile && (
-          <button
-            className="bg-green-500 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150 mb-5 ml-5"
-            onClick={handleFileUpload}
-          >
-            Upload CSV
-          </button>
-        )}
-      {/* Frontend of Upload Data End */}
-
-      <GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
-              dataSource={gridData}
-              editSettings={editOptions}
-              actionComplete={actionCompleteHandler}
-              actionBegin={handleGridActionBegin}
-              allowPaging
-              allowSorting
-              width="auto"
+          return (
+            <Button
+              variant={followupStatus === status ? '' : 'outline'}
+              key={status}
+              onClick={() => handleStatusButtonClick(status)}
+              className={`${followupStatus === status ? 'active' : ''}`}
             >
-              <ColumnsDirective>
-              <ColumnDirective headerText="S.No." template={rowNumberTemplate} textAlign="Center" />
-          <ColumnDirective field="Name" headerText="Clients Name" />
-          <ColumnDirective field="Designation" headerText="Designation" />
-          <ColumnDirective field="Country" headerText="Country" />
-          <ColumnDirective field="CompanyName" headerText="Company Name" />
-          {/* <ColumnDirective field="ClientsID" headerText="Clients ID" /> */}
-          <ColumnDirective field="UpdatedDate" headerText="Last UpDate" />
-          <ColumnDirective field="TypeofDelegate" headerText="Type of Delegate" />
-              </ColumnsDirective>
-              <Inject
-                services={[
-                  Page,
-                  Search,
-                  Toolbar,
-                  ExcelExport,
-                  Edit,
-                  PdfExport,
-                ]}
-              />
-            </GridComponent>
-          </div>
-        )}
-        {activeTab === 'nine' && (
-          <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl ">
-            {/* Insert your content for the Tycon tab here */}
-            <Header category="Page" title="lead management" />
+              {displayText}
+            </Button>
+          );
+        })}
+      </div>
 
-            <button
-               className="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-  mb-5 ease-linear transition-all duration-150"
-               type="button"
-            onClick={() => setformFreshLeads(true)}
-              >
-             + Add Record
-            </button>
-            {formFreshLeads && (
-        <>
-        <div
-          className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-        >
-          <div className="relative w-auto my-6 mx-auto max-w-3xl">
-            {/*content*/}
-            <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-              {/*header*/}
-              <div className="flex items-start ">
-                <button
-                  className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                  onClick={() => setformFreshLeads(false)}
-                >
-                  <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                  </span>
-                </button>
-              </div>
-              {/*body*/}
-              <div className="relative p-6 flex-auto">
-              <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
-                 <input type="text" placeholder="Client Name" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white  rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"
-                 value={Name}
-                 onChange={(e) => setName(e.target.value)}
-                 />
-                 <span class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300  bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
-                </span>
-              </div>
-              <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
-                 <input type="text" placeholder="Designation" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white  rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"
-                 value={Designation}
-                 onChange={(e) => setDesignation(e.target.value)}/>
-                 <span class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300  bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
-                </span>
-              </div>
-              <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
-                 <input type="text" placeholder="Country" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10 "
-                 value={Country}
-                 onChange={(e) => setCountry(e.target.value)}/>
-                 <span class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300  bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
-                </span>
-              </div>
-              <div class="relative flex  flex-wrap items-stretch mb-3 w-80">
-                 <input type="text" placeholder="Company Name" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"
-                 value={CompanyName}
-                 onChange={(e) => setCompanyName(e.target.value)}/>
-                 <span class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300  bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
-                </span>
-              </div>
-            <div>
-            <label for="countriess" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type of Delegate</label>
-             <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-             value={TypeofDelegate}
-            onChange={(e) => setTypeofDelegate(e.target.value)}>
-            <option value="Company">Company</option>
-             <option value="Students">Students</option>
-            </select>
-              </div>
-              <label for="message" class="block  mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Added</label>
-              <div class=" mt-2 relative flex  flex-wrap items-stretch mb-3 w-80">
-                 <input type="Date" placeholder="Date Added" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10"
-                 value={UpdatedDate}
-                 onChange={(e) => setUpdatedDate(e.target.value)}/>
-                 <span class="z-10 h-full leading-snug font-normal text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
-                </span>
-              </div>
-            <button
-                  className="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 mt-5"
-                  type="submit" // Use lowercase "submit" for the type
-                  onClick={Submit}
-                >
-                Submit
-            </button>
+      <div className="bg-white rounded-3xl p-6 shadow-lg">
+        <Badge className="mb-6">{programText} &gt; {followupStatusText}</Badge>
 
-              </div>
-              {/*footer*/}
-              <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-              <button
-                  className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                  type="button"
-                  onClick={() => setformFreshLeads(false)}
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-      </>
-      )}
+        
 
+        <div className="mb-6 space-y-4">
+        <AddNewLeadsDialog/>
 
-
-            {/* Frontend of Upload Data Start */}
-            <h1 className=" mt-10 text-xl font-bold mb-5">Add More Data</h1>
-        <input className="mb-5" type="file" accept=".csv" onChange={handleFileSelect} />
-        {selectedFile && (
-          <button
-            className="bg-green-500 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150 mb-5"
-            onClick={handleFileUpload}
-          >
-            Upload CSV
-          </button>
-        )}
-      {/* Frontend of Upload Data End */}
-
-            <GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
-              dataSource={gridData}
-              editSettings={editOptions}
-              actionComplete={actionCompleteHandler}
-              actionBegin={handleGridActionBegin}
-              allowPaging
-              allowSorting
-              width="auto"
-            >
-              <ColumnsDirective>
-              <ColumnDirective headerText="S.No." template={rowNumberTemplate} textAlign="Center" />
-          <ColumnDirective field="Name" headerText="Clients Name" />
-          <ColumnDirective field="Designation" headerText="Designation" />
-          <ColumnDirective field="Country" headerText="Country" />
-          <ColumnDirective field="CompanyName" headerText="Company Name" />
-          {/* <ColumnDirective field="ClientsID" headerText="Clients ID" /> */}
-          <ColumnDirective field="UpdatedDate" headerText="Last UpDate" />
-          <ColumnDirective field="TypeofDelegate" headerText="Type of Delegate" />
-              </ColumnsDirective>
-              <Inject
-                services={[
-                  Page,
-                  Search,
-                  Toolbar,
-                  ExcelExport,
-                  Edit,
-                  PdfExport,
-                ]}
-              />
-            </GridComponent>
-          </div>
-        )}
-        {/* Render other tab content similarly */}
-        {activeTab === 'tycom' && (
           <div>
-            <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
-            {/* Insert your content for the Tycon tab here */}
-            <Header category="Page" title="lead management" />
-            {/* Frontend of Upload Data Start */}
-            <h1 className=" mt-10 text-xl font-bold mb-5 ml-5">Add More Data</h1>
-        <input className="mb-5" type="file" accept=".csv" onChange={handleFileSelect} />
-        {selectedFile && (
-          <button
-            className="bg-green-500 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150 mb-5"
-            onClick={handleFileUpload}
-          >
-            Upload CSV
-          </button>
-        )}
-      {/* Frontend of Upload Data End */}
-  
-
-      <GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
-              dataSource={gridData}
-              editSettings={editOptions}
-              actionComplete={actionCompleteHandler}
-              actionBegin={handleGridActionBegin}
-              allowPaging
-              allowSorting
-              width="auto"
-            >
-              <ColumnsDirective>
-              <ColumnDirective headerText="S.No." template={rowNumberTemplate} textAlign="Center" />
-          <ColumnDirective field="Name" headerText="Clients Name" />
-          <ColumnDirective field="Designation" headerText="Designation" />
-          <ColumnDirective field="Country" headerText="Country" />
-          <ColumnDirective field="CompanyName" headerText="Company Name" />
-          {/* <ColumnDirective field="ClientsID" headerText="Clients ID" /> */}
-          <ColumnDirective field="UpdatedDate" headerText="Last UpDate" />
-          <ColumnDirective field="TypeofDelegate" headerText="Type of Delegate" />
-              </ColumnsDirective>
-              <Inject
-                services={[
-                  Page,
-                  Search,
-                  Toolbar,
-                  ExcelExport,
-                  Edit,
-                  PdfExport,
-                ]}
-              />
-            </GridComponent>
-          </div>
-          </div>
-        )}
-        {activeTab === 'styam' && (
-          <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
-          <Header category= "Page" title="lead management" />
-          <button
-               className="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-  mb-5 ease-linear transition-all duration-150"
-               type="button"
-            onClick={() => setformFreshLeads(true)}
+            <h2 className="text-xl font-bold mb-2">Add More Data</h2>
+            <input type="file" accept=".csv" onChange={handleFileSelect} className="mb-2" />
+            {selectedFile && (
+              <button
+                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors"
+                onClick={handleFileUpload}
               >
-             + Add Record
-            </button>
-          {/* Frontend of Upload Data Start */}
-          <h1 className=" mt-10 text-xl font-bold mb-5">Add More Data</h1>
-        <input className="mb-5" type="file" accept=".csv" onChange={handleFileSelect} />
-        {selectedFile && (
-          <button
-            className="bg-green-500 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150 mb-5"
-            onClick={handleFileUpload}
-          >
-            Upload CSV
-          </button>
-        )}
-      {/* Frontend of Upload Data End */}
-    
-      <GridComponent id='gridcomp'  toolbar={toolbar} allowExcelExport={true} toolbarClick={toolbarClick} ref={g => gridcomp = g}
-              dataSource={gridData}
-              editSettings={editOptions}
-              actionComplete={actionCompleteHandler}
-              actionBegin={handleGridActionBegin}
-              allowPaging
-              allowSorting
-              width="auto"
-            >
-              <ColumnsDirective>
-              <ColumnDirective headerText="S.No." template={rowNumberTemplate} textAlign="Center" />
-          <ColumnDirective field="Name" headerText="Clients Name" />
-          <ColumnDirective field="Designation" headerText="Designation" />
-          <ColumnDirective field="Country" headerText="Country" />
-          <ColumnDirective field="CompanyName" headerText="Company Name" />
-          {/* <ColumnDirective field="ClientsID" headerText="Clients ID" /> */}
-          <ColumnDirective field="UpdatedDate" headerText="Last UpDate" />
-          <ColumnDirective field="TypeofDelegate" headerText="Type of Delegate" />
-              </ColumnsDirective>
-              <Inject
-                services={[
-                  Page,
-                  Search,
-                  Toolbar,
-                  ExcelExport,
-                  Edit,
-                  PdfExport,
-                ]}
-              />
-            </GridComponent>
+                Upload CSV
+              </button>
+            )}
+          </div>
         </div>
+
+        {isLoading ? (
+          <div className="animate-pulse space-y-4">
+            <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+            <div className="h-4 bg-gray-300 rounded"></div>
+            <div className="h-4 bg-gray-300 rounded"></div>
+          </div>
+        ) : (
+          <GridComponent
+            id="gridcomp"
+            
+            dataSource={filteredData}
+            toolbar={toolbar}
+            allowExcelExport={true}
+            frozenColumns={2}
+            
+            toolbarClick={toolbarClick}
+            editSettings={editOptions}
+            actionComplete={actionCompleteHandler}
+            actionBegin={handleGridActionBegin}
+            allowPaging
+            allowSorting
+            width={1100}
+            
+          >
+            <ColumnsDirective>
+              <ColumnDirective headerText="Cl. ID" field="ClientID"  textAlign="Center" width="100" freeze='Left' />
+              <ColumnDirective field="Name" headerText="Client Name" width="150"  freeze='Left'/>
+              <ColumnDirective field="Designation" headerText="Designation" width="150" />
+              <ColumnDirective field="Country" headerText="Country" width="120" />
+              <ColumnDirective field="CompanyName" headerText="Company Name" width="150" />
+              <ColumnDirective field="UpdatedDate" headerText="Last Update" width="130" />
+              <ColumnDirective field="TypeofDelegate" headerText="Type of Delegate" width="150" />
+              <ColumnDirective field="program" headerText="Program" width="120" />
+              <ColumnDirective field="followupstatus" headerText="Status" width="130" />
+              <ColumnDirective field="Contact" headerText="Contact" width="130" />
+              <ColumnDirective field="Email" headerText="Email" width="130" freeze='Right'/>
+              
+              <ColumnDirective headerText="Action" template={(props) => 
+  <Sheetforleads 
+    lead={props} 
+    onUpdate={(updatedLead) => {
+      setGridData(prevData => 
+        prevData.map(item => item._id === updatedLead._id ? updatedLead : item)
+      );
+    }}
+    refreshData={fetchData}
+  />
+} textAlign="Center" width="120" freeze='Right'/>
+            </ColumnsDirective>
+            
+            <Inject services={[Page, Search, Toolbar, ExcelExport, Edit, Freeze]} />
+          </GridComponent>
         )}
       </div>
     </div>
   );
 }
-export default Leadgenerate; 
+
+export default Leadgenerate;

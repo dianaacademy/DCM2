@@ -1,120 +1,129 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
-import{Navbar, Footer, Sidebar, ThemeSettings, GrapesMain,} from './components';
-import { Leadgenerate ,Clientsprofile,Registration,CoursesProgrm ,Mangement,Ecommerce, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Line, Kanban, Area,Campains, Security,Bar, Pie, Financial, ColorPicker, ColorMapping, Editor,Tutor,Ticketandsupport,Tabtune,Lmsdcm,Editdrop, Internshipl, Lettership,Hiring,} from './Pages';
+import { Navbar, Footer, Sidebar, ThemeSettings, GrapesMain } from './components';
+import {
+  Leadgenerate, Clientsprofile, Registration, CoursesProgrm, Mangement,
+  Ecommerce, Orders, Calendar, Employees, Stacked, Pyramid, Customers,
+  Line, Kanban, Area, Campains, Security, Bar, Pie, Financial, ColorPicker,
+  ColorMapping, Editor, Tutor, Ticketandsupport, Tabtune, Lmsdcm, Editdrop,
+  Internshipl, Lettership, Hiring, LoginForm
+} from './Pages';
 import { useStateContext } from './contexts/ContextProvider';
 import FolderList from './components/FolderList';
 import TemplatePage from './components/TemplatePage';
-import { folders } from './data/folder';
-import './App.css'
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { Toaster } from 'react-hot-toast';
+import './App.css';
 
+const PrivateRoute = ({ children }) => {
+  const { isAuthenticated, loading } = useAuth();
+  const { activeMenu, themeSettings, setThemeSettings, currentColor, currentMode } = useStateContext();
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return (
+    <div className={currentMode === 'Dark' ? 'dark' : ''}>
+      <div className="flex relative dark:bg-main-dark-bg">
+        <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
+          <TooltipComponent content="Settings" position="Top">
+            <button
+              type="button"
+              onClick={() => setThemeSettings(true)}
+              style={{ background: currentColor, borderRadius: '50%' }}
+              className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray"
+            >
+              <FiSettings />
+            </button>
+          </TooltipComponent>
+        </div>
+        {activeMenu ? (
+          <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
+            <Sidebar />
+          </div>
+        ) : (
+          <div className="w-0 dark:bg-secondary-dark-bg">
+            <Sidebar />
+          </div>
+        )}
+        <div
+          className={
+            activeMenu
+              ? 'dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-72 w-full  '
+              : 'bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2 '
+          }
+        >
+          <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
+            <Navbar />
+          </div>
+          <div>
+            {themeSettings && (<ThemeSettings />)}
+            {children}
+          </div>
+          <Footer />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const App = () => {
-    const {activeMenu,themeSetting,SetThemeSettings} = useStateContext();
+  const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
 
-return (
-   <div>
-    <BrowserRouter>
-       <div
-        className= "flex relative dark:bg-main-dark-bg">
-            <div className="fixed right-4 bottom-4" style={{zIndex:'1000'}}>
-                <TooltipComponent content = "settings" position="Top">
-                    <button
-                    type="button" className="text-3xl  p-3 hover:drop-shadow-xl hover:bg-light-gray text-white"
-                    onClick={() => SetThemeSettings(true)}
-                    style={{background:'blue', borderRadius: '50%'}}>
-                        <FiSettings/>
-                    </button>
-                </TooltipComponent>
-            </div>
-                     {activeMenu ?(
-            <div className="w-72 fixed sidebar dark:bg-secendary-dark-bg bg-white">
-                < Sidebar />
-        </div>
-          )  : (
-            <div className="w-0 dark:bg-secondary-dark-bg">
-                 < Sidebar />
-            </div>
-          )}
-          <div className={
-                `dark:bg-main-bg bg-main-bg min-h-screen w-full ${activeMenu ? 'md:ml-72' : 'flex-2'}`
-            }>
-                <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
-                < Navbar />
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Toaster position="top-right" />
+        <Routes>
+          {/* Public routes */}
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/" element={<Navigate to="/login" replace />} />
 
-                </div>
+          {/* Protected routes */}
+          <Route path="/ecommerce" element={<PrivateRoute><Ecommerce /></PrivateRoute>} />
+          <Route path="/orders" element={<PrivateRoute><Orders /></PrivateRoute>} />
+          <Route path="/campaign" element={<PrivateRoute><Campains /></PrivateRoute>} />
+          <Route path="/Security" element={<PrivateRoute><Security /></PrivateRoute>} />
+          <Route path="/Employees" element={<PrivateRoute><Employees /></PrivateRoute>} />
+          <Route path="/Customers" element={<PrivateRoute><Customers /></PrivateRoute>} />
+          <Route path="/Clientsprofiles" element={<PrivateRoute><Clientsprofile /></PrivateRoute>} />
+          <Route path="/EnrollmentandRegistration" element={<PrivateRoute><Registration /></PrivateRoute>} />
+          <Route path="/CoursesandProgrammanagement" element={<PrivateRoute><CoursesProgrm /></PrivateRoute>} />
+          <Route path="/LEADMANAGEMENT" element={<PrivateRoute><Leadgenerate /></PrivateRoute>} />
+          <Route path="/instructorandtrainer" element={<PrivateRoute><Tutor /></PrivateRoute>} />
+          <Route path="/GrapesMain" element={<PrivateRoute><GrapesMain /></PrivateRoute>} />
+          <Route path="/LMSLogin" element={<PrivateRoute><Lmsdcm /></PrivateRoute>} />
+          <Route path="/Kanban" element={<PrivateRoute><Kanban /></PrivateRoute>} />
+          <Route path="/Editor" element={<PrivateRoute><Editor /></PrivateRoute>} />
+          <Route path="/Calendar" element={<PrivateRoute><Calendar /></PrivateRoute>} />
+          <Route path="/Color-picker" element={<PrivateRoute><ColorPicker /></PrivateRoute>} />
+          <Route path="/Document_Management" element={<PrivateRoute><Mangement /></PrivateRoute>} />
+          <Route path="/Line" element={<PrivateRoute><Line /></PrivateRoute>} />
+          <Route path="/drop" element={<PrivateRoute><Editdrop /></PrivateRoute>} />
+          <Route path="/Generate-Certificate" element={<PrivateRoute><Tabtune /></PrivateRoute>} />
+          <Route path="/Area" element={<PrivateRoute><Area /></PrivateRoute>} />
+          <Route path="/Bar" element={<PrivateRoute><Bar /></PrivateRoute>} />
+          <Route path="/Pie" element={<PrivateRoute><Pie /></PrivateRoute>} />
+          <Route path="/Financial" element={<PrivateRoute><Financial /></PrivateRoute>} />
+          <Route path="/Pyramid" element={<PrivateRoute><Pyramid /></PrivateRoute>} />
+          <Route path="/Stacked" element={<PrivateRoute><Stacked /></PrivateRoute>} />
+          <Route path="/support" element={<PrivateRoute><Ticketandsupport /></PrivateRoute>} />
+          <Route path="/internship" element={<PrivateRoute><Internshipl /></PrivateRoute>} />
+          <Route path="/hiring" element={<PrivateRoute><Hiring /></PrivateRoute>} />
+          <Route path="/internshipLetter" element={<PrivateRoute><Lettership /></PrivateRoute>} />
+          <Route path="/templates" element={<PrivateRoute><TemplatePage /></PrivateRoute>} />
+          <Route path="/folder-list" element={<PrivateRoute><FolderList /></PrivateRoute>} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  );
+};
 
-                
-
-            
-
-        
-
-            <div>
-
-               {themeSetting && <ThemeSettings/>} 
-                <Routes>
-                    {/* dashboard */}
-                    <Route path="/" element={<Ecommerce/>} />
-                    <Route path= "/ecommerce" element = {<Ecommerce/>} />
-
-
-                    {/* Pages */}
-                    <Route path= "/orders" element = {<Orders/>} />
-                    <Route path= "/campaign" element = {<Campains/>} />
-                    <Route path= "/Security" element = {<Security/>} />
-                    <Route path= "/Employees" element = {<Employees/>} />
-                    <Route path= "/Customers" element = {<Customers/>} />
-                    <Route path= "/Clientsprofiles" element = {<Clientsprofile/>} />
-                    <Route path= "/EnrollmentandRegistration" element = {<Registration/>} />
-                    <Route path= "/CoursesandProgrammanagement" element = {<CoursesProgrm/>} />
-                    <Route path= "/LEADMANAGEMENT" element = {<Leadgenerate/>} />
-                    <Route path= "/instructorandtrainer" element = {<Tutor/>} />
-                    <Route path= "/GrapesMain" element = {<GrapesMain/>} />
-                    <Route path= "/LMSLogin" element = {<Lmsdcm/>} />
-
-                     {/* Apps */}
-                     <Route path= "/Kanban" element = {<Kanban/>} />
-                     <Route path= "/leads" element =  {<leads/>} />
-                     <Route path= "/Editor" element = {<Editor/>} />
-                     <Route path= "/Calendar" element = {<Calendar/>} />
-                     <Route path= "/Color picker" element = {<ColorPicker/>} />
-                     <Route path= "/Document_Management" element = {<Mangement/>} />
-                    {/* Charts */}
-                    <Route path= "/Line" element = {<Line/>} />
-                    <Route path= "/drop" element = {<Editdrop/>} />
-                    <Route path= "/Generate-Certificate" element = {<Tabtune/>} />
-                    <Route path= "/Area" element = {<Area/>} />
-                    <Route path= "/Bar" element = {<Bar/>} />
-                    <Route path= "/Pie" element = {<Pie/>} />
-                    <Route path= "/Fiential" element = {<Financial/>} />
-                    <Route path= "/Pyramid" element = {<Pyramid/>} />
-                    <Route path= "/Stacked" element = {<Stacked/>} />
-                    <Route path= "/support" element = {<Ticketandsupport/>} />
-                    <Route path= "/Tabtune" element = {<Tabtune/>} />
-                    <Route path= "/internship" element = {<Internshipl/>} />
-                    <Route path= "/hiring" element = {<Hiring/>} />
-                    <Route path= "/internshipLetter" element = {<Lettership/>} />
-                    {/* <Route path= "/templates" element = {<TemplatePage/>} /> */}
-
-                    <Route exact path="/" component={FolderList} />
-        <Route path="/templates/" element = {<TemplatePage/> }/>
-
-                </Routes>
-            </div>
-
-        </div>    
-
-         
-         
-     </div>
-     
-    </BrowserRouter>
-   </div>
-)
-}
-
-export default App
+export default App;
