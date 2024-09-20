@@ -31,7 +31,7 @@ function Leadgenerate() {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const result = await axios.get('http://localhost:3001/leads');
+      const result = await axios.get('https://server-beta-wheat-43.vercel.app/leads');
       setGridData(result.data);
       filterData(result.data);
     } catch (err) {
@@ -77,7 +77,7 @@ function Leadgenerate() {
       const formData = new FormData();
       formData.append('file', selectedFile);
       try {
-        await axios.post('http://localhost:3001/leads/upload', formData);
+        await axios.post('https://server-beta-wheat-43.vercel.app/leads/upload', formData);
         fetchData();
       } catch (error) {
         console.error('Error uploading CSV file:', error);
@@ -98,7 +98,7 @@ function Leadgenerate() {
   const actionCompleteHandler = async (args) => {
     if (args.requestType === 'save') {
       try {
-        await axios.put(`http://localhost:3001/leads/update/${args.data._id}`, args.data);
+        await axios.put(`https://server-beta-wheat-43.vercel.app/leads/update/${args.data._id}`, args.data);
         fetchData();
       } catch (error) {
         console.error('Error updating record:', error);
@@ -109,7 +109,7 @@ function Leadgenerate() {
   const handleGridActionBegin = async (args) => {
     if (args.requestType === 'delete') {
       try {
-        await axios.delete(`http://localhost:3001/leads/delete/${args.data[0]._id}`);
+        await axios.delete(`https://server-beta-wheat-43.vercel.app/leads/delete/${args.data[0]._id}`);
         fetchData();
       } catch (error) {
         console.error('Error deleting record:', error);
